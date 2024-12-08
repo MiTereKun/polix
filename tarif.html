@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 09.12</title>
+    <title>Цены</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,19 +26,19 @@
 
 <div class="question">
     <label>Выберете тариф:</label><br>
-    <input type="radio" name="tariff" value="850" id="tariff1" checked onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="850" id="tariff1" checked>
     <label for="tariff1">1: 650 мин, 30 Гб, 100 SMS</label><br>
     
-    <input type="radio" name="tariff" value="680" id="tariff2" onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="680" id="tariff2">
     <label for="tariff2">2: 500 мин, 35 Гб, 100 SMS, первая приставка 0. Через год 850</label><br>
     
-    <input type="radio" name="tariff" value="600" id="tariff3" onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="600" id="tariff3">
     <label for="tariff3">3: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
     
-    <input type="radio" name="tariff" value="850" id="tariff4" onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="850" id="tariff4">
     <label for="tariff4">4: 1200 мин, 50 Гб, 50 SMS. Через год 1150</label><br>
     
-    <input type="radio" name="tariff" value="990" id="tariff7" onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="990" id="tariff7">
     <label for="tariff7">7: 1200 мин, 50 Гб, 50 SMS</label>
 </div>
 
@@ -93,24 +93,16 @@
 </div>
 
 <script>
-// Функция для проверки скидки
-function checkDiscount() {
-	const selectedTariff = document.querySelector('input[name=tariff]:checked');
-	if (selectedTariff && selectedTariff.value !== '850') {
-		document.getElementById('discountYes').checked = false; // Снимаем выбор со скидки
-	}
-	calculateTotal(); // Пересчитываем итоговую стоимость
-}
-
 // Функция для расчета итоговой стоимости
 function calculateTotal() {
-	const tariff = parseFloat(document.querySelector('input[name=tariff]:checked')?.value) || 0;
-	const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
-	const buyRouter = parseFloat(document.querySelector('input[name=buyRouter]:checked')?.value) || 0;
-	const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
+    const tariff = parseFloat(document.querySelector('input[name=tariff]:checked')?.value) || 0;
+    const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
+    const buyRouter = parseFloat(document.querySelector('input[name=buyRouter]:checked')?.value) || 0;
+    const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
+    
 	const discount = parseFloat(document.querySelector('input[name=discount]:checked')?.value) || 0;
-	
 	const discountTarif = tariff * (1 - (discount / 100));
+    
 	const OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
 	const totalPrice = tariff + router + setTopBox;
 	const finalPrice = discountTarif + router + setTopBox;
@@ -125,10 +117,10 @@ function calculateTotal() {
 	document.getElementById('discountEndDate').innerText = discountEndDate.toLocaleDateString();
 }
 
-// Добавляем обработчики событий для всех радиокнопок тарифов
-const tariffRadios = document.querySelectorAll('input[name=tariff]');
-tariffRadios.forEach(radio => {
-	radio.addEventListener('change', checkDiscount);
+// Добавляем обработчики событий для всех радиокнопок
+const radioButtons = document.querySelectorAll('input[type=radio]');
+radioButtons.forEach(radio => {
+	radio.addEventListener('change', calculateTotal);
 });
 
 // Вызываем функцию для начального расчета

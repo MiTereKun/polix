@@ -26,7 +26,7 @@
 
 <div class="question">
     <label>Выберете тариф:</label><br>
-    <input type="radio" name="tariff" value="850" id="tariff1" onchange="checkDiscount()">
+    <input type="radio" name="tariff" value="850" id="tariff1" checked onchange="checkDiscount()">
     <label for="tariff1">1: 650 мин, 30 Гб, 100 SMS</label><br>
     
     <input type="radio" name="tariff" value="680" id="tariff2" onchange="checkDiscount()">
@@ -113,7 +113,7 @@ function calculateTotal() {
 	const discountTarif = tariff * (1 - (discount / 100));
 	const OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
 	const totalPrice = tariff + router + setTopBox;
-	const finalPrice = discountTarif + router + setTopBox - 150;
+	const finalPrice = discountTarif + router + setTopBox;
 
 	document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(2);
 	document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);

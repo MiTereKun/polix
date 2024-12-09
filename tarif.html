@@ -18,36 +18,28 @@
         }
         .result {
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
 <div class="question">
-    <label>Выберете тариф:</label><br>
-    <input type="radio" name="tariff" value="850" id="tariff1" checked>
+    <label>Выберите тариф:</label><br>
+    <input type="radio" name="tariff" value="850" id="tariff1" data-discount="6" data-discount2="50" checked>
     <label for="tariff1">1: 650 мин, 30 Гб, 100 SMS</label><br>
     
-    <input type="radio" name="tariff" value="680" id="tariff2">
-    <label for="tariff2">2: 500 мин, 35 Гб, 100 SMS, первая приставка 0. Через год 850</label><br>
+    <input type="radio" name="tariff" value="850" id="tariff2" data-discount="12" data-discount2="20">
+    <label for="tariff2">2: 500 мин, 35 Гб, 100 SMS, первая приставка 0</label><br>
     
-    <input type="radio" name="tariff" value="600" id="tariff3">
+    <input type="radio" name="tariff" value="600" id="tariff3" data-discount="0" data-discount2="0">
     <label for="tariff3">3: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
     
-    <input type="radio" name="tariff" value="850" id="tariff4">
-    <label for="tariff4">4: 1200 мин, 50 Гб, 50 SMS. Через год 1150</label><br>
+    <input type="radio" name="tariff" value="1150" id="tariff4" data-discount="12" data-discount2="26.08">
+    <label for="tariff4">4: 1200 мин, 50 Гб, 50 SMS</label><br>
     
-    <input type="radio" name="tariff" value="990" id="tariff7">
+    <input type="radio" name="tariff" value="990" id="tariff7" data-discount="0" data-discount2="0">
     <label for="tariff7">7: 1200 мин, 50 Гб, 50 SMS</label>
-</div>
-
-<div class='question'>
-    <label>Новогодняя скидка:</small></label><br>
-    <input type='radio' name='discount' value='50' id='discountYes' checked>
-    <label for='discountYes'>Есть (50% на 6 месяцев)</label><br>
-    <input type='radio' name='discount' value='0' id='discountNo'>
-    <label for='discountNo'>Нет</label>
 </div>
 
 <div class="question">
@@ -88,7 +80,7 @@
 	<hr>
     <h3>1 месяц: <span id='OneFinalPrice'>0</span> руб.</h3>
     <h3>в месяц: <span id='finalPrice'>0</span> руб.</h3>
-    <h3>после скидки: <span id='totalPrice'>0</span> руб.</h3>
+    <h3>конец скидки: <span id='totalPrice'>0</span> руб.</h3>
     <h3>окончание скидки: <span id='discountEndDate'></span></h3>
 </div>
 
@@ -99,22 +91,33 @@ function calculateTotal() {
     const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
     const buyRouter = parseFloat(document.querySelector('input[name=buyRouter]:checked')?.value) || 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
-    
-	const discount = parseFloat(document.querySelector('input[name=discount]:checked')?.value) || 0;
-	const discountTarif = tariff * (1 - (discount / 100));
-    
-	const OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
-	const totalPrice = tariff + router + setTopBox;
-	const finalPrice = discountTarif + router + setTopBox;
 
-	document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(2);
-	document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);
-	document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+    // Получаем значения длительности из выбранной радиокнопки тарифа
+    const selectedTariff = document.querySelector('input[name=tariff]:checked');
+    const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0; // Используем data-discount для длительности
+    const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0; // Используем data-discount2
+
+    // Применяем дополнительное значение скидки
+    const discountTarif = tariff * (1 - (data_discount2 / 100));
     
-	// Рассчитываем дату окончания скидки
-	const discountEndDate = new Date();
-	discountEndDate.setMonth(discountEndDate.getMonth() + 6);
-	document.getElementById('discountEndDate').innerText = discountEndDate.toLocaleDateString();
+    const OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
+    const totalPrice = tariff + router + setTopBox;
+    const finalPrice = discountTarif + router + setTopBox;
+
+    document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(2);
+    document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);
+    document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+    
+	// Рассчитываем дату окончания на основе длительности
+	const discountEndDateElement = document.getElementById('discountEndDate');
+
+	if (data_discount === 0) {
+	    discountEndDateElement.innerText = "скидки нет"; // Если скидка 0, устанавливаем текст
+	} else {
+	    const discountEndDate = new Date();
+	    discountEndDate.setMonth(discountEndDate.getMonth() + data_discount);
+	    discountEndDateElement.innerText = discountEndDate.toLocaleDateString(); // Иначе показываем дату
+	}
 }
 
 // Добавляем обработчики событий для всех радиокнопок

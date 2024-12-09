@@ -78,49 +78,46 @@
 
 <div class='result'>
 	<hr>
-    <h3>1 месяц: <span id='OneFinalPrice'>0</span> руб.</h3>
-    <h3>в месяц: <span id='finalPrice'>0</span> руб.</h3>
-    <h3>конец скидки: <span id='totalPrice'>0</span> руб.</h3>
+    <h3>1 месяц: <span id='OneFinalPrice'>0</span> руб</h3>
+    <h3>в месяц: <span id='finalPrice'>0</span> руб</h3>
+    <h3>конец скидки: <span id='totalPrice'>0</span></h3>
     <h4>окончание скидки: <span id='discountEndDate'></span></h4>
 </div>
 
 <script>
-// Функция для расчета итоговой стоимости
 function calculateTotal() {
     const tariff = parseFloat(document.querySelector('input[name=tariff]:checked')?.value) || 0;
     const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
     const buyRouter = parseFloat(document.querySelector('input[name=buyRouter]:checked')?.value) || 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
-
-    // Получаем значения длительности из выбранной радиокнопки тарифа
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
-    const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0; // Используем data-discount для длительности
-    const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0; // Используем data-discount2
-
-    // Применяем дополнительное значение скидки
+    const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
+    const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
     const discountTarif = tariff * (1 - (data_discount2 / 100));
-    
     const OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
     const totalPrice = tariff + router + setTopBox;
     const finalPrice = discountTarif + router + setTopBox;
 
     document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);
     document.getElementById('finalPrice').innerText = finalPrice.toFixed(0);
-    document.getElementById('totalPrice').innerText = totalPrice.toFixed(0);
     
-	// Рассчитываем дату окончания на основе длительности
+	if (totalPrice === finalPrice) {
+		document.getElementById('totalPrice').innerText = "нет";
+	} else {
+		document.getElementById('totalPrice').innerText = totalPrice.toFixed(0) + " руб";
+	}
+	
 	const discountEndDateElement = document.getElementById('discountEndDate');
 
 	if (data_discount === 0) {
-	    discountEndDateElement.innerText = "Нет"; // Если скидка 0, устанавливаем текст
+	    discountEndDateElement.innerText = "нет"; //
 	} else {
 	    const discountEndDate = new Date();
 	    discountEndDate.setMonth(discountEndDate.getMonth() + data_discount);
-	    discountEndDateElement.innerText = discountEndDate.toLocaleDateString(); // Иначе показываем дату
+	    discountEndDateElement.innerText = discountEndDate.toLocaleDateString();
 	}
 }
 
-// Добавляем обработчики событий для всех радиокнопок
 const radioButtons = document.querySelectorAll('input[type=radio]');
 radioButtons.forEach(radio => {
 	radio.addEventListener('change', calculateTotal);

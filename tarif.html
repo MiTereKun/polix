@@ -104,9 +104,9 @@ function calculateTotal() {
     const totalPrice = tariff + router + setTopBox;
     const finalPrice = discountTarif + router + setTopBox;
 
-    document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(2);
-    document.getElementById('finalPrice').innerText = finalPrice.toFixed(2);
-    document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+    document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);
+    document.getElementById('finalPrice').innerText = finalPrice.toFixed(0);
+    document.getElementById('totalPrice').innerText = totalPrice.toFixed(0);
     
 	// Рассчитываем дату окончания на основе длительности
 	const discountEndDateElement = document.getElementById('discountEndDate');

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column; /* Вертикальное расположение кнопок */
+            gap: 20px;
+            width: 500px; /* Ширина контейнера */
+        }
+        .button {
+            padding: 20px 40px;
+            font-size: 18px;
+            color: white;
+            background-color: #4CAF50; /* Зеленый цвет */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; /* Курсор указатель */
+            transition: background-color 1s ease, transform 1s ease; /* Плавный переход */
+        }
+        .button:hover {
+            background-color: #5b8c49; /* Более темный зеленый при наведении */
+        }
+        .button:active {
+            transform: scale(0.95); /* Уменьшение кнопки при нажатии */
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <button class="button" onclick="window.location.href='https://polix.pro/gd1'">Ютуб на ПК</button>
+	<button class="button" onclick="window.location.href='https://github.com/ValdikSS/GoodbyeDPI/releases'">Обход сайтов без Ютуба на ПК</button>
+    <button class="button" onclick="window.location.href='https://polix.pro/gd3'">Ютуб чисто на хром (около 2 часа)</button>
+    <button class="button" onclick="window.location.href='https://polix.pro/gd2'">обход блоков на андроиде<br>(ютуб быстрее через мобильный)<br>автозагрузка apk последней версии</button>
+    </div>
+</div>
+
+</body>
+</html>

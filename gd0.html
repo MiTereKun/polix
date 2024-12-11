@@ -14,37 +14,74 @@
         }
         .wrapper {
             display: flex;
-            flex-direction: column; /* Вертикальное расположение кнопок */
+            flex-direction: column;
             gap: 20px;
-            width: 500px; /* Ширина контейнера */
+            width: 500px;
         }
         .button {
             padding: 20px 40px;
             font-size: 18px;
             color: white;
-            background-color: #4CAF50; /* Зеленый цвет */
+            background-color: #4CAF50;
             border: none;
             border-radius: 5px;
-            cursor: pointer; /* Курсор указатель */
-            transition: background-color 1s ease, transform 1s ease; /* Плавный переход */
+            cursor: pointer;
+            transition: background-color 1s ease, transform 1s ease;
         }
         .button:hover {
-            background-color: #5b8c49; /* Более темный зеленый при наведении */
+            background-color: #5b8c49;
         }
         .button:active {
-            transform: scale(0.95); /* Уменьшение кнопки при нажатии */
+            transform: scale(0.95);
+        }
+        .spoiler {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .spoiler-header {
+            cursor: pointer;
+            color: #007BFF;
+            text-decoration: underline;
+            font-size: 18px; 
         }
     </style>
+    <script>
+        function toggleSpoiler() {
+            const spoiler = document.getElementById('spoiler');
+            if (spoiler.style.display === 'none' || spoiler.style.display === '') {
+                spoiler.style.display = 'block';
+            } else {
+                spoiler.style.display = 'none'; 
+            }
+        }
+
+        function openLinkAndToggleSpoiler(url) {
+            window.open(url, '_blank');
+            toggleSpoiler();
+        }
+    </script>
 </head>
 <body>
 
 <div class="wrapper">
-    <button class="button" onclick="window.location.href='https://polix.pro/gd'">Ютуб на ПК</button>
-	<button class="button" onclick="window.location.href='https://github.com/dovecoteescapee/ByeDPIAndroid/releases'">Обход сайтов без Ютуба на ПК</button>
-    <button class="button" onclick="window.location.href='https://polix.pro/gd3'">Ютуб чисто на хром (около 2 часа)</button>
-    <button class="button" onclick="window.location.href='https://polix.pro/gd2'">обход блоков на андроиде<br>(ютуб быстрее через мобильный)<br>автозагрузка apk последней версии</button>
-	<h2>Заблокированнаый сайт интсрукциями других вариантов обхода: <a href="https://nts.party"> ntc.party</a></h2>
+    <button class="button" onclick="window.open('https://polix.pro/gd', '_blank')">Ютуб на ПК</button>
+    <button class="button" onclick="window.open('https://github.com/dovecoteescapee/ByeDPIAndroid/releases', '_blank')">Обход сайтов без Ютуба на ПК</button>
+    <button class="button" onclick="window.open('https://polix.pro/gd3', '_blank')">Ютуб чисто на хром (около 2 часа)</button>
+    <button class="button" onclick="openLinkAndToggleSpoiler('https://polix.pro/gd2')">обход блоков на андроиде<br>(ютуб быстрее через мобильный)<br>- автозагрузка apk последней версии</button>
+
+    <div class="spoiler-header" onclick="toggleSpoiler()">
+        <center><b>Настройки (нажмите)</b></center>
     </div>
+
+    <div id="spoiler" class="spoiler"><center>
+        настройки -> UI editor -> Split TLS record</br>
+        <img src="https://i124.fastpic.org/big/2024/1211/88/_4fec8e44449df3279951187ce7ad2c88.jpg?md5=gxPctQP42xgJXNnRHOIvAw&expires=1733929200" alt="настройки -> UI editor -> Split TLS record" style="max-width: 100%; height: auto;"></center>
+    </div>
+
+    <button class="button" onclick="window.open('https://ntc.party', '_blank')">ntc.party - заблокированнаый сайт<br>c интсрукциями других вариантов обхода</button>
 </div>
+
 </body>
 </html>

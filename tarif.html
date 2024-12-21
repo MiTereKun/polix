@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены декабрь</title>
+    <title>Цены 22 дек</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -25,7 +25,6 @@
 			margin-top: 15px;
 		}
 
-		/* Темная тема */
 		@media (prefers-color-scheme: dark) {
 			body {
 				background-color: #333;
@@ -33,7 +32,14 @@
 				border-color: #555;
 			}
 		}
+
+		@media (max-width: 324px) {
+			body {
+				font-size: 13px;
+			}
+		}
 	</style>
+
 </head>
 <body>
 
@@ -63,16 +69,9 @@
     <label for="routerNo">Нет</label>
 </div>
 
-<div class="question">
-    <label>Покупка роутера <small>(2200)</small></label><br>
-    <input type="radio" name="buyRouter" value="2200" id="buyRouterYes">
-    <label for="buyRouterYes">Да</label>
-	<input type="radio" name="buyRouter" value="0" id="buyRouterNo" checked>
-    <label for="buyRouterNo">Нет</label>
-</div>
 
 <div class="question">
-	<label>Приставки:</label>
+	<label>Аренда приставок:</label>
 	<input type="radio" name="setTopBox" value="0" data-tariff2="0" id="setTopBoxNo" checked>
 	<label for="setTopBoxNo">Нет</label><br>
 
@@ -89,33 +88,54 @@
 	<label for="setTopBox4">4 приставки <small>(396 / 297 для 2)</small></label><br>
 </div>
 
+<div class="question">
+    <label>Покупка:</label><br>
+    <a>Роутер 5G (2200)</a>
+    <input type="checkbox" name="buyRouter" value="2200" id="buyRouterYes">
+    <label for="buyRouterYes">Да</label><br>
+    
+    <a>Приставка (4300)</a>
+    <input type="checkbox" name="buyBox" value="4300" id="buyBoxYes">
+    <label for="buyBoxYes">Да</label>
+</div>
+
+<div class="question">
+    <label>Группа семья <small>(450)</small></label><br>
+	<a>(Беслпатно пол года для MNP)</a><br>
+	<input type="radio" name="family" value="0" id="family0" checked>
+    <label for="family0">0</label>
+    <input type="radio" name="family" value="450" id="family1">
+    <label for="family1">1</label>
+	<input type="radio" name="family" value="900" id="family2">
+    <label for="family2">2</label>
+	<input type="radio" name="family" value="1350" id="family3">
+    <label for="family3">3</label>
+	<input type="radio" name="family" value="1800" id="family4">
+    <label for="family4">4</label>
+</div>
+
 <div class='result'>
 	<hr>
-    <h3>1 месяц: <span id='OneFinalPrice'>0</span> руб</h3>
-    <h3>в месяц: <span id='finalPrice'>0</span> руб</h3>
-    <h3>конец скидки: <span id='totalPrice'>0</span></h3>
-    <h4>окончание скидки: <span id='discountEndDate'></span></h4>
+    <h3>1 месяц : <span id='OneFinalPrice'>0</span> руб</h3>
+    <h3>в месяц : <span id='finalPrice'>0</span> руб</h3>
+    <h3><span id='discountEndDate'></span><span id='totalPrice'>0</span></h3>
 </div>
 
 <script>
 function calculateTotal() {
     const tariff = parseFloat(document.querySelector('input[name=tariff]:checked')?.value) || 0;
     const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
-    const buyRouter = parseFloat(document.querySelector('input[name=buyRouter]:checked')?.value) || 0;
+    const buyRouter = document.getElementById('buyRouterYes').checked ? parseFloat(document.getElementById('buyRouterYes').value) : 0;
+    const buyBox = document.getElementById('buyBoxYes').checked ? parseFloat(document.getElementById('buyBoxYes').value) : 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
+	const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
 	const dataTariff3 = parseFloat(document.querySelector('input[name=router]:checked')?.getAttribute('data-tariff3')) || 0;
 	const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
-
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
-    if (!selectedTariff) {
-        document.getElementById('totalPrice').innerText = "нет";
-        return;
-    }
-
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
     const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
     const discountTarif = tariff * (1 - (data_discount2 / 100));
-    
+
     let OneFinalPrice, totalPrice, finalPrice;
 
 	if (selectedTariff.id === 'tariff3') {
@@ -123,42 +143,65 @@ function calculateTotal() {
 		totalPrice = tariff + dataTariff3;
 		finalPrice = discountTarif + dataTariff3;
 	} else if (selectedTariff.id === 'tariff2') {
-		OneFinalPrice = discountTarif + router + buyRouter + dataTariff2 + 150;
-		totalPrice = tariff + router + dataTariff2;
-		finalPrice = discountTarif + router + dataTariff2;
+		OneFinalPrice = discountTarif + router + buyRouter + buyBox + dataTariff2 + family + 150;
+		totalPrice = tariff + router + dataTariff2 + family;
+		finalPrice = discountTarif + router + dataTariff2 + family;
 	} else {
-		OneFinalPrice = discountTarif + router + buyRouter + setTopBox + 150;
-		totalPrice = tariff + router + setTopBox;
-		finalPrice = discountTarif + router + setTopBox;
+		OneFinalPrice = discountTarif + router + buyRouter + buyBox + setTopBox + family + 150;
+		totalPrice = tariff + router + setTopBox + family;
+		finalPrice = discountTarif + router + setTopBox + family;
 	}
 
     document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);
     document.getElementById('finalPrice').innerText = finalPrice.toFixed(0);
     
 	if (totalPrice === finalPrice) {
-		document.getElementById('totalPrice').innerText = "нет";
+		document.getElementById('totalPrice').innerText = "";
 	} else {
 		document.getElementById('totalPrice').innerText = totalPrice.toFixed(0) + " руб";
 	}
 	
 	const discountEndDateElement = document.getElementById('discountEndDate');
+	
+function getDynamicEndDate(data_discount) {
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() + data_discount);
 
-	if (data_discount === 0) {
-	    discountEndDateElement.innerText = "нет"; //
-	} else {
-	    const discountEndDate = new Date();
-	    discountEndDate.setMonth(discountEndDate.getMonth() + data_discount);
-	    discountEndDateElement.innerText = discountEndDate.toLocaleDateString();
-	}
+    const nextDay = new Date(startDate);
+    nextDay.setDate(startDate.getDate() + 1);
+
+    const dayOfWeek = nextDay.getDay();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+        nextDay.setDate(nextDay.getDate() + 1);
+    }
+
+    return nextDay;
+}
+
+if (data_discount === 0) {
+    discountEndDateElement.innerText = "";
+} else {
+    const endDate = getDynamicEndDate(data_discount);
+    
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const formattedDate = endDate.toLocaleDateString('ru-RU', options);
+    
+    discountEndDateElement.innerText = `с ± ${formattedDate} : `;
+}
+
 }
 
 const radioButtons = document.querySelectorAll('input[type=radio]');
 radioButtons.forEach(radio => {
 	radio.addEventListener('change', calculateTotal);
 });
-	
+
+const checkboxes = document.querySelectorAll('input[type=checkbox]');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', calculateTotal);
+});
+
 calculateTotal();
 </script>
-
 </body>
 </html>

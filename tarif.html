@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 22 дек</title>
+    <title>Цены 17 янв</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -47,26 +47,29 @@
     <label>Выберите тариф:</label><br>
     <input type="radio" name="tariff" value="850" id="tariff1" data-discount="6" data-discount2="50" checked>
     <label for="tariff1">1: 650 мин, 30 Гб, 100 SMS</label><br>
+	
+	<input type="radio" name="tariff" value="890" id="tariff112" data-discount="13" data-discount2="20">
+    <label for="tariff112">112: 650 мин, 30 Гб, 100 SMS</label><br>
+	
+	<input type="radio" name="tariff" value="1050" id="tariff7" data-discount="6" data-discount2="50">
+    <label for="tariff7">7: 1200 мин, 50 Гб, 50 SMS</label><br>
     
-    <input type="radio" name="tariff" value="850" id="tariff2" data-discount="12" data-discount2="20">
-    <label for="tariff2">2: 500 мин, 35 Гб, 100 SMS</label><br>
+    <input type="radio" name="tariff" value="950" id="tariff2" data-discount="12" data-discount2="20">
+    <label for="tariff2"><s>2: 500 мин, 35 Гб, 100 SMS</s></label><br>
     
-    <input type="radio" name="tariff" value="600" id="tariff3" data-discount="0" data-discount2="0">
+    <input type="radio" name="tariff" value="650" id="tariff3" data-discount="0" data-discount2="0">
     <label for="tariff3">3: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
     
-    <input type="radio" name="tariff" value="1150" id="tariff4" data-discount="12" data-discount2="26.08">
-    <label for="tariff4">4: 1200 мин, 50 Гб, 50 SMS</label><br>
-    
-    <input type="radio" name="tariff" value="990" id="tariff7" data-discount="0" data-discount2="0">
-    <label for="tariff7">7: 1200 мин, 50 Гб, 50 SMS</label>
+    <input type="radio" name="tariff" value="1090" id="tariff4" data-discount="12" data-discount2="12.84">
+    <label for="tariff4"><s>4: 1200 мин, 50 Гб, 50 SMS</s></label>
 </div>
 
 <div class="question">
-    <label>Аренда роутера <small>(99 / 150 для 3)</small></label><br>
+    <label>Аренда 5 ггц роутера <small>(120 тол. ЗТ)</small></label><br>
     <input type="radio" name="router" value="99" data-tariff3="150" id="routerYes">
     <label for="routerYes">Да</label>
     <input type="radio" name="router" value="0" data-tariff3="0" id="routerNo" checked>
-    <label for="routerNo">Нет</label>
+    <label for="routerNo">Нет. <b>Рассрочка позже</b></label>
 </div>
 
 
@@ -75,24 +78,28 @@
 	<input type="radio" name="setTopBox" value="0" data-tariff2="0" id="setTopBoxNo" checked>
 	<label for="setTopBoxNo">Нет</label><br>
 
-	<input type="radio" name="setTopBox" value="99" data-tariff2="0" id="setTopBox1">
-	<label for="setTopBox1">1 приставка <small>(99 / 0 для 2)</small></label><br>
+	<input type="radio" name="setTopBox" value="120" data-tariff2="0" id="setTopBox1">
+	<label for="setTopBox1">1 приставка <small>(120 / 0 для 2)</small></label><br>
 
-	<input type="radio" name="setTopBox" value="198" data-tariff2="99" id="setTopBox2">
-	<label for="setTopBox2">2 приставки <small>(198 / 99 для 2)</small></label><br>
+	<input type="radio" name="setTopBox" value="240" data-tariff2="120" id="setTopBox2">
+	<label for="setTopBox2">2 приставки <small>(240 / 120 для 2)</small></label><br>
 
-	<input type="radio" name="setTopBox" value="297" data-tariff2="198" id="setTopBox3">
-	<label for="setTopBox3">3 приставки <small>(297 / 198 для 2)</small></label><br>
+	<input type="radio" name="setTopBox" value="360" data-tariff2="240" id="setTopBox3">
+	<label for="setTopBox3">3 приставки <small>(360 / 240 для 2)</small></label><br>
 
-	<input type="radio" name="setTopBox" value="396" data-tariff2="297" id="setTopBox4">
-	<label for="setTopBox4">4 приставки <small>(396 / 297 для 2)</small></label><br>
+	<input type="radio" name="setTopBox" value="480" data-tariff2="360" id="setTopBox4">
+	<label for="setTopBox4">4 приставки <small>(480 / 360 для 2)</small></label><br>
 </div>
 
 <div class="question">
     <label>Покупка:</label><br>
-    <a>Роутер 5G (2200)</a>
-    <input type="checkbox" name="buyRouter" value="2200" id="buyRouterYes">
+    <a>Б/У Роутер 5G (1700)</a>
+    <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes">
     <label for="buyRouterYes">Да</label><br>
+	
+	<a>Нов Роутер 5G (3600)</a>
+    <input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2">
+    <label for="buyRouterYes2">Да</label><br>
     
     <a>Приставка (4300)</a>
     <input type="checkbox" name="buyBox" value="4300" id="buyBoxYes">
@@ -126,11 +133,13 @@ function calculateTotal() {
     const tariff = parseFloat(document.querySelector('input[name=tariff]:checked')?.value) || 0;
     const router = parseFloat(document.querySelector('input[name=router]:checked')?.value) || 0;
     const buyRouter = document.getElementById('buyRouterYes').checked ? parseFloat(document.getElementById('buyRouterYes').value) : 0;
+	const buyRouter2 = document.getElementById('buyRouterYes2').checked ? parseFloat(document.getElementById('buyRouterYes2').value) : 0;
     const buyBox = document.getElementById('buyBoxYes').checked ? parseFloat(document.getElementById('buyBoxYes').value) : 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
 	const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
 	const dataTariff3 = parseFloat(document.querySelector('input[name=router]:checked')?.getAttribute('data-tariff3')) || 0;
 	const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
+	const dataTariff7 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff7')) || 0;
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
     const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
@@ -139,15 +148,19 @@ function calculateTotal() {
     let OneFinalPrice, totalPrice, finalPrice;
 
 	if (selectedTariff.id === 'tariff3') {
-		OneFinalPrice = discountTarif + dataTariff3 + buyRouter + 150;
+		OneFinalPrice = discountTarif + dataTariff3 + buyRouter + buyRouter2 + 150;
 		totalPrice = tariff + dataTariff3;
 		finalPrice = discountTarif + dataTariff3;
 	} else if (selectedTariff.id === 'tariff2') {
-		OneFinalPrice = discountTarif + router + buyRouter + buyBox + dataTariff2 + family + 150;
+		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + dataTariff2 + family + 150;
 		totalPrice = tariff + router + dataTariff2 + family;
 		finalPrice = discountTarif + router + dataTariff2 + family;
+	} else if (selectedTariff.id === 'tariff7') {
+		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + dataTariff7 + family + 150;
+		totalPrice = tariff + router + dataTariff7 + family;
+		finalPrice = discountTarif + router + dataTariff7 + family;
 	} else {
-		OneFinalPrice = discountTarif + router + buyRouter + buyBox + setTopBox + family + 150;
+		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + setTopBox + family + 150;
 		totalPrice = tariff + router + setTopBox + family;
 		finalPrice = discountTarif + router + setTopBox + family;
 	}

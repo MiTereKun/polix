@@ -46,22 +46,22 @@
 <div class="question">
     <label>Выберите тариф:</label><br>
     <input type="radio" name="tariff" value="850" id="tariff1" data-discount="6" data-discount2="50" checked>
-    <label for="tariff1"><b>1</b>: 650 мин, 30 Гб, 100 SMS</label><br>
+    <label for="tariff1">1: 650 мин, 30 Гб, 100 SMS</label><br>
 	
 	<input type="radio" name="tariff" value="890" id="tariff112" data-discount="13" data-discount2="20">
-    <label for="tariff112"><b>112</b>: 650 мин, 30 Гб, 100 SMS</label><br>
+    <label for="tariff112">112: 650 мин, 30 Гб, 100 SMS</label><br>
 	
 	<input type="radio" name="tariff" value="1050" id="tariff7" data-discount="6" data-discount2="50">
-    <label for="tariff7"><b>7</b>: 1200 мин, 50 Гб, 50 SMS</label><br>
+    <label for="tariff7">7: 1200 мин, 50 Гб, 50 SMS</label><br>
     
     <input type="radio" name="tariff" value="950" id="tariff2" data-discount="12" data-discount2="20">
-    <label for="tariff2"><s><b>2</b>: 500 мин, 35 Гб, 100 SMS</s></label><br>
+    <label for="tariff2"><s>2: 500 мин, 35 Гб, 100 SMS</s></label><br>
     
     <input type="radio" name="tariff" value="650" id="tariff3" data-discount="0" data-discount2="0">
-    <label for="tariff3"><b>3</b>: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
+    <label for="tariff3">3: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
     
     <input type="radio" name="tariff" value="1090" id="tariff4" data-discount="12" data-discount2="12.84">
-    <label for="tariff4"><s><b>4</b>: 1200 мин, 50 Гб, 50 SMS</s></label>
+    <label for="tariff4"><s>4: 1200 мин, 50 Гб, 50 SMS</s></label>
 </div>
 
 <div class="question">
@@ -139,7 +139,6 @@ function calculateTotal() {
 	const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
 	const dataTariff3 = parseFloat(document.querySelector('input[name=router]:checked')?.getAttribute('data-tariff3')) || 0;
 	const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
-	const dataTariff7 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff7')) || 0;
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
     const data_discount2 = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
@@ -155,10 +154,6 @@ function calculateTotal() {
 		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + dataTariff2 + family + 150;
 		totalPrice = tariff + router + dataTariff2 + family;
 		finalPrice = discountTarif + router + dataTariff2 + family;
-	} else if (selectedTariff.id === 'tariff7') {
-		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + dataTariff7 + family + 150;
-		totalPrice = tariff + router + dataTariff7 + family;
-		finalPrice = discountTarif + router + dataTariff7 + family;
 	} else {
 		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyBox + setTopBox + family + 150;
 		totalPrice = tariff + router + setTopBox + family;

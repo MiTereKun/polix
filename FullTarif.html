@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Траифы 18 янв</title>
+	<style>
+		body{font-family:Arial,sans-serif;margin:0;padding:20px;box-sizing:border-box;}
+		table{border-collapse:collapse;width:auto;min-width:600px;overflow-x:auto;margin:0 auto;}
+		th,td{border:1px solid #ccc;padding:8px;text-align:left;}
+		th{background-color:#f0f0f0;}
+		.radio-buttons{display:flex;justify-content:center;border:1px solid #ccc;border-radius:8px;padding:10px;margin:20px 0;}
+		.radio-buttons label{margin:0 3px;} /* Уменьшены отступы между кнопками */
+		table,th:first-child,td:first-child{border-left:none;}
+		th:last-child,td:last-child{border-right:none;}
+		@media (max-width:600px){table{font-size:12px;min-width:100%;}th,td{padding:6px;}}
+		@media (prefers-color-scheme:dark){body{background:#333;color:#fff;}th,td{border-color:#555;}th{background:#444;}.radio-buttons{border-color:#555;}}
+		.back-button{display:block;margin:20px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
+		.back-button:hover{color:#0056b3;}
+	</style>
+</head>
+<body>
+<h3><center>  </center></h3>
+<div class="back-button"onclick="window.location.href='https://polix.pro/tarif'">Вернуться</div>
+<div class="radio-buttons">
+    <label>
+        <input type="radio" name="tariff" value="all" checked onclick="filterTable()"> Все
+    </label>
+    <label>
+        <input type="radio" name="tariff" value="112" onclick="filterTable()"> №112
+    </label>
+    <label>
+        <input type="radio" name="tariff" value="1" onclick="filterTable()"> №1
+    </label>
+    <label>
+        <input type="radio" name="tariff" value="7" onclick="filterTable()"> №7
+    </label>
+    <label>
+        <input type="radio" name="tariff" value="2" onclick="filterTable()"> №2
+    </label>
+    <label>
+        <input type="radio" name="tariff" value="4" onclick="filterTable()"> №4
+    </label>
+	<label>
+        <input type="radio" name="tariff" value="3" onclick="filterTable()"> №3
+    </label>
+</div>
+
+<table id="tariffTable">
+    <tr><th>Название</th><th>АП</th><th>Скорость интернета(ФБ)</th><th>ТВ каналы</th><th>Оборудование (ФБ)</th><th>Пакет минут</th><th>Моб. интернет</th><th>В пакет также включено:</th></tr>
+    <tr data-tariff="112"><td>Тариф №112</td><td>712 ₽/мес. на 13 мес.<br>890 ₽/мес.<br>Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>224 канала</td><td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 712 ₽/мес. = 8544 руб.<br>HD приставка 99 ₽/мес.<br>Мультирум (50+99 р/мес. за каждый доп. ТВ)</td><td>650 по РФ<br>100 SMS</td><td>30 Гб</td><td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• страхование ГО перед соседями до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Больше» (4 опции)<br>- «Группа для близких» НОВАЯ АКЦИЯ! С 25.12.2024<br>- Акция «7 дней отсрочка»<br>- Акция «Скидка 10% при подключении Автоплатежа»<br>- Акция «Бесплатная подписка на МТС Музыку до конца года»</td></tr>
+    <tr data-tariff="1"><td>Тариф №1</td><td>Новогодняя скидка 50% на 6 мес. Акция до 31.01.2025)<br>425 ₽/мес.<br>850 ₽/мес.<br>Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>224 канала</td><td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br>HD приставка 99 ₽/мес.<br>Мультирум (50+99 р/мес. за каждый доп. ТВ)</td><td>650 По РФ<br>100 SMS</td><td>30 Гб<br>+ полный безлимит за 1 ₽/мес. (раздача на другие устройства – до 30 ГБ)</td><td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• страхование ГО перед соседями до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Больше» (4 опции)<br>- «Группа для близких» НОВАЯ АКЦИЯ! С 25.12.2024<br>- Акция «Скидка 10% при подключении Автоплатежа»<br>- Акция «Бесплатная подписка на МТС Музыку до конца года»</td></tr>
+    <tr data-tariff="7"><td>Тариф №7</td><td>Новогодняя скидка 50% на 6 мес. Акция до 31.01.2025)<br>525 ₽/мес.<br>1050 ₽/мес.<br>Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>224 канала</td><td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br>HD приставка 99 ₽/мес.<br>Мультирум (50+99 р/мес. за каждый доп. ТВ)</td><td>1200 По РФ<br>50 SMS</td><td>50 Гб<br>+ полный безлимит за 1 ₽/мес. (раздача на другие устройства – до 30 ГБ)</td><td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• страхование ГО перед соседями до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Супер» (6 опций)<br>- «Группа для близких» НОВАЯ АКЦИЯ! С 25.12.2024<br>- Акция «7 дней отсрочка»<br>- Акция «Скидка 10% при подключении Автоплатежа»<br>- Акция «Бесплатная подписка на МТС Музыку до конца года»</td></tr>
+    <tr data-tariff="2"><td>Тариф №2</td><td>780 ₽/мес.<br>/12 мес./<br/>950 ₽/мес.<br/>Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>224 канала</td><td>WI-FI роутер Новый<br/>Расс-ка 12 мес.. По 295 Р<br/>Расс-ка 36 мес.. По 100 Р<br/>Первая приставка/модуль 0 ₽/мес.. (включено в тариф)<br/>Льготный Мультирум (0+99р/мес. за каждый доп. ТВ)</td><td>500 По РФ<br/>100 SMS</td><td>35 Гб</td><td>&#8226; Сервис KION (от 180 канала + ~2000 фильмов)<br>&#8226; Кубики как в тарифе «МТС Больше» (4 опции)<br>- Акция «Скидка 10% при подключении Автоплатежа»<br>- Акция «Бесплатная подписка на МТС Музыку до конца года»<br>- «Группа для близких» НОВАЯ АКЦИЯ! С 25..12..2024</td></tr>
+    <tr data-tariff="4"><td>Tариф №4</td><td>950 ₽ / мес..<br />/12 мес./<br />1090 ₽ / мес..<br />Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>224 канала</td><td>WI-FI роутер Новый<br />Расс-ка 12 мес. По 295 Р<br />Расс-ка 36 мес. По 100 Р<br />Первая приставка / модуль 0 ₽ / мес. (включено в тариф)<br />Льготный Мультирум (0 +99р / мес. за каждый доп. ТВ)</td><td>1200 По РФ<br />50 SMS</td><td>50 Гб</td><td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br />• Кубики как в тарифе «МТС Супер» (6 опций)<br />- Акция «Скидка 10% при подключении Автоплатежа»<br />- Акция «Бесплатная подписка на МТС Музыку до конца года»<br />- «Группа для близких» НОВАЯ АКЦИЯ! С 25.12.2024</td></tr>
+<tr data-tariff="3"><td>Тариф №3</td><td>650 ₽ / мес..<br />Стоимость подключения 150 руб.*</td><td>100 Мбит/с</td><td>-</td><td>WI-FI роутер Новый<br />Расс-ка 12 мес. По 295 Р<br />Расс-ка 36 мес. По 100 Р</td><td>-</td><td>Единоразово: на 3 мес -30 Гб</td><td>- Акция «Скидка 10% при подключении Автоплатежа»<br /> - Акция «Бесплатная подписка на МТС Музыку до конца года»</td></tr>
+     </table>
+
+<script>
+function filterTable() {
+    const selectedValue = document.querySelector('input[name="tariff"]:checked').value;
+    const rows = document.querySelectorAll('#tariffTable tr[data-tariff]');
+
+    rows.forEach(row => {
+        if (selectedValue === 'all' || row.getAttribute('data-tariff') === selectedValue) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>

@@ -35,7 +35,7 @@
 </div>
 
 <div class="question">
-	<label>Расср нов приставки:</label>
+	<label>Аренда нов приставки:</label>
 	<input type="radio" name="setTopBox" value="0" data-tariff2="0" id="setTopBoxNo" checked>
 	<label for="setTopBoxNo">Нет</label><br>
 
@@ -62,11 +62,11 @@
 	<label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> — 3600</small></label>
 	<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label><input type="checkbox" name="WiFi6" value="450" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
 	
-	<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3"> <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> — 5400</small>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label></label><br>
+	<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3"> <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> — 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
     
-    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes"> <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" /> <small>&#160&#160&#160&#160&#160&#160 — 1999</small></label><br>
+    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes"> <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" /> <small>&#160&#160&#160&#160&#160&#160 — 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2"><label for="buyBoxYes4"><small>100</small></label><br>
     
-    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" />&#160&#160&#160&#160&#160&#160<small> — 5000</small>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="1"><label for="buyBoxYes3"><small>250</small></label></label>
+    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" />&#160&#160&#160&#160&#160&#160<small> — 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2"><label for="buyBoxYes3"><small>250</small></label>
 </div>
 </div>
 
@@ -115,6 +115,7 @@ function calculateTotal() {
     const buyBox = document.getElementById('buyBoxYes').checked ? parseFloat(document.getElementById('buyBoxYes').value) : 0;
     const buyBox2 = document.getElementById('buyBoxYes2').checked ? parseFloat(document.getElementById('buyBoxYes2').value) : 0;
     const buyBox3 = document.getElementById('buyBoxYes3').checked ? parseFloat(document.getElementById('buyBoxYes3').value) : 0;
+    const buyBox4 = document.getElementById('buyBoxYes4').checked ? parseFloat(document.getElementById('buyBoxYes4').value) : 0; // Добавлено
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
     const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
     const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
@@ -129,13 +130,13 @@ function calculateTotal() {
         totalPrice = tariff + router;
         finalPrice = discountTarif + router;
     } else if (selectedTariff.id === 'tariff2') {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + dataTariff2 + family + 150;
-        totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
-        finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150; // Добавлено buyBox4
+        totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
+        finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
     } else {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + setTopBox + family + 150;
-        totalPrice = tariff + router + setTopBox + buyBox3 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
-        finalPrice = discountTarif + router + setTopBox + buyBox3 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150; // Добавлено buyBox4
+        totalPrice = tariff + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
+        finalPrice = discountTarif + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
     }
 
     document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);
@@ -166,7 +167,7 @@ function calculateTotal() {
         return nextDay;
     }
 
-    function calculateInstallments(totalPrice, router, buyBox3, WiFi6, WiFi6_1, WiFi6_2) {
+    function calculateInstallments(totalPrice, router, buyBox3, buyBox4, WiFi6, WiFi6_1, WiFi6_2) {
         const installmentsCheckboxes = document.querySelectorAll('input[type=checkbox][data-installments]');
         let dataInstallments = 0;
 
@@ -174,12 +175,11 @@ function calculateTotal() {
             if (checkbox.checked) {
                 const installmentsValue = parseFloat(checkbox.getAttribute('data-installments')) || 0;
                 if (installmentsValue > dataInstallments) {
-                    dataInstallments = installmentsValue; // Выбираем максимальное значение рассрочки
+                    dataInstallments = installmentsValue;
                 }
             }
         });
 
-        // Склонение слова "год" в зависимости от значения dataInstallments
         let yearWord;
         if (dataInstallments === 1) {
             yearWord = "год";
@@ -189,14 +189,14 @@ function calculateTotal() {
             yearWord = "лет";
         }
 
-        if (router || buyBox3 || WiFi6 || WiFi6_1 || WiFi6_2) {
-            return `через ${dataInstallments} ${yearWord} : ${totalPrice - buyBox3 - router - WiFi6 - WiFi6_1 - WiFi6_2} руб`;
+        if (router || buyBox3 || buyBox4 || WiFi6 || WiFi6_1 || WiFi6_2) {
+            return `через ${dataInstallments} ${yearWord} : ${totalPrice - buyBox3 - buyBox4 - router - WiFi6 - WiFi6_1 - WiFi6_2} руб`;
         } else {
             return "";
         }
     }
 
-    const installmentsResult = calculateInstallments(totalPrice, router, buyBox3, WiFi6, WiFi6_1, WiFi6_2);
+    const installmentsResult = calculateInstallments(totalPrice, router, buyBox3, buyBox4, WiFi6, WiFi6_1, WiFi6_2);
     document.getElementById('installmentsResult').textContent = installmentsResult;
 
     if (data_discount === 0) {

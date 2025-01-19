@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 18 янв</title>
+    <title>Цены 20 янв</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#333;color:white;border-color:#555}}@media (max-width:295px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
 		.back-button:hover{color:#0056b3;}
+		footer { position: relative; top: 9px; text-align: center; color: gray; font-size: 12px;}
+		label img { filter: drop-shadow(0 0 5px white); }
+		.tooltip, .tooltip-motivation { position: absolute; background: #f0f0f0; color: black; padding: 8px 16px; border-radius: 4px; font-size: 14px; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; z-index: 1000; border: 1px solid #ccc; white-space: pre-line; } @media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #333; color: white; border: 1px solid #555; } } .tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
+		
+		.spoiler { margin: 8px 0 0; padding: 0; width: 100%; } /* Убираем отступы и задаём ширину 100% */
+		.spoiler-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #333; padding: 8px; background: #eaeaea; border-radius: 4px; margin-bottom: 8px; } /* Оставлены оригинальные цвета шапки */
+		@media (prefers-color-scheme: dark) { .spoiler-header { background: #555; color: #eee; } }
+		.spoiler-content { display: none; padding: 0; width: 100%; } /* Убираем отступы и задаём ширину 100% */
+		.spoiler-content.show { display: block; }
+		.spoiler-footer { text-align: right; margin-top: 8px; font-size: 0.9em; color: #666; display: none; padding: 8px; } /* Добавлен padding */
+		@media (prefers-color-scheme: dark) { .spoiler-footer { color: #aaa; } }
+		.spoiler-footer.show { display: block; }
+		.spoiler-icon { font-size: 1.2em; margin-left: auto; }
+		.price { float: right; position: relative; top: 8px; white-space: nowrap; }
+
 	</style>
 
 </head>
@@ -53,20 +68,20 @@
 </div>
 
 <div class="question">
-    <label>Покупка / Рассрочка:</label><br>
+    <label>Покупка и Рассрочки:</label><br>
     
     <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes">
-	<label for="buyRouterYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30"> 5G <small>— 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
+	<label for="buyRouterYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30"> 5G <small>- 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
     
     <input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2"> 
-	<label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> — 3600</small></label>
-	<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label><input type="checkbox" name="WiFi6" value="450" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
+	<label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> - 3600</small></label>
+	<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label><input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
 	
-	<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3"> <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> — 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
+	<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3"> <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
     
-    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes"> <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" /> <small>&#160&#160&#160&#160&#160&#160 — 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2"><label for="buyBoxYes4"><small>100</small></label><br>
+    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300"> <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" /> <small>&#160&#160&#160&#160&#160&#160 - 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300"><label for="buyBoxYes4"><small>100</small></label><br>
     
-    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" />&#160&#160&#160&#160&#160&#160<small> — 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2"><label for="buyBoxYes3"><small>250</small></label>
+    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" />&#160&#160&#160&#160&#160&#160<small> - 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500"><label for="buyBoxYes3"><small>250</small></label>
 </div>
 </div>
 
@@ -94,12 +109,70 @@
 
 <hr>
 <div class="back-button"onclick="window.location.href='https://polix.pro/FullTarif'">Открыть таблицу тарифов</div>
-<div class="back-button"onclick="window.location.href='https://urmdf.ssl.mts.ru/orders'">Открыть дилерский портал</div>
+<div class="back-button"onclick="window.location.href='https://urmdf.ssl.mts.ru/orders'">Открыть дилерский портал</div><br>
 
-<hr>
-<small>· Аренда роутера / приставки зт — 120<br>
-· Покупка роутера для абона зт — 2200<br>
-· Покупка приставки зефир тв — 4300</small>
+<div class="spoiler">
+    <div class="spoiler-header" onclick="toggleSpoiler(this)">
+        <span>Сервисы Зелёная точка</span>
+        <span class="spoiler-icon">+</span>
+    </div>
+    <div class="spoiler-content">
+        <div class="question">
+            <small>
+                <input type="checkbox" name="serviceRouterBuy" value="2200" id="serviceRouterBuy">
+                <label for="serviceRouterBuy">Покупка роутера б/у 5 Ггц<span class="price">- 2200</span></label>
+            </small><br>
+
+            <small>
+                <input type="checkbox" name="serviceSetTopBoxBuy" value="4300" id="serviceSetTopBoxBuy">
+                <label for="serviceSetTopBoxBuy">Покупка приставки зефир<span class="price">- 4300</span></label>
+            </small><br>
+        </div>
+
+        <div class='result'>
+            <h3><span id="ServisPrise2"></span></h3>
+        </div>
+
+        <div class="question">
+            <small>
+                <input type="checkbox" name="serviceRouterRent" value="120" id="serviceRouterRent">
+                <label for="serviceRouterRent">Аренда роутера / Приставки<span class="price">- 120</span></label>
+            </small><br>
+            
+            <small>
+                <input type="checkbox" name="serviceDeviceInstall" value="300" id="serviceDeviceInstall">
+                <label for="serviceDeviceInstall">Уст дополнительных устройств<span class="price">- 300</span></label>
+            </small><br>
+
+            <small>
+                <input type="checkbox" name="serviceRemoteReplace" value="800" id="serviceRemoteReplace">
+                <label for="serviceRemoteReplace">Замена пульта, блока питания<span class="price">- 800</span></label>
+            </small><br>
+
+            <small>
+                <input type="checkbox" name="serviceEquipmentReplace" value="400" id="serviceEquipmentReplace">
+                <label for="serviceEquipmentReplace">Замена оборудки и комплект<span class="price">- 400</span></label>
+            </small><br>
+
+            <small>
+                <input type="checkbox" name="serviceCableInstall" value="400" id="serviceCableInstall">
+                <label for="serviceCableInstall">Прокладка кабеля по плинтусу<span class="price">- 400</span></label>
+            </small>
+        </div>
+
+        <div class='result'>
+            <h3><span id="ServisPrise"></span></h3>
+            <h3><span id="ServisPrise3"></span></h3>
+        </div>
+    </div>
+    <div class="spoiler-footer" onclick="toggleSpoiler(this.parentElement.querySelector('.spoiler-header'))">
+        [свернуть]
+    </div>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+<div id="tooltip-motivation" class="tooltip-motivation"></div>
+<div id="tooltip-ok" class="tooltip"></div>
 
 <script>
 function calculateTotal() {
@@ -115,26 +188,67 @@ function calculateTotal() {
     const buyBox = document.getElementById('buyBoxYes').checked ? parseFloat(document.getElementById('buyBoxYes').value) : 0;
     const buyBox2 = document.getElementById('buyBoxYes2').checked ? parseFloat(document.getElementById('buyBoxYes2').value) : 0;
     const buyBox3 = document.getElementById('buyBoxYes3').checked ? parseFloat(document.getElementById('buyBoxYes3').value) : 0;
-    const buyBox4 = document.getElementById('buyBoxYes4').checked ? parseFloat(document.getElementById('buyBoxYes4').value) : 0; // Добавлено
+    const buyBox4 = document.getElementById('buyBoxYes4').checked ? parseFloat(document.getElementById('buyBoxYes4').value) : 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
     const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
     const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
     const discountTarif = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
+    const serviceRouterBuy = document.getElementById('serviceRouterBuy').checked ? parseFloat(document.getElementById('serviceRouterBuy').value) : 0;
+    const serviceSetTopBoxBuy = document.getElementById('serviceSetTopBoxBuy').checked ? parseFloat(document.getElementById('serviceSetTopBoxBuy').value) : 0;
+    const serviceDeviceInstall = document.getElementById('serviceDeviceInstall').checked ? parseFloat(document.getElementById('serviceDeviceInstall').value) : 0;
+	const serviceRouterRent = document.getElementById('serviceRouterRent').checked ? parseFloat(document.getElementById('serviceRouterRent').value) : 0;
+    const serviceRemoteReplace = document.getElementById('serviceRemoteReplace').checked ? parseFloat(document.getElementById('serviceRemoteReplace').value) : 0;
+    const serviceEquipmentReplace = document.getElementById('serviceEquipmentReplace').checked ? parseFloat(document.getElementById('serviceEquipmentReplace').value) : 0;
+    const serviceCableInstall = document.getElementById('serviceCableInstall').checked ? parseFloat(document.getElementById('serviceCableInstall').value) : 0;
+
+    const ServisPrise = serviceDeviceInstall + serviceRemoteReplace + serviceEquipmentReplace + serviceCableInstall;
+	const ServisPrise2 = serviceRouterBuy + serviceSetTopBoxBuy;
+
+	const bothRouterAndSetTopBox = serviceRouterBuy > 0 && serviceSetTopBoxBuy > 0;
+	const onlyRouterAndSetTopBox = bothRouterAndSetTopBox &&
+		serviceDeviceInstall === 0 &&
+		serviceRemoteReplace === 0 &&
+		serviceEquipmentReplace === 0 &&
+		serviceCableInstall === 0;
+
+	if (onlyRouterAndSetTopBox) {
+		document.getElementById('ServisPrise').innerText = "";
+		document.getElementById('ServisPrise2').innerText = `Итого покупка: ${ServisPrise2} руб`;
+	} else {
+		document.getElementById('ServisPrise').innerText = ServisPrise === 0 ? "" : `Сервисы: ${ServisPrise} руб`;
+
+		if (bothRouterAndSetTopBox) {
+			document.getElementById('ServisPrise2').innerText = `Итого покупка: ${ServisPrise2} руб`;
+		} else {
+			document.getElementById('ServisPrise2').innerText = "";
+		}
+	}
+
+	const ServisPrise3 = ServisPrise + ServisPrise2;
+	document.getElementById('ServisPrise3').innerText = (ServisPrise === 0 || ServisPrise2 === 0) ? "" : `1 оплата: ${ServisPrise3} руб`;
+
+	if (ServisPrise !== 0) {
+		document.getElementById('ServisPrise').scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}
+
+	if (ServisPrise !== 0 && ServisPrise2 !== 0) {
+		document.getElementById('ServisPrise3').scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}
 
     let OneFinalPrice, totalPrice, finalPrice;
 
     if (selectedTariff.id === 'tariff3') {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + 150;
-        totalPrice = tariff + router;
-        finalPrice = discountTarif + router;
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + WiFi6 + WiFi6_1 + WiFi6_2 + 150;
+        totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2;
+        finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2;
     } else if (selectedTariff.id === 'tariff2') {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150; // Добавлено buyBox4
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150;
         totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
         finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
     } else {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150; // Добавлено buyBox4
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150;
         totalPrice = tariff + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
         finalPrice = discountTarif + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
     }
@@ -221,7 +335,106 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', calculateTotal);
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const tooltip = document.getElementById('tooltip');
+  const tooltipMotivation = document.getElementById('tooltip-motivation');
+  const tooltipOk = document.getElementById('tooltip-ok');
+
+  function hideAllTooltips() {
+    tooltip.classList.remove('show');
+    tooltipMotivation.classList.remove('show');
+    tooltipOk.classList.remove('show');
+  }
+
+  function showOkTooltip(checkbox) {
+    const rect = checkbox.getBoundingClientRect();
+    
+    if (checkbox.name === 'serviceRouterRent' && checkbox.value === '120') {
+        tooltipOk.textContent = "Калькулятор 120 есть выше.\nТут это считаться не будет!";
+    } else {
+        tooltipOk.textContent = "ок";
+    }
+
+    tooltipOk.style.top = `${rect.top + window.scrollY}px`;
+    tooltipOk.style.left = `${rect.left + window.scrollX}px`;
+    tooltipOk.classList.add('show');
+
+    setTimeout(hideAllTooltips, 2000);
+}
+
+  document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+    checkbox.addEventListener('click', function () {
+      const rect = checkbox.getBoundingClientRect();
+
+      const isTargetCheckbox = 
+		(checkbox.value === '2200' || checkbox.value === '4300') ||
+		(checkbox.name === 'serviceRouterRent' && checkbox.value === '120')
+
+      if (isTargetCheckbox && checkbox.checked) {
+        showOkTooltip(checkbox);
+      } else {
+        tooltipOk.classList.remove('show');
+      }
+
+      if (checkbox.checked) {
+        const value = checkbox.value;
+        const installments = checkbox.getAttribute('data-installments');
+        const installments2 = checkbox.getAttribute('data-installments2');
+
+        if (installments) {
+          tooltip.textContent = `${value} на ${installments} г.`;
+          tooltip.style.top = `${rect.top + window.scrollY}px`;
+          tooltip.style.left = `${rect.left + window.scrollX}px`;
+          tooltip.classList.add('show');
+        } else {
+          tooltip.classList.remove('show');
+        }
+
+        if (installments2) {
+          tooltipMotivation.textContent = `мотивация ${installments2}`;
+          tooltipMotivation.style.top = `${rect.top + window.scrollY + (installments ? 40 : 0)}px`;
+          tooltipMotivation.style.left = `${rect.left + window.scrollX}px`;
+          tooltipMotivation.classList.add('show');
+        } else {
+          tooltipMotivation.classList.remove('show');
+        }
+
+        setTimeout(hideAllTooltips, 2000);
+      } else {
+        hideAllTooltips();
+      }
+    });
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!event.target.matches('input[type=checkbox]')) {
+      hideAllTooltips();
+    }
+  });
+});
+
+function toggleSpoiler(header) {
+        const spoiler = header.parentElement;
+        const content = spoiler.querySelector('.spoiler-content');
+        const footer = spoiler.querySelector('.spoiler-footer');
+        const icon = header.querySelector('.spoiler-icon');
+
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            footer.classList.remove('show');
+            icon.textContent = '+';
+        } else {
+            content.classList.add('show');
+            footer.classList.add('show');
+            icon.textContent = '-';
+        }
+    }
+
 calculateTotal();
 </script>
 </body>
+
+<footer>
+	<small>Об ошибках сообщайте <a href="https://t.me/mi_0014" target="_blank" style="color: #6C8EBF;">@mi_0014</a>.</small>
+</footer>
 </html>

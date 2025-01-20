@@ -14,17 +14,12 @@
 		@media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #404040; color: white; border: 1px solid #555; } }
 		.tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
 		
-	.spoiler { margin: 8px 0 0; padding: 0; width: 100%; }
-	.spoiler-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #333; padding: 8px; background: #eaeaea; border-radius: 4px; margin-bottom: 8px; }
-	@media (prefers-color-scheme: dark) { .spoiler-header { background: #555; color: #eee; } }
-	.spoiler-content { display: none; padding: 0; width: 100%; margin: 0; } /* Убрали все отступы */
-	.spoiler-content.show { display: block; }
-	.spoiler-footer { text-align: right; font-size: 0.9em; color: #666; display: none; padding: 0; margin: 0; } /* Убрали все отступы и padding */
-	@media (prefers-color-scheme: dark) { .spoiler-footer { color: #aaa; } }
-	.spoiler-footer.show { display: block; }
-	.spoiler-icon { font-size: 1.2em; margin-left: auto; }
-	.price { float: right; position: relative; top: 8px; white-space: nowrap; }
-
+		.spoiler{margin:8px 0 0;padding:0;width:100%}
+		.spoiler-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:bold;color:#333;padding:8px;background:#eaeaea;border-radius:4px;margin-bottom:8px}@media (prefers-color-scheme: dark){.spoiler-header{background:#555;color:#eee}}
+		.spoiler-content{display:none;padding:0;width:100%;margin:0}
+		.spoiler-content.show{display:block}
+		.spoiler-footer{text-align:right;font-size:.9em;color:#666;display:none;padding:0;margin:0;cursor:pointer}@media (prefers-color-scheme: dark){.spoiler-footer{color:#aaa}}.spoiler-footer.show{display:block}
+		.spoiler-icon{font-size:1.2em;margin-left:auto}.price{float:right;position:relative;top:8px;white-space:nowrap}
 	</style>
 
 </head>
@@ -250,15 +245,6 @@ function calculateTotal() {
 	const ServisPrise3 = ServisPrise + ServisPrise2;
 	document.getElementById('ServisPrise3').innerText = (ServisPrise === 0 || ServisPrise2 === 0) ? "" : `1 оплата: ${ServisPrise3} руб`;
 
-	if (ServisPrise !== 0) {
-		document.getElementById('ServisPrise').scrollIntoView({ behavior: 'smooth', block: 'end' });
-	}
-
-	if (ServisPrise !== 0 && ServisPrise2 !== 0) {
-		document.getElementById('ServisPrise3').scrollIntoView({ behavior: 'smooth', block: 'end' });
-	}
-	
-
     let OneFinalPrice, totalPrice, finalPrice;
 
     if (selectedTariff.id === 'tariff3') {
@@ -336,10 +322,6 @@ function calculateTotal() {
     const installmentsResult = calculateInstallments(totalPrice, router, buyBox3, buyBox4, WiFi6, WiFi6_1, WiFi6_2);
     document.getElementById('installmentsResult').textContent = installmentsResult;
 	
-	if (installmentsResult !== 0) {
-		document.getElementById('installmentsResult').scrollIntoView({ behavior: 'smooth', block: 'end' });
-	}
-
     if (data_discount === 0) {
         discountEndDateElement.innerText = "";
     } else {
@@ -373,32 +355,27 @@ document.addEventListener('DOMContentLoaded', function () {
     tooltipOk.classList.remove('show');
   }
 
-  function showOkTooltip(checkbox) {
-    const rect = checkbox.getBoundingClientRect();
-    
-    if (checkbox.name === 'serviceRouterRent' && checkbox.value === '120') {
-        tooltipOk.textContent = "Калькулятор 120 есть выше.\nТут это считаться не будет!";
-    } else {
-        tooltipOk.textContent = "ок";
-    }
-
-    tooltipOk.style.top = `${rect.top + window.scrollY}px`;
-    tooltipOk.style.left = `${rect.left + window.scrollX}px`;
-    tooltipOk.classList.add('show');
-
-    setTimeout(hideAllTooltips, 2000);
-}
+  function showTooltip(element, content, tooltipElement, offsetY = 0) {
+    const rect = element.getBoundingClientRect();
+    tooltipElement.textContent = content;
+    tooltipElement.style.top = `${rect.top + window.scrollY + offsetY}px`;
+    tooltipElement.style.left = `${rect.left + window.scrollX}px`;
+    tooltipElement.classList.add('show');
+    setTimeout(hideAllTooltips, 3000);
+  }
 
   document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
     checkbox.addEventListener('click', function () {
       const rect = checkbox.getBoundingClientRect();
-
-      const isTargetCheckbox = 
-		(checkbox.value === '2200' || checkbox.value === '4300') ||
-		(checkbox.name === 'serviceRouterRent' && checkbox.value === '120')
+      const isTargetCheckbox =
+        (checkbox.value === '2200' || checkbox.value === '4300') ||
+        (checkbox.name === 'serviceRouterRent' && checkbox.value === '120');
 
       if (isTargetCheckbox && checkbox.checked) {
-        showOkTooltip(checkbox);
+        const message = checkbox.name === 'serviceRouterRent' && checkbox.value === '120'
+          ? "Калькулятор 120 есть выше.\nТут это считаться не будет!"
+          : "ок";
+        showTooltip(checkbox, message, tooltipOk);
       } else {
         tooltipOk.classList.remove('show');
       }
@@ -409,54 +386,84 @@ document.addEventListener('DOMContentLoaded', function () {
         const installments2 = checkbox.getAttribute('data-installments2');
 
         if (installments) {
-          tooltip.textContent = `${value} на ${installments} г.`;
-          tooltip.style.top = `${rect.top + window.scrollY}px`;
-          tooltip.style.left = `${rect.left + window.scrollX}px`;
-          tooltip.classList.add('show');
-        } else {
-          tooltip.classList.remove('show');
+          showTooltip(checkbox, `${value} на ${installments} г.`, tooltip);
         }
 
         if (installments2) {
-          tooltipMotivation.textContent = `мотивация ${installments2}`;
-          tooltipMotivation.style.top = `${rect.top + window.scrollY + (installments ? 40 : 0)}px`;
-          tooltipMotivation.style.left = `${rect.left + window.scrollX}px`;
-          tooltipMotivation.classList.add('show');
-        } else {
-          tooltipMotivation.classList.remove('show');
+          showTooltip(checkbox, `мотивация ${installments2}`, tooltipMotivation, installments ? 40 : 0);
         }
-
-        setTimeout(hideAllTooltips, 2000);
       } else {
         hideAllTooltips();
       }
     });
   });
 
+  document.querySelectorAll('input[name="tariff"]').forEach(radio => {
+    radio.addEventListener('click', function () {
+      const value = parseFloat(radio.value) || 0;
+      const data_discount = parseInt(radio.getAttribute('data-discount')) || 0;
+      const discountTarif = parseFloat(radio.getAttribute('data-discount2')) || 0;
+      const isThirdTariff = radio.id === 'tariff3';
+
+      const message = isThirdTariff
+        ? `Цена ${value} руб`
+        : `Цена ${value} руб\nСкидка ${discountTarif} на ${data_discount} м.`;
+
+      showTooltip(radio, message, tooltipOk);
+    });
+  });
+
   document.addEventListener('click', function (event) {
-    if (!event.target.matches('input[type=checkbox]')) {
+    if (!event.target.matches('input[type=checkbox]') && !event.target.matches('input[name="tariff"]')) {
       hideAllTooltips();
     }
   });
 });
 
 function toggleSpoiler(header) {
-        const spoiler = header.parentElement;
-        const content = spoiler.querySelector('.spoiler-content');
-        const footer = spoiler.querySelector('.spoiler-footer');
-        const icon = header.querySelector('.spoiler-icon');
+    const spoiler = header.parentElement;
+    const content = spoiler.querySelector('.spoiler-content');
+    const footer = spoiler.querySelector('.spoiler-footer');
+    const icon = header.querySelector('.spoiler-icon');
 
-        if (content.classList.contains('show')) {
-            content.classList.remove('show');
-            footer.classList.remove('show');
-            icon.textContent = '+';
-        } else {
-            content.classList.add('show');
-            footer.classList.add('show');
-            icon.textContent = '-';
-        }
+    if (content.classList.contains('show')) {
+        content.classList.remove('show');
+        footer.classList.remove('show');
+        icon.textContent = '+';
+    } else {
+        content.classList.add('show');
+        footer.classList.add('show');
+        icon.textContent = '-';
+
+        const checkVisibilityAndScroll = () => {
+            const footerRect = footer.getBoundingClientRect();
+            const isFooterVisible = (
+                footerRect.top >= 0 &&
+                footerRect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            );
+
+            if (!isFooterVisible) {
+                footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+        };
+
+        setTimeout(checkVisibilityAndScroll, 50);
+		
+        const observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    checkVisibilityAndScroll();
+                }
+            }
+        });
+
+        observer.observe(content, { childList: true, subtree: true });
+
+        content.addEventListener('hidden', () => {
+            observer.disconnect();
+        }, { once: true });
     }
-
+}
 calculateTotal();
 </script>
 </body>

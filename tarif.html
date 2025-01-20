@@ -10,18 +10,20 @@
 		.back-button:hover{color:#0056b3;}
 		footer { position: relative; top: 9px; text-align: center; color: gray; font-size: 12px;}
 		label img { filter: drop-shadow(0 0 5px white); }
-		.tooltip, .tooltip-motivation { position: absolute; background: #f0f0f0; color: black; padding: 8px 16px; border-radius: 4px; font-size: 14px; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; z-index: 1000; border: 1px solid #ccc; white-space: pre-line; } @media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #333; color: white; border: 1px solid #555; } } .tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
+		.tooltip, .tooltip-motivation { position: absolute; background: #f0f0f0; color: black; padding: 8px 16px; border-radius: 4px; font-size: 14px; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; z-index: 1000; border: 1px solid #ccc; white-space: pre-line; user-select: none; cursor: default; }
+		@media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #404040; color: white; border: 1px solid #555; } }
+		.tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
 		
-		.spoiler { margin: 8px 0 0; padding: 0; width: 100%; } /* Убираем отступы и задаём ширину 100% */
-		.spoiler-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #333; padding: 8px; background: #eaeaea; border-radius: 4px; margin-bottom: 8px; } /* Оставлены оригинальные цвета шапки */
-		@media (prefers-color-scheme: dark) { .spoiler-header { background: #555; color: #eee; } }
-		.spoiler-content { display: none; padding: 0; width: 100%; } /* Убираем отступы и задаём ширину 100% */
-		.spoiler-content.show { display: block; }
-		.spoiler-footer { text-align: right; margin-top: 8px; font-size: 0.9em; color: #666; display: none; padding: 8px; } /* Добавлен padding */
-		@media (prefers-color-scheme: dark) { .spoiler-footer { color: #aaa; } }
-		.spoiler-footer.show { display: block; }
-		.spoiler-icon { font-size: 1.2em; margin-left: auto; }
-		.price { float: right; position: relative; top: 8px; white-space: nowrap; }
+	.spoiler { margin: 8px 0 0; padding: 0; width: 100%; }
+	.spoiler-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #333; padding: 8px; background: #eaeaea; border-radius: 4px; margin-bottom: 8px; }
+	@media (prefers-color-scheme: dark) { .spoiler-header { background: #555; color: #eee; } }
+	.spoiler-content { display: none; padding: 0; width: 100%; margin: 0; } /* Убрали все отступы */
+	.spoiler-content.show { display: block; }
+	.spoiler-footer { text-align: right; font-size: 0.9em; color: #666; display: none; padding: 0; margin: 0; } /* Убрали все отступы и padding */
+	@media (prefers-color-scheme: dark) { .spoiler-footer { color: #aaa; } }
+	.spoiler-footer.show { display: block; }
+	.spoiler-icon { font-size: 1.2em; margin-left: auto; }
+	.price { float: right; position: relative; top: 8px; white-space: nowrap; }
 
 	</style>
 
@@ -72,31 +74,47 @@
     
     <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes">
 	<label for="buyRouterYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30"> 5G <small>- 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
-    
-    <input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2"> 
-	<label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> - 3600</small></label>
-	<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label><input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
 	
-	<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3"> <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
-    
-    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300"> <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" /> <small>&#160&#160&#160&#160&#160&#160 - 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300"><label for="buyBoxYes4"><small>100</small></label><br>
-    
-    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="29" height="19" />&#160&#160&#160&#160&#160&#160<small> - 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500"><label for="buyBoxYes3"><small>250</small></label>
-</div>
+	<input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="30" height="19" />&#160&#160&#160&#160&#160&#160<small> - 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500"><label for="buyBoxYes3"><small>250</small></label>
+	</div>
+
+<div class="spoiler">
+    <div class="spoiler-header" onclick="toggleSpoiler(this)">
+        <span>Нет на складе</span>
+        <span class="spoiler-icon">+</span>
+    </div>
+    <div class="spoiler-content">
+        <div class="question">
+            <input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2">
+            <label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> - 3600</small></label>
+            <input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label>
+            <input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
+
+            <input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3">
+            <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
+
+            <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300">
+            <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png" alt="" width="30" height="19" /> <small>&#160&#160&#160&#160&#160&#160 - 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300"><label for="buyBoxYes4"><small>100</small></label>
+        </div>
+    </div>
+    <div class="spoiler-footer" onclick="toggleSpoiler(this.parentElement.querySelector('.spoiler-header'))">
+        [свернуть]
+    </div>
 </div>
 
 <div class="question">
-    <label>Группа семья <small>(~450 + 250)</small></label><br>
-	<input type="radio" name="family" value="0" id="family0" checked>
+    <label>Группа семья <small>(450/100 + 250)</small></label><br>
+    <input type="radio" name="family" value="0" id="family0" checked>
     <label for="family0">0</label>
-    <input type="radio" name="family" value="450" id="family1">
+    <input type="radio" name="family" value="250" id="family1">
     <label for="family1">1</label>
-	<input type="radio" name="family" value="900" id="family2">
+    <input type="radio" name="family" value="500" id="family2">
     <label for="family2">2</label>
-	<input type="radio" name="family" value="1350" id="family3">
+    <input type="radio" name="family" value="750" id="family3">
     <label for="family3">3</label>
-	<input type="radio" name="family" value="1800" id="family4">
-    <label for="family4">4</label>
+    <input type="radio" name="family" value="1000" id="family4">
+    <label for="family4">4</label><br>
+	<small>(900 на все MNP, остается 550)</small>
 </div>
 
 <div class='result'>
@@ -191,6 +209,9 @@ function calculateTotal() {
     const buyBox4 = document.getElementById('buyBoxYes4').checked ? parseFloat(document.getElementById('buyBoxYes4').value) : 0;
     const setTopBox = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.value) || 0;
     const family = parseFloat(document.querySelector('input[name=family]:checked')?.value) || 0;
+	const isFamilySelected = family !== 0;
+	const additionalOneFinalPrice = isFamilySelected ? 480 : 0;
+	const additionalTotalFinalPrice = isFamilySelected ? 100 : 0;
     const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
@@ -236,6 +257,7 @@ function calculateTotal() {
 	if (ServisPrise !== 0 && ServisPrise2 !== 0) {
 		document.getElementById('ServisPrise3').scrollIntoView({ behavior: 'smooth', block: 'end' });
 	}
+	
 
     let OneFinalPrice, totalPrice, finalPrice;
 
@@ -244,14 +266,15 @@ function calculateTotal() {
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2;
         finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2;
     } else if (selectedTariff.id === 'tariff2') {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150;
-        totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
-        finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4;
-    } else {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150;
-        totalPrice = tariff + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
-        finalPrice = discountTarif + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family;
-    }
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150 + additionalOneFinalPrice;
+    totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4 + additionalTotalFinalPrice;
+    finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4 + additionalTotalFinalPrice;
+	}
+	else {
+		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150 + additionalOneFinalPrice;
+		totalPrice = tariff + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family + additionalTotalFinalPrice;
+		finalPrice = discountTarif + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family + additionalTotalFinalPrice;
+	}
 
     document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);
     document.getElementById('finalPrice').innerText = finalPrice.toFixed(0);
@@ -312,6 +335,10 @@ function calculateTotal() {
 
     const installmentsResult = calculateInstallments(totalPrice, router, buyBox3, buyBox4, WiFi6, WiFi6_1, WiFi6_2);
     document.getElementById('installmentsResult').textContent = installmentsResult;
+	
+	if (installmentsResult !== 0) {
+		document.getElementById('installmentsResult').scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}
 
     if (data_discount === 0) {
         discountEndDateElement.innerText = "";
@@ -437,4 +464,5 @@ calculateTotal();
 <footer>
 	<small>Об ошибках сообщайте <a href="https://t.me/mi_0014" target="_blank" style="color: #6C8EBF;">@mi_0014</a>.</small>
 </footer>
+	
 </html>

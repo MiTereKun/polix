@@ -14,12 +14,17 @@
 		@media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #404040; color: white; border: 1px solid #555; } }
 		.tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
 		
-		.spoiler{margin:8px 0 0;padding:0;width:100%}
-		.spoiler-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:bold;color:#333;padding:8px;background:#eaeaea;border-radius:4px;margin-bottom:8px}@media (prefers-color-scheme: dark){.spoiler-header{background:#555;color:#eee}}
-		.spoiler-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0;width:100%;margin:0}
-		.spoiler-content.show{max-height:1000px}
-		.spoiler-footer{text-align:right;font-size:.9em;color:#666;display:none;padding:0;margin:0;cursor:pointer}@media (prefers-color-scheme: dark){.spoiler-footer{color:#aaa}}.spoiler-footer.show{display:block}
-		.spoiler-icon{font-size:1.2em;margin-left:auto}.price{float:right;position:relative;top:8px;white-space:nowrap}
+		.spoiler { margin: 8px 0 0; padding: 0; width: 100%; }
+		.spoiler-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #333; padding: 8px; background: #eaeaea; border-radius: 4px; margin-bottom: 8px; }
+		@media (prefers-color-scheme: dark) { .spoiler-header { background: #555; color: #eee; } }
+		.spoiler-content { display: none; padding: 0; width: 100%; margin: 0; } /* Убрали все отступы */
+		.spoiler-content.show { display: block; }
+		.spoiler-footer { text-align: right; font-size: 0.9em; color: #666; display: none; padding: 0; margin: 0; } /* Убрали все отступы и padding */
+		@media (prefers-color-scheme: dark) { .spoiler-footer { color: #aaa; } }
+		.spoiler-footer.show { display: block; }
+		.spoiler-icon { font-size: 1.2em; margin-left: auto; }
+		.price { float: right; position: relative; top: 8px; white-space: nowrap; }
+
 	</style>
 
 </head>
@@ -294,7 +299,6 @@ function calculateTotal() {
 		const installmentsCheckboxes = document.querySelectorAll('input[type=checkbox][data-installments]');
 		let dataInstallments = 0;
 
-		// Проверяем, выбран ли третий тариф
 		const isThirdTariff = document.getElementById('tariff3').checked;
 
 		installmentsCheckboxes.forEach(checkbox => {
@@ -315,16 +319,15 @@ function calculateTotal() {
 			yearWord = "лет";
 		}
 
-		// Логика расчета в зависимости от выбранного тарифа
 		if (isThirdTariff) {
-			// Расчет для третьего тарифа
+
 			if (router || WiFi6 || WiFi6_1 || WiFi6_2) {
 				return `через ${dataInstallments} ${yearWord} : ${totalPrice - router - WiFi6 - WiFi6_1 - WiFi6_2} руб`;
 			} else {
 				return "";
 			}
 		} else {
-			// Стандартный расчет
+
 			if (router || buyBox3 || buyBox4 || WiFi6 || WiFi6_1 || WiFi6_2) {
 				return `через ${dataInstallments} ${yearWord} : ${totalPrice - buyBox3 - buyBox4 - router - WiFi6 - WiFi6_1 - WiFi6_2} руб`;
 			} else {
@@ -369,27 +372,32 @@ document.addEventListener('DOMContentLoaded', function () {
     tooltipOk.classList.remove('show');
   }
 
-  function showTooltip(element, content, tooltipElement, offsetY = 0) {
-    const rect = element.getBoundingClientRect();
-    tooltipElement.textContent = content;
-    tooltipElement.style.top = `${rect.top + window.scrollY + offsetY}px`;
-    tooltipElement.style.left = `${rect.left + window.scrollX}px`;
-    tooltipElement.classList.add('show');
-    setTimeout(hideAllTooltips, 3000);
-  }
+  function showOkTooltip(checkbox) {
+    const rect = checkbox.getBoundingClientRect();
+    
+    if (checkbox.name === 'serviceRouterRent' && checkbox.value === '120') {
+        tooltipOk.textContent = "Калькулятор 120 есть выше.\nТут это считаться не будет!";
+    } else {
+        tooltipOk.textContent = "ок";
+    }
+
+    tooltipOk.style.top = `${rect.top + window.scrollY}px`;
+    tooltipOk.style.left = `${rect.left + window.scrollX}px`;
+    tooltipOk.classList.add('show');
+
+    setTimeout(hideAllTooltips, 2000);
+}
 
   document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
     checkbox.addEventListener('click', function () {
       const rect = checkbox.getBoundingClientRect();
-      const isTargetCheckbox =
-        (checkbox.value === '2200' || checkbox.value === '4300') ||
-        (checkbox.name === 'serviceRouterRent' && checkbox.value === '120');
+
+      const isTargetCheckbox = 
+		(checkbox.value === '2200' || checkbox.value === '4300') ||
+		(checkbox.name === 'serviceRouterRent' && checkbox.value === '120')
 
       if (isTargetCheckbox && checkbox.checked) {
-        const message = checkbox.name === 'serviceRouterRent' && checkbox.value === '120'
-          ? "Калькулятор 120 есть выше.\nТут это считаться не будет!"
-          : "ок";
-        showTooltip(checkbox, message, tooltipOk);
+        showOkTooltip(checkbox);
       } else {
         tooltipOk.classList.remove('show');
       }
@@ -400,35 +408,32 @@ document.addEventListener('DOMContentLoaded', function () {
         const installments2 = checkbox.getAttribute('data-installments2');
 
         if (installments) {
-          showTooltip(checkbox, `${value} на ${installments} г.`, tooltip);
+          tooltip.textContent = `${value} на ${installments} г.`;
+          tooltip.style.top = `${rect.top + window.scrollY}px`;
+          tooltip.style.left = `${rect.left + window.scrollX}px`;
+          tooltip.classList.add('show');
+        } else {
+          tooltip.classList.remove('show');
         }
 
         if (installments2) {
-          showTooltip(checkbox, `мотивация ${installments2}`, tooltipMotivation, installments ? 40 : 0);
+          tooltipMotivation.textContent = `мотивация ${installments2}`;
+          tooltipMotivation.style.top = `${rect.top + window.scrollY + (installments ? 40 : 0)}px`;
+          tooltipMotivation.style.left = `${rect.left + window.scrollX}px`;
+          tooltipMotivation.classList.add('show');
+        } else {
+          tooltipMotivation.classList.remove('show');
         }
+
+        setTimeout(hideAllTooltips, 2000);
       } else {
         hideAllTooltips();
       }
     });
   });
 
-  document.querySelectorAll('input[name="tariff"]').forEach(radio => {
-    radio.addEventListener('click', function () {
-      const value = parseFloat(radio.value) || 0;
-      const data_discount = parseInt(radio.getAttribute('data-discount')) || 0;
-      const discountTarif = parseFloat(radio.getAttribute('data-discount2')) || 0;
-      const isThirdTariff = radio.id === 'tariff3';
-
-      const message = isThirdTariff
-        ? `Цена ${value} руб`
-        : `Цена ${value} руб\nСкидка ${discountTarif} на ${data_discount} м.`;
-
-      showTooltip(radio, message, tooltipOk);
-    });
-  });
-
   document.addEventListener('click', function (event) {
-    if (!event.target.matches('input[type=checkbox]') && !event.target.matches('input[name="tariff"]')) {
+    if (!event.target.matches('input[type=checkbox]')) {
       hideAllTooltips();
     }
   });
@@ -441,67 +446,24 @@ function toggleSpoiler(header) {
     const icon = header.querySelector('.spoiler-icon');
 
     if (content.classList.contains('show')) {
-        // Плавное сворачивание
-        content.style.maxHeight = content.scrollHeight + 'px'; // Устанавливаем текущую высоту
-        setTimeout(() => {
-            content.style.maxHeight = '0'; // Анимируем до нуля
-        }, 10);
 
-        content.addEventListener('transitionend', () => {
-            content.classList.remove('show');
-            footer.classList.remove('show');
-            icon.textContent = '+';
-        }, { once: true });
+        content.classList.remove('show');
+        footer.classList.remove('show');
+        icon.textContent = '+';
     } else {
-        // Плавное разворачивание
+
         content.classList.add('show');
         footer.classList.add('show');
         icon.textContent = '-';
 
-        // Устанавливаем начальную высоту и анимируем до полной высоты
-        content.style.maxHeight = '0';
-        setTimeout(() => {
-            content.style.maxHeight = content.scrollHeight + 'px';
-        }, 10);
 
-        // Проверка видимости и прокрутка после завершения анимации
-        content.addEventListener('transitionend', () => {
-            const footerRect = footer.getBoundingClientRect();
-            const isFooterVisible = (
-                footerRect.top >= 0 &&
-                footerRect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-            );
-
-            if (!isFooterVisible) {
-                footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
-            }
-        }, { once: true });
-
-        // Отслеживание изменений в DOM
-        const observer = new MutationObserver((mutationsList) => {
-            for (const mutation of mutationsList) {
-                if (mutation.type === 'childList') {
-                    const footerRect = footer.getBoundingClientRect();
-                    const isFooterVisible = (
-                        footerRect.top >= 0 &&
-                        footerRect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-                    );
-
-                    if (!isFooterVisible) {
-                        footer.scrollIntoView({ behavior: 'smooth', block: 'end' });
-                    }
-                }
-            }
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
         });
-
-        observer.observe(content, { childList: true, subtree: true });
-
-        // Остановка наблюдения при закрытии спойлера
-        content.addEventListener('hidden', () => {
-            observer.disconnect();
-        }, { once: true });
     }
 }
+
 calculateTotal();
 </script>
 </body>
@@ -509,5 +471,5 @@ calculateTotal();
 <footer>
 	<small>Об ошибках сообщайте <a href="https://t.me/mi_0014" target="_blank" style="color: #6C8EBF;">@mi_0014</a>.</small>
 </footer>
-
+	
 </html>

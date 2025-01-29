@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Получение значения</title>
+    <style>
+        /* Стили для подсказки */
+        #tooltip {
+            display: none; 
+            position: absolute; 
+            background-color: #fefefe; 
+            border: 1px solid #888; 
+            padding: 10px; 
+            z-index: 1000; 
+        }
+        .button {
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        let currentCheckboxId = null;
+        let quantities = {
+            buyBoxYes2: 1,
+            buyBoxYes3: 1,
+            buyBoxYes: 1,
+            buyBoxYes4: 1
+        };
+
+        function showTooltip(event, checkboxId) {
+            currentCheckboxId = checkboxId;
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 'px';
+            tooltip.style.top = event.pageY + 'px';
+            updateTooltipContent();
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+
+        function increaseQuantity() {
+            if (quantities[currentCheckboxId] < 5) {
+                quantities[currentCheckboxId]++;
+                updateTooltipContent();
+                calculateTotalPrice(); // Обновляем общую сумму при изменении количества
+            }
+        }
+
+        function decreaseQuantity() {
+            if (quantities[currentCheckboxId] > 1) {
+                quantities[currentCheckboxId]--;
+                updateTooltipContent();
+                calculateTotalPrice(); // Обновляем общую сумму при изменении количества
+            }
+        }
+
+        function updateTooltipContent() {
+            const selectedValue = getSelectedValue(currentCheckboxId);
+            document.getElementById('quantityDisplay').textContent = quantities[currentCheckboxId];
+            document.getElementById('costDisplay').textContent = selectedValue * quantities[currentCheckboxId];
+        }
+
+        function getSelectedValue(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            return checkbox.checked ? parseFloat(checkbox.value) : 0;
+        }
+
+        function confirmSelection() {
+            hideTooltip();
+            
+            // Обновляем общую сумму после подтверждения
+            calculateTotalPrice(); 
+        }
+
+        function calculateTotalPrice() {
+            // Суммируем значения всех отмеченных чекбоксов с учётом их количества
+            const buyBox = document.getElementById('buyBoxYes').checked ? parseFloat(document.getElementById('buyBoxYes').value) * quantities.buyBoxYes : 0;
+            const buyBox2 = document.getElementById('buyBoxYes2').checked ? parseFloat(document.getElementById('buyBoxYes2').value) * quantities.buyBoxYes2 : 0;
+            const buyBox3 = document.getElementById('buyBoxYes3').checked ? parseFloat(document.getElementById('buyBoxYes3').value) * quantities.buyBoxYes3 : 0;
+            const buyBox4 = document.getElementById('buyBoxYes4').checked ? parseFloat(document.getElementById('buyBoxYes4').value) * quantities.buyBoxYes4 : 0;
+
+            // Общая сумма
+            let totalPrice = buyBox + buyBox2 + buyBox3 + buyBox4;
+
+            // Отображаем общую сумму
+            document.getElementById('OneFinalPrice').textContent = totalPrice.toFixed(0);
+        }
+
+        window.onclick = function(event) {
+            const tooltip = document.getElementById('tooltip');
+            if (event.target == tooltip || tooltip.contains(event.target)) {
+                return; // Не скрываем, если кликнули внутри подсказки
+            }
+            
+            hideTooltip();
+        };
+
+        function checkCheckboxes(event, checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            
+            if (checkbox.checked) {
+                showTooltip(event, checkboxId);
+                event.stopPropagation(); // Остановить распространение события
+                quantities[checkboxId] = 1; // Сбрасываем количество при каждом новом выборе
+                updateTooltipContent(); // Обновляем содержимое подсказки
+                calculateTotalPrice(); // Обновляем общую сумму при открытии подсказки
+            } else {
+                hideTooltip(); // Скрываем подсказку, если галочка снята
+                calculateTotalPrice(); // Обновляем общую сумму при снятии галочки
+                quantities[checkboxId] = 1; // Сбрасываем количество для снятой галочки
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Выбор услуги</h1>
+
+    <input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500" onclick="checkCheckboxes(event, 'buyBoxYes2')">
+    <label for="buyBoxYes2">НОВ 
+        <small> - 5000</small>
+    </label><br>
+
+    <input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500" onclick="checkCheckboxes(event, 'buyBoxYes3')">
+    <label for="buyBoxYes3"><small>250</small></label><br>
+
+    <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300" onclick="checkCheckboxes(event, 'buyBoxYes')">
+    <label for="buyBoxYes"><small>1999</small></label><br>
+
+    <input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300" onclick="checkCheckboxes(event, 'buyBoxYes4')">
+    <label for="buyBoxYes4"><small>WiFi6 - 100</small></label><br>
+
+    <!-- Подсказка -->
+    <div id="tooltip">
+        <p>Количество: <button class="button" onclick="decreaseQuantity()">-</button>
+		   <span id="quantityDisplay">1</span> 
+           <button class="button" onclick="increaseQuantity()">+</button>
+        </p>
+        <p>Стоимость: <span id="costDisplay">0</span></p>
+        
+        <button class="button" onclick="confirmSelection()">Подтвердить</button>
+    </div>
+
+    <!-- Общая сумма -->
+    <h3>1 месяц : <span id='OneFinalPrice'>0</span> руб</h3>
+
+</body>
+</html>
+ 

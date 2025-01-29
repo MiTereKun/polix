@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 20 янв</title>
+    <title>Цены 30 янв</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#333;color:white;border-color:#555}}@media (max-width:295px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -14,13 +14,12 @@
 		@media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #404040; color: white; border: 1px solid #555; } }
 		.tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
 		
-		.spoiler{margin:8px 0 0;padding:0;width:100%}
-		.spoiler-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:bold;color:#333;padding:8px;background:#eaeaea;border-radius:4px;margin-bottom:8px}
-		.spoiler-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0;width:100%;margin:0}
-		.spoiler-content.show{max-height:1000px}
-		.spoiler-footer{text-align:right;font-size:.9em;color:#666;opacity:0;transition:opacity 0.3s ease-out;padding:0;margin:0;cursor:pointer}
-		.spoiler-footer.show{opacity:1}
-		.spoiler-icon{font-size:1.2em;margin-left:auto}
+		.spoiler{margin:8px 0 0;padding:0;width:100%}		.spoiler-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;color:#333;padding:8px;background:#eaeaea;border-radius:4px;margin-bottom:8px}
+		.spoiler-content{max-height:0;overflow:hidden;transition:max-height .2s ease-out;padding:0;width:100%;margin:0}
+		.spoiler-footer{text-align:right;font-size:.9em;color:#666;opacity:0;transition:opacity .2s ease-out;margin:0;cursor:pointer}
+		.spoiler-footer.show{opacity:1; padding-bottom: 10px;}
+		.spoiler-icon{font-size:1.2em;margin-left:auto;transition: transform .2s ease}
+		.spoiler-icon.rotate {transform: rotate(180deg);}
 		.price{float:right;position:relative;top:8px;white-space:nowrap}
 
 		@media (prefers-color-scheme: dark){ .spoiler-header{background:#555;color:#eee} .spoiler-footer{color:#aaa } }
@@ -51,30 +50,28 @@
 </div>
 
 <div class="question">
-	<label>Аренда нов приставки:</label>
-	<input type="radio" name="setTopBox" value="0" data-tariff2="0" id="setTopBoxNo" checked>
-	<label for="setTopBoxNo">Нет</label><br>
+	<label>Аренда новой приставки:</label><input type="radio" name="setTopBox" value="0" data-tariff2="0" id="setTopBoxNo" checked><label for="setTopBoxNo">Нет</label><br>
 
 	<input type="radio" name="setTopBox" value="120" data-tariff2="0" id="setTopBox1">
-	<label for="setTopBox1">1 приставка <small>(120 / 0 для 2)</small></label><br>
+	<label for="setTopBox1">1 приставка <small>(120 &#160 /&#160&#160 0 для 2 и 4)</small></label><br>
 
 	<input type="radio" name="setTopBox" value="240" data-tariff2="120" id="setTopBox2">
-	<label for="setTopBox2">2 приставки <small>(240 / 120 для 2)</small></label><br>
+	<label for="setTopBox2">2 приставки <small>(240 / 120 для 2 и 4)</small></label><br>
 
 	<input type="radio" name="setTopBox" value="360" data-tariff2="240" id="setTopBox3">
-	<label for="setTopBox3">3 приставки <small>(360 / 240 для 2)</small></label><br>
+	<label for="setTopBox3">3 приставки <small>(360 / 240 для 2 и 4)</small></label><br>
  
 	<input type="radio" name="setTopBox" value="480" data-tariff2="360" id="setTopBox4">
-	<label for="setTopBox4">4 приставки <small>(480 / 360 для 2)</small></label><br>
+	<label for="setTopBox4">4 приставки <small>(480 / 360 для 2 и 4)</small></label><br>
 </div>
 
 <div class="question">
     <label>Покупка и Рассрочки:</label><br>
     
     <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes">
-	<label for="buyRouterYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30"> 5G <small>- 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
+	<label for="buyRouterYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30"> <small>5G - 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
 	
-	<input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="30" height="19" />&#160&#160&#160&#160&#160&#160<small> - 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500"><label for="buyBoxYes3"><small>250</small></label>
+	<input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500"> <label for="buyBoxYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png " alt="" width="30" height="19" />&#160&#160&#160&#160&#160<small> - 5000</small></label>&#160<input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500"><label for="buyBoxYes3"><small>250</small></label>
 	</div>
 
 <div class="spoiler">
@@ -82,20 +79,20 @@
         <span>Нет на складе</span>
         <span class="spoiler-icon">+</span>
     </div>
-    <div class="spoiler-content">
-        <div class="question">
-            <input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2">
-            <label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 5G<small> - 3600</small></label>
-            <input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label>
-            <input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
+		<div class="spoiler-content">
+			<div class="question">
+				<input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2">
+				<label for="buyRouterYes2">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> <small>5G - 3600</small></label>
+				<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label>
+				<input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1"><label for="WiFi6_2"><small>295</small></label><br>
 
-            <input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3">
-            <label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> 6G <small> - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
+				<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3">
+				<label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0117/28/762e5750611a2a37ee976a2b79745728.png" alt="" width="30" height="30" /> <small>6G - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1"><label for="WiFi6"><small>450</small></label><br>
 
-            <input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300">
-            <label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png" alt="" width="30" height="19" /> <small>&#160&#160&#160&#160&#160&#160 - 1999</small></label>&#160<input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300"><label for="buyBoxYes4"><small>100</small></label>
-        </div>
-    </div>
+				<input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300">
+				<label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0117/f9/47c29a3393e81719fbd29505cfccaff9.png" alt="" width="30" height="19" /> <small>&#160&#160&#160&#160&#160- 1999</small></label> <input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300"><label for="buyBoxYes4"><small>100</small></label>
+			</div>
+		</div>
     <div class="spoiler-footer" onclick="toggleSpoiler(this.parentElement.querySelector('.spoiler-header'))">
         [свернуть]
     </div>
@@ -212,6 +209,8 @@ function calculateTotal() {
 	const additionalOneFinalPrice = isFamilySelected ? 480 : 0;
 	const additionalTotalFinalPrice = isFamilySelected ? 100 : 0;
     const dataTariff2 = parseFloat(document.querySelector('input[name=setTopBox]:checked')?.getAttribute('data-tariff2')) || 0;
+	const selectedSetTopBox = document.querySelector('input[name="setTopBox"]:checked');
+	const multirum = selectedSetTopBox?.value >= 240 ? 50 : 0;
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
     const data_discount = parseInt(selectedTariff.getAttribute('data-discount')) || 0;
     const discountTarif = parseFloat(selectedTariff.getAttribute('data-discount2')) || 0;
@@ -255,13 +254,13 @@ function calculateTotal() {
         OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + WiFi6 + WiFi6_1 + WiFi6_2 + 150;
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2;
         finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2;
-    } else if (selectedTariff.id === 'tariff2') {
-        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + 150 + additionalOneFinalPrice;
+    } else if (selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4') {
+        OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox4 + dataTariff2 + family + additionalOneFinalPrice + 150;
     totalPrice = tariff + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4 + additionalTotalFinalPrice;
     finalPrice = discountTarif + router + dataTariff2 + WiFi6 + WiFi6_1 + WiFi6_2 + family + buyBox4 + additionalTotalFinalPrice;
 	}
 	else {
-		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + 150 + additionalOneFinalPrice;
+		OneFinalPrice = discountTarif + router + buyRouter + buyRouter2 + buyRouter3 + buyBox + WiFi6 + WiFi6_1 + WiFi6_2 + buyBox2 + buyBox3 + buyBox4 + setTopBox + family + additionalOneFinalPrice + multirum + 150;
 		totalPrice = tariff + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family + additionalTotalFinalPrice;
 		finalPrice = discountTarif + router + setTopBox + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + family + additionalTotalFinalPrice;
 	}
@@ -315,7 +314,7 @@ function calculateTotal() {
 		} else if (dataInstallments === 2 || dataInstallments === 3 || dataInstallments === 4) {
 			yearWord = "года";
 		} else {
-			yearWord = "лет";
+			yearWord = "года";
 		}
 
 		if (isThirdTariff) {
@@ -365,14 +364,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const tooltipMotivation = document.getElementById('tooltip-motivation');
   const tooltipOk = document.getElementById('tooltip-ok');
 
-  // Функция для скрытия всех подсказок
   function hideAllTooltips() {
     tooltip.classList.remove('show');
     tooltipMotivation.classList.remove('show');
     tooltipOk.classList.remove('show');
   }
 
-  // Универсальная функция для отображения подсказок
   function showTooltip(element, content, tooltipElement, offsetY = 0) {
     const rect = element.getBoundingClientRect();
     tooltipElement.textContent = content;
@@ -382,7 +379,26 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(hideAllTooltips, 3000);
   }
 
-  // Обработчики для чекбоксов
+	function checkMultirumTooltip() {
+		const selectedSetTopBox = document.querySelector('input[name="setTopBox"]:checked');
+		const multirum = selectedSetTopBox?.value >= 240 ? 50 : 0;
+		const selectedTariff = document.querySelector('input[name="tariff"]:checked');
+
+		if (multirum === 50) {
+			if (selectedTariff && (selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4')) {
+				const message = "Мультирум 0 руб";
+				showTooltip(selectedSetTopBox, message, tooltipOk);
+			} else {
+				const message = "50 - 1 раз за мультирум\n0 для 2 и 4 тарифов";
+				showTooltip(selectedSetTopBox, message, tooltipOk);
+			}
+		}
+	}
+
+  document.querySelectorAll('input[name="setTopBox"]').forEach(radio => {
+    radio.addEventListener('change', checkMultirumTooltip);
+  });
+
   document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
     checkbox.addEventListener('click', function () {
       const rect = checkbox.getBoundingClientRect();
@@ -393,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (isTargetCheckbox && checkbox.checked) {
         const message = checkbox.name === 'serviceRouterRent' && checkbox.value === '120'
           ? "Калькулятор 120 есть выше.\nТут это считаться не будет!"
-          : "ок";
+          : "Ок";
         showTooltip(checkbox, message, tooltipOk);
       } else {
         tooltipOk.classList.remove('show');
@@ -409,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (installments2) {
-          showTooltip(checkbox, `мотивация ${installments2}`, tooltipMotivation, installments ? 40 : 0);
+          showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, installments ? 40 : 0);
         }
       } else {
         hideAllTooltips();
@@ -417,7 +433,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Обработчики для радиокнопок
   document.querySelectorAll('input[name="tariff"]').forEach(radio => {
     radio.addEventListener('click', function () {
       const value = parseFloat(radio.value) || 0;
@@ -433,14 +448,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Скрытие подсказок при клике вне элементов
   document.addEventListener('click', function (event) {
-    if (!event.target.matches('input[type=checkbox]') && !event.target.matches('input[name="tariff"]')) {
+    if (!event.target.matches('input[type=checkbox]') && !event.target.matches('input[name="tariff"]') && !event.target.matches('input[name="setTopBox"]')) {
       hideAllTooltips();
     }
   });
 });
-
 function toggleSpoiler(header) {
     const spoiler = header.parentElement;
     const content = spoiler.querySelector('.spoiler-content');
@@ -448,32 +461,44 @@ function toggleSpoiler(header) {
     const icon = header.querySelector('.spoiler-icon');
 
     if (content.classList.contains('show')) {
-        // Сворачивание
-        content.classList.remove('show');
-        footer.classList.remove('show');
-        icon.textContent = '+';
-    } else {
-        // Раскрытие
-        content.classList.add('show');
-        footer.classList.add('show');
-        icon.textContent = '-';
+    content.style.maxHeight = content.scrollHeight + 'px';    
+    icon.classList.remove('rotate');
+    setTimeout(() => {
+        content.style.maxHeight = '0';
+    }, 2);
+    
+    content.classList.remove('show');
+    footer.classList.remove('show');
+    icon.textContent = '+';
+	} else {
+		content.style.maxHeight = content.scrollHeight + 'px';		
+		icon.classList.add('rotate');
+		content.classList.add('show');
+		footer.classList.add('show');
+		icon.textContent = '-';
 
-        // Прокрутка к футеру спойлера с задержкой
-        setTimeout(() => {
-            footer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'end' // Прокрутка к нижней части элемента
-            });
-        }, 50); // Задержка для завершения анимации раскрытия
-    }
+		content.addEventListener('transitionend', () => {
+			footer.scrollIntoView({
+				behavior: 'smooth',
+				block: 'end'
+			});
+		}, { once: true });
+	}
+
+    content.addEventListener('transitionend', () => {
+        if (!content.classList.contains('show')) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = 'none';
+        }
+    }, { once: true });
 }
-
 calculateTotal();
 </script>
 </body>
 
 <footer>
-	<small>Об ошибках сообщайте <a href="https://t.me/mi_0014" target="_blank" style="color: #6C8EBF;">@mi_0014</a>.</small>
+	<small>Об ошибках сообщайте <a href="https://mi_0014.t.me" target="_blank" style="color: #6C8EBF;">@mi_0014</a>.</small>
 </footer>
 	
 </html>

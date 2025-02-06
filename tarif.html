@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 7 фев</title>
+    <title>Цены 5 фев</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#333;color:white;border-color:#555}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -31,7 +31,6 @@
 
 		@media (prefers-color-scheme: dark){ .spoiler-header{background:#555;color:#eee} .spoiler-footer{color:#aaa } }
 		
-		#container { width: 92px; height: 83px } /* Фиксация размеров контейнера */
 		#tooltip2 { position: absolute; background: #f0f0f0; color: black; border-radius: 4px; border: 1px solid #ccc; padding: 6px 8px; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; user-select: none; cursor: default; }
 		@media (prefers-color-scheme: dark) { #tooltip2 { background: #404040; color: white; border: 1px solid #555; } }
 		#tooltip2.show { opacity: 1; visibility: visible; }
@@ -399,7 +398,7 @@ function calculateTotal() {
 		let dataInstallments = 0;
 
 		const isThirdTariff = document.getElementById('tariff3').checked;
-		const isTariff112 = document.getElementById('tariff112').checked; // Добавлено для тарифа 112
+		const isTariff112 = document.getElementById('tariff112').checked;
 
 		installmentsCheckboxes.forEach(checkbox => {
 			if (checkbox.checked) {
@@ -790,20 +789,16 @@ function checkMNP() {
   }
 }
 
-function check112() {
-  const selectedTariff = document.querySelector('input[name=tariff]:checked');
-  if (selectedTariff) {
-    const isMnpChecked = document.getElementById('MNP').checked;
-    if (selectedTariff.id === 'tariff112') {
-      if (isMnpChecked) {
-        const mnpMessage = "12 месяцев бесплатный интернет.\nОплата год 712\nЧерез год - 890";
-        showTooltip3(null, 'OneFinalPrice', mnpMessage);
-      }
-    } else if (selectedTariff.id != 'tariff112') {
-      return
+document.getElementById('tariff112').addEventListener('change', function() {
+    if (this.checked) {
+        check112();
     }
-  }
-}
+});
+
+function check112() {
+	const mnpMessage = "Входт новый роутер 5G!";
+    showTooltip3(null, 'OneFinalPrice', mnpMessage);
+    }
 
 function toggleSpoiler(header) {
     const spoiler = header.parentElement;

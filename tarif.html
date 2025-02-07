@@ -653,14 +653,21 @@ document.addEventListener('DOMContentLoaded', function () {
 			const installments2 = checkbox.getAttribute('data-installments2');
 
 			if (checkbox.checked) {
-				if (installments && installments !== '0') {
+				if (installments === '0') {
+
+					if (installments2) {
+						setTimeout(() => {
+							showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+						}, 50);
+					}
+				} else {
+=
 					showTooltip(checkbox, `${value} на ${installments} г.`, tooltip, 69, 18);
-				} 
-				
-				// Проверка, если installments равно 0
-				if (installments === '0' && installments2) {
+					
 					setTimeout(() => {
-						showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+						if (installments2) {
+							showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+						}
 					}, 50);
 				}
 			} else {

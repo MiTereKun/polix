@@ -312,7 +312,7 @@ function calculateTotal() {
 	}
 
 	let familyId = document.querySelector('input[name="family"]:checked')?.id;
-	if (isFamilySelected && isMnpChecked && discountDictionary2[familyId]) {
+	if (isFamilySelected && isMnpChecked && discountDictionary2[familyId] && discountDictionary[tariffId]) {
 		family = discountDictionary2[familyId].family;
 		startFamily = 0
 	}

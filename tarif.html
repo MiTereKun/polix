@@ -648,7 +648,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
 	  checkbox.addEventListener('click', function() {
-		if (checkbox.id === 'MNP') {
+		const validIds = ['buyRouterYes', 'router', 'buyBoxYes2', 'buyBoxYes3', 'buyRouterYes2', 'WiFi6_1', 'WiFi6_2', 'buyBoxYes', 'buyBoxYes4'];
+		
+		if (!validIds.includes(checkbox.id)) {
 		  return;
 		}
 
@@ -701,7 +703,7 @@ function showTooltip3(event, targetElementId, message) {
     setTimeout(() => {
         tooltipOk.classList.add('show');
     }, 10);
-    
+
     const targetElement = document.getElementById(targetElementId);
     const rect = targetElement.getBoundingClientRect();
     const tooltipWidth = tooltipOk.offsetWidth;
@@ -725,6 +727,7 @@ function showTooltip3(event, targetElementId, message) {
     tooltipOk.innerText = message;
 
     tooltipTimeout = setTimeout(hideTooltip, 3000);
+    
     document.addEventListener('click', hideTooltip);
 }
 
@@ -732,7 +735,7 @@ function hideTooltip(event) {
     const tooltipOk = document.getElementById('tooltipOk');
     const currentTime = Date.now();
 
-    if (currentTime - activationTime < 1) {
+    if (currentTime - activationTime < 1000) {
         return;
     }
 

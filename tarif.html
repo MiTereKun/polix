@@ -90,10 +90,10 @@
     </div>
 		<div class="spoiler-content"><br>
 			<label>Роутер не на складе:</label><br>
-			<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3" data-installments2="500">
+			<input type="checkbox" name="buyRouter3" value="5400" id="buyRouterYes3" data-installments2="500" data-installments="0">
 			<label for="buyRouterYes3">НОВ <img src="https://i124.fastpic.org/big/2025/0206/e1/73c9fb5060d3522edc1d5091817bd6e1.png" alt="" width="30" height="30"> <small>6G - 5400</small></label>&#160<input type="checkbox" name="WiFi6" value="450" id="WiFi6" data-installments="1" data-installments2="500"><label for="WiFi6"><small>450</small></label>
 			<br><br><label>Услуги:</label><br><br>
-			<input type="checkbox" name="RouterSetup" value="200" id="RouterSetup" style="margin-top: 0px;"><label for="RouterSetup">Настройка роутера - 200</label><br>
+			<input type="checkbox" name="RouterSetup" value="200" id="RouterSetup" style="margin-top: 0px;" data-installments="0" data-installments2="0"><label for="RouterSetup">Настройка роутера - 200</label><br>
 			<br><label>Тарифы для сервисов:</label><br><br>
 			<input type="radio" name="tariff" value="950" id="tariff2" data-discount="12" data-discount2="780">
 			<label for="tariff2">2: 500 мин, 35 Гб, 100 SMS</label><br>
@@ -661,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						}, 50);
 					}
 				} else {
+
 					showTooltip(checkbox, `${value} на ${installments} г.`, tooltip, 69, 18);
 					
 					setTimeout(() => {

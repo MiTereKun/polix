@@ -647,33 +647,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 	document.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
-		checkbox.addEventListener('click', function() {
-			const value = checkbox.value;
-			const installments = checkbox.getAttribute('data-installments');
-			const installments2 = checkbox.getAttribute('data-installments2');
+	  checkbox.addEventListener('click', function() {
+		if (checkbox.id === 'MNP') {
+		  return;
+		}
 
-			if (checkbox.checked) {
-				if (installments === '0') {
+		const value = checkbox.value;
+		const installments = checkbox.getAttribute('data-installments');
+		const installments2 = checkbox.getAttribute('data-installments2');
 
-					if (installments2) {
-						setTimeout(() => {
-							showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
-						}, 50);
-					}
-				} else {
+		if (value === '200') {
+		  return;
+		}
 
-					showTooltip(checkbox, `${value} на ${installments} г.`, tooltip, 69, 18);
-					
-					setTimeout(() => {
-						if (installments2) {
-							showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
-						}
-					}, 50);
-				}
-			} else {
-				hideAllTooltips();
+		if (checkbox.checked) {
+		  if (installments === '0') {
+			if (installments2) {
+			  setTimeout(() => {
+				showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+			  }, 50);
 			}
-		});
+		  } else {
+			showTooltip(checkbox, `${value} на ${installments} г.`, tooltip, 69, 18);
+
+			setTimeout(() => {
+			  if (installments2) {
+				showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+			  }
+			}, 50);
+		  }
+		} else {
+		  hideAllTooltips();
+		}
+	  });
 	});
 });
 

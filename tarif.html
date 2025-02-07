@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 5 фев</title>
+    <title>Цены 7 фев</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#333;color:white;border-color:#555}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -16,6 +16,10 @@
 		.tooltip, .tooltip-motivation { position: absolute; background: #f0f0f0; color: black; padding: 8px 16px; border-radius: 4px; font-size: 14px; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; z-index: 1000; border: 1px solid #ccc; white-space: pre-line; user-select: none; cursor: default; }
 		@media (prefers-color-scheme: dark) { .tooltip, .tooltip-motivation { background: #404040; color: white; border: 1px solid #555; } }
 		.tooltip.show, .tooltip-motivation.show { opacity: 1; visibility: visible; }
+		#tooltip2 { position: absolute; background: #f0f0f0; color: black; border-radius: 4px; border: 1px solid #ccc; padding: 6px 8px; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; user-select: none; cursor: default; }
+		@media (prefers-color-scheme: dark) { #tooltip2 { background: #404040; color: white; border: 1px solid #555; } }
+		#tooltip2.show { opacity: 1; visibility: visible; }
+		#tooltip2 p { margin: 7px 0; }
 		
 		.spoiler{margin:8px 0 0;padding:0;width:100%}
 		.spoiler-header{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;color:#333;padding:8px;background:#eaeaea;border-radius:4px;margin-bottom:0px}
@@ -24,17 +28,11 @@
 		.spoiler-footer.show{opacity:1; padding-bottom: 10px;}
 		.spoiler-icon{font-size:1.2em;margin-left:auto;transition: transform .2s ease}
 		.spoiler-icon.rotate {transform: rotate(180deg);}
+		@media (prefers-color-scheme: dark){ .spoiler-header{background:#555;color:#eee} .spoiler-footer{color:#aaa } }
 		.price{float:right;position:relative;top:8px;white-space:nowrap}
 		.price2{float:right;position:relative;top:0px;white-space:nowrap}
 		.price3{float:right;position:relative;top:-16px;white-space:nowrap}
 		.smile{font-size: 13px;}
-
-		@media (prefers-color-scheme: dark){ .spoiler-header{background:#555;color:#eee} .spoiler-footer{color:#aaa } }
-		
-		#tooltip2 { position: absolute; background: #f0f0f0; color: black; border-radius: 4px; border: 1px solid #ccc; padding: 6px 8px; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s; user-select: none; cursor: default; }
-		@media (prefers-color-scheme: dark) { #tooltip2 { background: #404040; color: white; border: 1px solid #555; } }
-		#tooltip2.show { opacity: 1; visibility: visible; }
-		#tooltip2 p { margin: 7px 0; }
 
 	</style>
 </head>
@@ -73,15 +71,15 @@
 <div class="question">
     <label>Покупки&#160&#160&#160&#160 и &#160&#160&#160&#160&#160 Рассрочки:</label><br>
     
-    <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes" data-installments2="300">
+    <input type="checkbox" name="buyRouter" value="1700" id="buyRouterYes" data-installments="0" data-installments2="300">
 	<label for="buyRouterYes">Б/У&#160&#160&#160<img alt="" width="30" height="30" src="https://i124.fastpic.org/big/2025/0206/e1/73c9fb5060d3522edc1d5091817bd6e1.png"> <small>5G - 1700</small></label> <input type="checkbox" name="Router" value="100" id="router" data-installments="2"><label for="router"><small>100</small></label><br>
-	<input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments2="500" onclick="checkCheckboxes2(event, 'buyBoxYes2')" style="margin-bottom: 15px;"><label for="buyBoxYes2"> НОВ  <img alt="" width="30" height="19" src="https://i124.fastpic.org/big/2025/0206/81/2705875bd97b99af94b0e0d395d0a181.png ">&#160&#160&#160&#160&#160<small> - 5000</small></label> <input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500" onclick="checkCheckboxes2(event, 'buyBoxYes3')"><label for="buyBoxYes3"><small>250</small></label><br>
+	<input type="checkbox" name="buyBox" value="5000" id="buyBoxYes2" data-installments="0" data-installments2="500" onclick="checkCheckboxes2(event, 'buyBoxYes2')" style="margin-bottom: 15px;"><label for="buyBoxYes2"> НОВ  <img alt="" width="30" height="19" src="https://i124.fastpic.org/big/2025/0206/81/2705875bd97b99af94b0e0d395d0a181.png ">&#160&#160&#160&#160&#160<small> - 5000</small></label> <input type="checkbox" name="buyBox3" value="250" id="buyBoxYes3" data-installments="2" data-installments2="500" onclick="checkCheckboxes2(event, 'buyBoxYes3')"><label for="buyBoxYes3"><small>250</small></label><br>
 	<label>Пришли &#160&#160&#160 в &nbsp&#160&#160&#160&#160&#160 феврале:</label><br>
-	<input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2" data-installments2="500">
+	<input type="checkbox" name="buyRouter2" value="3600" id="buyRouterYes2" data-installments="0" data-installments2="500">
 	<label for="buyRouterYes2">НОВ <img alt="" style="width: 41px;padding-left: 0px;border-left-width: 0px;border-left-style: solid;margin-left: -6px;padding-right: 0px;margin-right: -6px;" src="https://i124.fastpic.org/big/2025/0206/63/89b76a861fdae09163b87c9e3701a563.png"> <small>5G - 3600</small></label>
 	<input type="checkbox" name="WiFi6" value="100" id="WiFi6_1" data-installments="3"><label for="WiFi6_1"><small>100</small></label>
 	<input type="checkbox" name="WiFi6" value="295" id="WiFi6_2" data-installments="1" data-installments2="500"><label for="WiFi6_2"><small>295</small></label><br>
-	<input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments2="300" onclick="checkCheckboxes2(event, 'buyBoxYes')">
+	<input type="checkbox" name="buyBox" value="1999" id="buyBoxYes" data-installments="0" data-installments2="300" onclick="checkCheckboxes2(event, 'buyBoxYes')">
 	<label for="buyBoxYes">Б/У&#160&#160&#160<img src="https://i124.fastpic.org/big/2025/0206/81/2705875bd97b99af94b0e0d395d0a181.png" alt="" width="30" height="19"> <small style="padding-right: 0px;padding-left: 20px;">- 1999</small></label> <input type="checkbox" name="WiFi6" value="100" id="buyBoxYes4" data-installments="2" data-installments2="300" onclick="checkCheckboxes2(event, 'buyBoxYes4')"><label for="buyBoxYes4"><small>100</small></label>
 </div>
 
@@ -655,14 +653,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			const installments2 = checkbox.getAttribute('data-installments2');
 
 			if (checkbox.checked) {
-
-				if (installments) {
+				if (installments && installments !== '0') {
 					showTooltip(checkbox, `${value} на ${installments} г.`, tooltip, 69, 18);
-					
+				} 
+				
+				// Проверка, если installments равно 0
+				if (installments === '0' && installments2) {
 					setTimeout(() => {
-						if (installments2) {
-							showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
-						}
+						showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
 					}, 50);
 				}
 			} else {

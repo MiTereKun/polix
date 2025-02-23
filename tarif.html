@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 12 фев</title>
+    <title>Цены 23 фев</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#1a1a1a;color:white;border-color:#3b3b3b}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -117,12 +117,15 @@
 
 <div class="question">
 	<hr>
-	<input type="radio" name="discount" value="0" id="noDiscount" checked>
-	<label for="noDiscount">Без доп акций и скидок</label><br>
+	<input type='radio' name='discount' id='SI' checked>
+	<label for='SI'>от КЦ - скидка 50% на 1 г<br><small>&#160&#160&#160&#160&#160&#160&#160Продажа от СИ - скидка на 2 м</small></label><br>
+	
 	<input type='radio' name='discount' id='MNP'>
 	<label for='MNP'>MNP &#160&#160- скидка 50% на 4 м</label><br>
-	<input type='radio' name='discount' id='SI'>
-	<label for='SI'>от СИ - скидка 50% на 2 м</label><br><br>
+	
+	<input type="radio" name="discount" value="0" id="noDiscount">
+	<label for="noDiscount">Без доп акций и скидок</label><br><br>
+	
 	<input type="checkbox" name="RouterSetup" value="200" id="RouterSetup" style="margin-top: 0px;" data-installments="0" data-installments2="0"><label for="RouterSetup">Настройка роутера - 200</label><br>
 </div>
 
@@ -291,8 +294,8 @@ function calculateTotal() {
 	};	
 	
 	const discountDictionary3 = {
-		'tariff7': { data_discount: 2, data_discount2: 525 },
-		'tariff1': { data_discount: 2, data_discount2: 425 }
+		'tariff7': { data_discount: 12, data_discount2: 525 },
+		'tariff1': { data_discount: 12, data_discount2: 425 }
 	};
 
 	const discountDictionary2 = {

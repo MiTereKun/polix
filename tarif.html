@@ -79,7 +79,7 @@
     
     <input type="checkbox" name="buyRouter" value="3500" id="buyRouterYes" data-installments="0" data-installments2="300" style="margin-bottom: 10px;">
 	<label for="buyRouterYes"><small>Б/У</small>&#160&#160&#160<img alt="" width="30" height="30" src="https://i124.fastpic.org/big/2025/0206/e1/73c9fb5060d3522edc1d5091817bd6e1.png"> <small>5G - 2400</small></label> <input type="checkbox" name="Router" value="135" id="router" data-installments="2"><label for="router"><small>135</small></label><br>
-	<input type="checkbox" name="buyBox" value="3500" id="buyBoxYes2" data-installments="0" data-installments2="500" onclick="checkCheckboxes2(event, 'buyBoxYes2')" style="margin-bottom: 8px;"><label for="buyBoxYes2"> <small>ВСЕ</small>  <img alt="" width="30" height="19" src="https://i124.fastpic.org/big/2025/0206/81/2705875bd97b99af94b0e0d395d0a181.png" style="padding-left: 3px;"<input type="checkbox" name="buyRouter" value="3500" id="buyRouterYes" data-installments="0" data-installments2="300" style="margin-bottom: 5px;">&#160&#160&#160&#160&#160<small> - 3500</small></label> <input type="checkbox" name="buyBox3" value="350" id="buyBoxYes3" data-installments="1" data-installments2="300" onclick="checkCheckboxes2(event, 'buyBoxYes3')"><label for="buyBoxYes3"><small>350</small></label><input type="checkbox" name="WiFi6" value="135" id="buyBoxYes4" data-installments="3" onclick="checkCheckboxes2(event, 'buyBoxYes4')"><label for="buyBoxYes4"><small>135</small></label><br>
+	<input type="checkbox" name="buyBox" value="3500" id="buyBoxYes2" data-installments="0" data-installments2="300-500" onclick="checkCheckboxes2(event, 'buyBoxYes2')" style="margin-bottom: 8px;"><label for="buyBoxYes2"> <small>ВСЕ</small>  <img alt="" width="30" height="19" src="https://i124.fastpic.org/big/2025/0206/81/2705875bd97b99af94b0e0d395d0a181.png" style="padding-left: 3px;"<input type="checkbox" name="buyRouter" value="3500" id="buyRouterYes" data-installments="0" data-installments2="300" style="margin-bottom: 5px;">&#160&#160&#160&#160&#160<small> - 3500</small></label> <input type="checkbox" name="buyBox3" value="350" id="buyBoxYes3" data-installments="1" data-installments2="300" onclick="checkCheckboxes2(event, 'buyBoxYes3')"><label for="buyBoxYes3"><small>350</small></label><input type="checkbox" name="WiFi6" value="135" id="buyBoxYes4" data-installments="3" onclick="checkCheckboxes2(event, 'buyBoxYes4')"><label for="buyBoxYes4"><small>135</small></label><br>
 	<input type="checkbox" name="buyRouter2" value="4300" id="buyRouterYes2" data-installments="0" data-installments2="500">
 	<label for="buyRouterYes2"><small>НОВ</small> <img alt="" style="width: 41px;padding-left: 0px;border-left-width: 0px;border-left-style: solid;margin-left: -6px;padding-right: 0px;margin-right: -6px;" src="https://i124.fastpic.org/big/2025/0206/63/89b76a861fdae09163b87c9e3701a563.png"> <small>5G - 4300</small></label>
 	<input type="checkbox" name="WiFi6" value="400" id="WiFi6_2" data-installments="1" data-installments2="500" style="margin-left: 6px;"><label for="WiFi6_2"><small>400</small></label>
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		  if (installments === '0') {
 			if (installments2) {
 			  setTimeout(() => {
-				showTooltip(checkbox, `Мотивация ${installments2}`, tooltipMotivation, 103, 18);
+				showTooltip(checkbox, `Мотив ${installments2}`, tooltipMotivation, 103, 18);
 			  }, 50);
 			}
 		  } else {

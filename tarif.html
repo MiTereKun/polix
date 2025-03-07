@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 07 март</title>
+    <title>Цены 05 март</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#1a1a1a;color:white;border-color:#3b3b3b}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -80,7 +80,7 @@
   <!-- Б/У -->
   <tr>
     <td style="padding: 0px">
-      <input type="checkbox" name="buyRouter" value="3500" id="buyRouterYes" data-installments="0" data-installments2="300" style="margin-right: 0px;">
+      <input type="checkbox" name="buyRouter" value="2400" id="buyRouterYes" data-installments="0" data-installments2="300" style="margin-right: 0px;">
       <label for="buyRouterYes"><small>&nbsp;Б/У</small></label>
     </td>
     <td style="padding: 0px; vertical-align: middle;">
@@ -275,6 +275,7 @@
 				<hr>
 				<p>Гарантия у нов оборудования <span class="price2">- год</span></p>
 				<p>Гарантия у б/у оборудования <span class="price2">- пол года</span></p>
+				<a class="back-button2" href="https://polix.pro/ports">polix.pro/ports</a><span class="price3">- порты GW</span><br>
 				<a class="back-button2" href="tel:+79167618888">+79167618888</a><span class="price3">- поддержка систем МТС</span>
 			</div>
 	</div>
@@ -422,12 +423,12 @@ function calculateTotal() {
     if (selectedTariff.id === 'tariff3') {
         OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + startIt;
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
-        finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;;
+        finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
 
     } else if (selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4') {
         OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + buyBox + buyBox2 + StartFamily + AddFamily + startIt;
-        totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3; + family + buyBox3 + buyBox4;
-        finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3; + family + buyBox3 + buyBox4;
+        totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + buyBox3 + buyBox4;
+        finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + buyBox3 + buyBox4;
 
     }
 	else if (selectedTariff.id === 'tariff112') {
@@ -437,8 +438,8 @@ function calculateTotal() {
 
     } else {
         OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + buyBox + buyBox2 + StartFamily + AddFamily + multirum + startIt;
-        totalPrice = tariff + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3; + family + multirum;
-        finalPrice = discountTarif + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3; + family + multirum;
+        totalPrice = tariff + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + multirum;
+        finalPrice = discountTarif + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + multirum;
     }
 
     document.getElementById('OneFinalPrice').innerText = OneFinalPrice.toFixed(0);

@@ -74,8 +74,8 @@
 <body>
   <div class="container">
     <button id="startButton" data-sound="open">Запустить</button>
-    <img src="1fon.png" id="background1" class="background" alt="Фон 1">
-    <img src="2fon.png" id="background2" class="background" alt="Фон 2">
+    <img src="1fon.webp" id="background1" class="background" alt="Фон 1">
+    <img src="2fon.webp" id="background2" class="background" alt="Фон 2">
 	<a href="#link1" class="menu-button" style="top:262px;left:321px"><img src="1.png" data-sound="sound1" data-content="content1" style="width:32px"></a>
 	<a href="#link2" class="menu-button" style="top:260px;left:370px"><img src="2.png" data-sound="sound2" data-content="content2" style="width:44.75px"></a>
 	<a href="#link6" class="menu-button" style="top:347px;left:424px"><img src="6.png" data-sound="sound6" data-content="content6" style="width: 70.683px;"></a>
@@ -93,14 +93,11 @@
       <div id="content6" class="modal-content"><iframe src="https://vkvideo.ru/video_ext.php?oid=-122673850&id=456250427&hash=feaccbb29515e86f" width="640" height="360" frameborder="0" allowfullscreen="1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe></div>
     </div>
   </div>
-
-  <script>
-  
+<script>
 function initAnimation() {
     const container = document.querySelector('.container');
     const tenImg = document.createElement('img');
     
-    // Базовая настройка элемента
     tenImg.id = 'ten-animation';
     tenImg.src = 'ten.png';
     tenImg.style.cssText = `
@@ -110,10 +107,9 @@ function initAnimation() {
         width: auto;
         height: auto;
         opacity: 0.8;
-        transform: translate(-100%, 100%); // Начальная позиция вне видимости
+        transform: translate(-100%, 100%);
     `;
 
-    // Добавляем стили анимации
     const style = document.createElement('style');
     style.textContent = `
         @keyframes diagonalMove {
@@ -125,19 +121,16 @@ function initAnimation() {
     document.head.appendChild(style);
     container.appendChild(tenImg);
 
-    // Функция запуска анимации
     function runAnimation() {
         tenImg.style.animation = 'diagonalMove 10s linear';
         setTimeout(() => {
-            tenImg.style.animation = ''; // Сбрасываем анимацию
+            tenImg.style.animation = '';
         }, 10000);
     }
 
-    // Запускаем первый раз сразу
     runAnimation();
     
-    // Устанавливаем интервал повторения
-    setInterval(runAnimation, 120000); // 2 минуты = 120000 мс
+    setInterval(runAnimation, 120000);
 }
   
       const sounds = {
@@ -276,6 +269,6 @@ function startExperience() {
         closeModal();
       }
     });
-	  </script>
+</script>
 </body>
 </html>

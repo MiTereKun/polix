@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 05 март</title>
+    <title>Цены 11 мая</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#1a1a1a;color:white;border-color:#3b3b3b}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -172,7 +172,7 @@
     <input type="radio" name="family" value="1800" data-family="2400" id="family4">
     <label for="family4">4</label>
 	<input type="radio" name="family" value="2250" data-family="3000" id="family5">
-    <label for="family5">5</label>
+    <label for="family5">5</label><br>
 </div>
 
 <div class='result'>
@@ -226,7 +226,10 @@
 			<div class="question">
 				<small>
 					<input type="checkbox" name="serviceRouterRent" value="120" id="serviceRouterRent" onclick="checkCheckboxes2(event, 'serviceRouterRent')">
-					<label for="serviceRouterRent">Аренда роутера / Приставки<span class="price">- 120</span></label>
+					<label for="serviceRouterRent">Аренда роутера / Приставки<span class="price">- 120</span></label><br>
+					
+					<a>ᅠᅠАренда для конвергентов<span class="price">- 135</span><a><br>
+					<a>ᅠᅠАренда для 3 тарифа<span class="price">- 150</span><a>
 				</small><br>
 					<div class='result'>
 						<h3><span id="ServisPrise4"></span></h3>
@@ -524,7 +527,7 @@ function calculateTotal() {
 		const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 		const formattedDate = endDate.toLocaleDateString('ru-RU', options);
 		
-		discountEndDateElement.innerText = `с ± ${formattedDate} : `;
+		discountEndDateElement.innerText = `после\u2003\u2002 : `;
 	}
 }
 
@@ -993,7 +996,7 @@ function CheckFamili() {
     if (AddFamily === 0) {
         FamiliMessage = `в месяц : ${family}\n через год : ${familyALL}`;
     } else {
-        FamiliMessage = `1 оплата : ${AddFamilyAll}\nв месяц : ${family}`;
+        FamiliMessage = `1 оплата : ${AddFamilyAll}\nв месяц : ${family}\nСкорее всего скидка`;
     }
 
     showTooltip4(null, 'family2', FamiliMessage);

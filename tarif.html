@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цены 11 мая</title>
+    <title>Цены 19 июня</title>
 	<style>
 		body{font-family:Arial,sans-serif;margin:10px 10px 10px 10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}.question{margin-bottom:20px}.result{font-weight:bold;margin-top:15px}@media (prefers-color-scheme: dark){body{background-color:#1a1a1a;color:white;border-color:#3b3b3b}}@media (max-width:276px){body{font-size:13px}}@media (min-width:550px){body{margin:10px 10px 10px 10px;margin-top:8px}}@media (max-width:550px){body{margin:10px auto 10px auto}}
 		.back-button{display:block;margin:8px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
@@ -64,9 +64,10 @@
 	
 	<input type="radio" name="tariff" value="1050" id="tariff7" data-discount="0" data-discount2="1050">
     <label for="tariff7">7&#160&#160&#160&#160: 1200 мин, 50 Гб, 50 SMS</label><br>
-    
-    <input type="radio" name="tariff" value="650" id="tariff3" data-discount="0" data-discount2="650" style="margin-bottom: 10px;">
+    <input type="radio" name="tariff" value="650" id="tariff3" data-discount="0" data-discount2="650">
     <label for="tariff3">3&#160&#160: 0 мин, 1 раз 30 Гб, 0 SMS</label><br>
+	<input type="radio" name="tariff" value="800" id="tariff5" data-discount="6" data-discount2="720" style="margin-bottom: 10px;">
+    <label for="tariff5">РИИЛ:&nbsp50 мин, 50 Гб, 10 SMS</label><br>
 	<label>Тарифы для сервисов или от КЦ:</label><br>
 	<input type="radio" name="tariff" value="950" id="tariff2" data-discount="12" data-discount2="780" style="margin-top: 10px;">
 	<label for="tariff2">2: 500 мин, 35 Гб, 100 SMS</label><br>
@@ -195,6 +196,7 @@
 	<label for="noDiscount">Без доп акций и скидок</label><br><br>
 	
 	<input type="checkbox" name="RouterSetup" value="200" id="RouterSetup" style="margin-top: 0px;" data-installments="0" data-installments2="0"><label for="RouterSetup">Настройка роутера - 200</label><br>
+	<input type="checkbox" name="KamSetup" value="290" id="KamSetup" style="margin-top: 0px;" data-installments="0" data-installments2="0"><label for="KamSetup">Продажа камеры &nbsp;&nbsp;&nbsp- 290</label><br>
 </div>
 
 <hr>
@@ -342,6 +344,7 @@ function calculateTotal() {
 	const serviceEquipmentReplace = document.getElementById('serviceEquipmentReplace').checked ? parseFloat(document.getElementById('serviceEquipmentReplace').value) * quantities.serviceEquipmentReplace : 0;
 	const serviceCableInstall = document.getElementById('serviceCableInstall').checked ? parseFloat(document.getElementById('serviceCableInstall').value) * quantities.serviceCableInstall : 0;
 	const routerSetup = document.getElementById('RouterSetup').checked ? parseFloat(document.getElementById('RouterSetup').value) : 0;
+	const KamSetup = document.getElementById('KamSetup').checked ? parseFloat(document.getElementById('KamSetup').value) : 0;
 	const ServisPrise = serviceDeviceInstall + serviceRemoteReplace + serviceEquipmentReplace + serviceCableInstall;
 	const ServisPrise2 = serviceRouterBuy + serviceSetTopBoxBuy + serviceRouterRent;
 	const ServisPrise4 = serviceRouterRent;
@@ -424,23 +427,23 @@ function calculateTotal() {
     let OneFinalPrice, totalPrice, finalPrice;
 	
     if (selectedTariff.id === 'tariff3') {
-        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + startIt;
+        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + KamSetup + startIt;
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
         finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
 
     } else if (selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4') {
-        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + buyBox + buyBox2 + StartFamily + AddFamily + startIt;
+        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + KamSetup + buyBox + buyBox2 + StartFamily + AddFamily + startIt;
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + buyBox3 + buyBox4;
         finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + buyBox3 + buyBox4;
 
     }
 	else if (selectedTariff.id === 'tariff112') {
-        OneFinalPrice = discountTarif + buyRouter + buyRouter3 + routerSetup + buyBox + buyBox2 + StartFamily + AddFamily + multirum + startIt;
+        OneFinalPrice = discountTarif + buyRouter + buyRouter3 + routerSetup + KamSetup + buyBox + buyBox2 + StartFamily + AddFamily + multirum + startIt;
         totalPrice = tariff + router + buyBox3 + buyBox4 + WiFi6 + family + multirum;
         finalPrice = discountTarif + router + buyBox3 + buyBox4 + WiFi6 + family + multirum;
 
     } else {
-        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + buyBox + buyBox2 + StartFamily + AddFamily + multirum + startIt;
+        OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + KamSetup + buyBox + buyBox2 + StartFamily + AddFamily + multirum + startIt;
         totalPrice = tariff + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + multirum;
         finalPrice = discountTarif + router + buyBox3 + buyBox4 + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3 + family + multirum;
     }
@@ -957,16 +960,21 @@ function check112() {
     showTooltip3(null, 'finalPrice', mnpMessage);
     }
 	
-document.getElementById('tariff3').addEventListener('change', function() {
-    if (this.checked) {
-        check3();
+const messagesss = {
+    tariff3: "Не входят приставки и семья",
+    tariff5: "Не входят приставки\n Скидка на 6 м"
+};
+
+['tariff3', 'tariff5'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('change', function() {
+            if (this.checked) {
+                showTooltip3(null, 'finalPrice', messagesss[id]);
+            }
+        });
     }
 });
-
-function check3() {
-	const mnpMessage = "Не входят приставки и семья";
-    showTooltip3(null, 'finalPrice', mnpMessage);
-    }
 	
 document.getElementById('tariff2').addEventListener('change', function() {
     if (this.checked) {

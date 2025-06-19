@@ -8,7 +8,7 @@
         body {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align: center;
             height: 100vh;
             background-color: #f0f0f0;
         }
@@ -28,23 +28,43 @@
             cursor: pointer;
             transition: background-color 1s ease, transform 1s ease;
         }
+		.button_2 {
+            padding: 20px 40px;
+            font-size: 18px;
+            color: white;
+            background-color: #005244;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 1s ease, transform 1s ease;
+        }
         .button:hover {
             background-color: #5b8c49;
         }
         .button:active {
             transform: scale(0.95);
         }
-        .spoiler {
-            display: none;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-        }
+		.button_2:hover {
+			background-color: #68b094; /* цвет при наведении для button_2 */
+		}
+
+		.button_2:active {
+			transform: scale(0.95);
+		}
+		.spoiler {
+			display: none;
+			padding: 10px;
+			width: 850px;
+			font-size: 21px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			margin: auto;
+		}
         .spoiler-header {
             cursor: pointer;
             color: #007BFF;
             text-decoration: underline;
-            font-size: 18px; 
+            font-size: 20px; 
         }
     </style>
     <script>
@@ -66,22 +86,26 @@
 <body>
 
 <div class="wrapper">
-    <button class="button" onclick="window.open('https://polix.pro/gd', '_blank')">Ютуб на ПК</button>
-    <button class="button" onclick="window.open('https://github.com/dovecoteescapee/ByeDPIAndroid/releases', '_blank')">Обход сайтов без Ютуба на ПК</button>
-    <button class="button" onclick="window.open('https://polix.pro/gd3', '_blank')">Ютуб чисто на хром (около 2 часа)</button>
-    <button class="button" onclick="window.open('https://px6.me', '_blank')">Прокси за 100 руб месяц<br>(нужно покупать IpV4 и использовать например фаерфокс, или расширении хром на подобии Simple Proxy Switcher)</button>
-    <button class="button" onclick="openLinkAndToggleSpoiler('https://polix.pro/gd2')">обход блоков на андроиде<br>(ютуб быстрее через мобильный, через wi-fi не сработает) - автозагрузка apk последней версии</button>
+    <button class="button_2" onclick="window.open('https://mega.nz/folder/lIgDiLIL#ql-fvLG8KgwkxE6PxeRifQ', '_blank')">На июнь 2025 программа goodbyedpi ускоряет инетрнет, но не открывает ютуб</button>
+	<button class="button_2" onclick="window.open('https://polix.pro/gd', '_blank')">На июнь 2025 программа zapret открывает только ютуб и может дискорд</button>
+	<button class="button_2" onclick="window.open('https://proxy6.net/', '_blank')">Самый дешёвый способ смотреть ютуб - прокси за 120 или 39 руб месяц (Shared)<br>Нужно покупать ipV4! Далее установите расширение Simple Proxy Switcher (кнопка ниже)</button>
+    <button class="button_2" onclick="openLinkAndToggleSpoiler('https://chromewebstore.google.com/detail/simple-proxy-switcher/pcboajngloecgmaailkmphmpbacmbcfb?pli=1')">Скачать Simple Proxy Switcher,<br> Ниже графическая инструкция как его настроить</button>
 
     <div class="spoiler-header" onclick="toggleSpoiler()">
-        <center><b>Настройки (нажмите)</b></center>
+        <center><b>Настройки (нажмите!)</b></center>
     </div>
 
     <div id="spoiler" class="spoiler"><center>
-        настройки -> UI editor -> Split TLS record</br>
-        <img src="https://i124.fastpic.org/big/2024/1212/0e/5919a7011aa79114c243ca32ea14ae0e.jpg" alt="настройки -> UI editor -> Split TLS record" style="max-width: 100%; height: auto;"></center>
+        скачать расширение.<br>В нём будет вкладка "импорт", туда нужно импортировать свой прокси с сайта (просто скопируйте текст).<br>После на вкладке "прокси" мождно будет включать/отключать галочку.</br></br>
+        <img src="https://i.imgur.com/P5Q2cyz.jpeg" alt="настройки -> UI editor -> Split TLS record" style="max-width: 100%; height: auto;"></br></br>И! На телефон тоже можно любой клиент https прокси или SOCKS,</br>его можно взять прямо из гуг плей
+		</center>
     </div>
-
-    <button class="button" onclick="window.open('https://ntc.party', '_blank')">ntc.party - заблокированный сайт<br>c интсрукциями других вариантов обхода</button>
+	<button class="button_2" onclick="window.open('https://polix.pro/gd3', '_blank')">Ютуб чисто на хром (около 2 часа)</button>
+	<button class="button" onclick="window.open('https://t.me/hlvpnbot', '_blank')">Полноценные ВПН ключи, 1 м бесплатно, потом 220 руб, вставлять ключь нужно в программу KaringX, кнопка ниже</button>
+	<button class="button" onclick="window.open('https://github.com/KaringX/karing/releases/', '_blank')">KaringX для телефона, ПК, ТВ и даже айфон (кнопка Assets)</button>
+	<button class="button" onclick="window.open('https://telegra.ph/Vybor-ustanovka-i-nastrojka-VPN-klientov-05-19', '_blank')">Другие клиенты</button>
+    <button class="button_2" onclick="window.open('https://ntc.party', '_blank')">ntc.party - заблокированный сайт<br>c интсрукциями всех вариантов обхода</button>
+	
 </div>
 
 </body>

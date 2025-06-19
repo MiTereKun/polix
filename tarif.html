@@ -426,7 +426,7 @@ function calculateTotal() {
 
     let OneFinalPrice, totalPrice, finalPrice;
 	
-    if (selectedTariff.id === 'tariff3') {
+    if (selectedTariff.id === 'tariff3' || selectedTariff.id === 'tariff5') {
         OneFinalPrice = discountTarif + buyRouter + buyRouter2 + buyRouter3 + routerSetup + KamSetup + startIt;
         totalPrice = tariff + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
         finalPrice = discountTarif + router + WiFi6 + WiFi6_1 + WiFi6_2 + WiFi6_3;
@@ -480,7 +480,7 @@ function calculateTotal() {
 		const installmentsCheckboxes = document.querySelectorAll('input[type=checkbox][data-installments]');
 		let dataInstallments = 0;
 
-		const isThirdTariff = document.getElementById('tariff3').checked;
+		const isThirdTariff = document.getElementById('tariff3').checked || document.getElementById('tariff5').checked;
 		const isTariff112 = document.getElementById('tariff112').checked;
 
 		installmentsCheckboxes.forEach(checkbox => {
@@ -904,7 +904,7 @@ function hideTooltip4(event) {
 
 function checkMultirumTooltip() {
     const selectedTariff = document.querySelector('input[name=tariff]:checked');
-    if (selectedTariff.id === 'tariff3'|| selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4') {
+    if (selectedTariff.id === 'tariff3'|| selectedTariff.id === 'tariff2' || selectedTariff.id === 'tariff4' || selectedTariff.id === 'tariff5') {
         return;
     }
     if (multirum > 0) {

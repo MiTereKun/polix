@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head><title>Telegram Sender</title>
+<style>
+body{font-family:Arial,sans-serif;margin:10px;padding:10px;border:1px solid #ccc;border-radius:8px;max-width:280px;background-color:white;color:black;margin-top:8px}
+input,button,textarea{margin:8px 0;width:100%;padding:12px;border:1px solid #ddd;border-radius:6px;font-size:16px;box-sizing:border-box}
+.token-row{display:flex;gap:8px;margin:8px 0}
+.token-row input{flex:1;padding:12px;font-size:16px}
+#msg{height:200px;resize:vertical;padding:12px;vertical-align:top}
+input:focus,button:focus,textarea:focus{outline:none;border-color:#007BFF;box-shadow:0 0 0 2px rgba(0,123,255,0.2)}
+button{background:#007BFF;color:white;border:none;cursor:pointer;font-weight:500}
+button:hover{background:#0056b3}
+button:active{background:#004494}
+.btn-small{font-size:14px;padding:8px}
+@media (prefers-color-scheme: dark){
+body{background:#1a1a1a;color:white;border-color:#3b3b3b}
+input,button,textarea{background:#2a2a2a;border-color:#555;color:white}
+input::placeholder,textarea::placeholder{color:#aaa}
+}
+@media (max-width:276px){
+  .token-row{flex-direction:column;gap:4px}
+  body{font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="token-row">
+<input type="text" id="prefix" maxlength="4" placeholder="4 первых">
+<input type="text" id="suffix" maxlength="2" placeholder="2 последних">
+</div>
+<textarea id="msg" placeholder="Сообщение"></textarea>
+<button onclick="sendMsg()">Отправить в Telegram</button>
+<button class="btn-small" onclick="window.open('https://firstbyte.ru/?from=211270', '_blank')">Firstbyte</button>
+
+<script>
+const MIDDLE = "834145:AAFF2-CKKna1_hZcHYQgkpvOgEkSVsZOv"; 
+const CHAT_ID = "485501262";
+
+async function sendMsg(){
+  const p = document.getElementById('prefix').value;
+  const s = document.getElementById('suffix').value;
+  const m = document.getElementById('msg').value;
+  
+  if(p.length !== 4 || s.length !== 2 || !m.trim()) {
+    alert('❌ Введите 4+2 символа и сообщение!');
+    return;
+  }
+  
+  try {
+    const token = p + MIDDLE + s;
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    const data = new URLSearchParams({chat_id: CHAT_ID, text: m});
+    
+    const response = await fetch(url, {method: 'POST', body: data});
+    
+    if(response.ok) {
+      alert('✅ Отправлено!');
+      document.getElementById('msg').value = '';
+      document.getElementById('msg').focus();
+    } else {
+      alert('❌ Ошибка отправки');
+    }
+  } catch(e) {
+    alert('❌ Ошибка сети');
+  }
+}
+</script>
+</body>
+</html>

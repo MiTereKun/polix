@@ -200,7 +200,7 @@
         if (!rawText) return "";
         let data = rawText;
 
-        const wordsToRemove = ["копирайт \\(продукт\\)", "ярлык", "reference", "object", "автор", "персонаж", "описание", "иной копирайт", "игровой копирайт", "объект", "Artist", "Copyright", "Character", "Metadata", "Tag"];
+        const wordsToRemove = ["копирайт", "\\(продукт\\)", "ярлык", "reference", "object", "автор", "персонаж", "описание", "иной копирайт", "игровой копирайт", "объект", "Artist", "Copyright", "copyright", "\\(product\\)", "Character", "Metadata", "Tag", "game"];
         
         wordsToRemove.forEach(word => {
             let regex = new RegExp(word, 'gi');
@@ -215,6 +215,7 @@
         data = data.replace(/_/g, ' '); 
         data = data.replace(/\s*\|\|\s*/g, '||');
         data = data.replace(/^(\|\|)+/, '').replace(/(\|\|)+$/, '');
+		data = data.replace(/\s+/g, ' ').trim();
 
         return data;
     }
@@ -241,7 +242,7 @@
         colDiv.innerHTML = `
             <div class="col-header">
                 <label class="radio-label">
-                    <input type="radio" name="referenceCol" value="${columnCount}" checked onchange="updateAllColumns()">
+                    <input type="radio" name="referenceCol" value="${columnCount}" onchange="updateAllColumns()">
                     Эталон
                 </label>
                 <button class="delete-col-btn" onclick="removeColumn(${columnCount})" title="Удалить столбец">✕</button>

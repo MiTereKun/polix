@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сравнение</title>
+    <title>Сравнение 07.07.26</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -155,7 +155,7 @@
         .status-unique-ref { border-left-color: #faad14; background: #fff7e6; } /* Желтый (Только в эталоне) */
         .status-neutral { border-left-color: #ccc; } /* Серый (Нет эталона) */
 
-        .tag-actions { display: flex; align-items: center; gap: 5px; }
+        .tag-actions { display: flex; align-items: center; gap: 1px; }
 
         .delete-tag-btn { background: none; border: none; cursor: pointer; color: #999; font-size: 16px; padding: 0 5px; }
         .delete-tag-btn:hover { color: #f44336; }
@@ -166,7 +166,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            padding: 0 5px;
+            padding: 0 2px;
             opacity: 0.7;
             transition: transform 0.1s;
         }
@@ -185,7 +185,7 @@
 
 <div class="controls">
     <button class="add-btn" onclick="addColumn()">+ Добавить сравнение</button>
-	<button class="add-btn" onclick="window.open('http://dev.kanotype.net:8003/deepdanbooru/', '_blank')">deepdanbooru</button>
+	<button class="add-btn" onclick="window.open('https://huggingface.co/spaces/hysts/DeepDanbooru', '_blank')">deepdanbooru</button>
 </div>
 
 <div class="columns-container" id="columnsContainer"></div>
@@ -199,7 +199,7 @@
         if (!rawText) return "";
         let data = rawText;
 
-        const wordsToRemove = ["копирайт", "\\(продукт\\)", "ярлык", "reference", "object", "автор", "персонаж", "описание", "иной копирайт", "игровой копирайт", "объект", "Artist", "Copyright", "copyright", "\\(product\\)", "Character", "Metadata", "Tag", "game"];
+        const wordsToRemove = ["копирайт", "\\(продукт\\)", "ярлык", "reference", "object", "автор", "персонаж", "описание", "иной", "копирайт", "игровой", "копирайт", "объект", "artist", "copyright", "\\(product\\)", "character", "metadata", "tag", "game"];
         
         wordsToRemove.forEach(word => {
             let regex = new RegExp(word, 'gi');
@@ -306,7 +306,7 @@
         const refRadio = document.querySelector(`input[name="referenceCol"]:checked`);
         let refTags = [];
         let refColId = null;
-        let allOtherTags = []; // Теги из всех остальных столбцов
+        let allOtherTags = []; 
         
         if (refRadio) {
             refColId = parseInt(refRadio.value);
@@ -318,7 +318,6 @@
                 }
             }
             
-            // Собираем теги из ВСЕХ остальных столбцов (кроме текущего и эталона, если они разные)
             for (let i = 1; i <= columnCount; i++) {
                 if (i !== colId && i !== refColId) {
                     const otherCol = document.getElementById(`col-${i}`);
@@ -328,10 +327,6 @@
                         allOtherTags = allOtherTags.concat(otherArr);
                     }
                 }
-            }
-            // Если текущий столбец не эталон, добавляем его теги в "другие" для проверки уникальности эталона
-            if (colId !== refColId) {
-                 // Уже учтено выше, так как мы берем allOtherTags для проверки наличия тега ИЗ ЭТАЛОНА
             }
         }
 
@@ -343,28 +338,23 @@
             li.className = 'tag-item';
             
             let statusClass = 'status-neutral';
-            let actionBtn = null;
+            // Убираем одиночную actionBtn, будем добавлять кнопки напрямую в actionsDiv
 
             // Логика статусов
             if (refTags.length > 0 && refColId !== null) {
                 if (colId === refColId) {
                     // Мы внутри эталона
-                    // Если этого тега нет НИ В ОДНОМ другом столбце
                     if (!allOtherTags.includes(tag)) {
                         statusClass = 'status-unique-ref'; // Желтый
-                        // Кнопка копирования одного тега
-                        actionBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
                     } else {
                         statusClass = 'status-present'; // Зеленый
                     }
                 } else {
                     // Мы в обычном столбце
                     if (refTags.includes(tag)) {
-                        statusClass = 'status-present'; // Зеленый (Есть в эталоне)
+                        statusClass = 'status-present'; // Зеленый
                     } else {
-                        statusClass = 'status-missing'; // Красный (Нет в эталоне)
-                        // Кнопка добавления в эталон
-                        actionBtn = createButton('✅', 'Добавить в эталон', () => moveToReference(tag, colId, refColId));
+                        statusClass = 'status-missing'; // Красный
                     }
                 }
             }
@@ -374,9 +364,23 @@
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'tag-actions';
             
-            if (actionBtn) {
-                actionsDiv.appendChild(actionBtn);
+            // --- ДОБАВЛЕНИЕ КНОПОК ДЛЯ КРАСНЫХ ТЕГОВ ---
+            if (statusClass === 'status-missing' && refColId !== null) {
+                // 1. Кнопка добавления в эталон (Галочка)
+                const addBtn = createButton('✅', 'Добавить в эталон', () => moveToReference(tag, colId, refColId));
+                actionsDiv.appendChild(addBtn);
+
+                // 2. Кнопка копирования тега (Буфер обмена)
+                const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
+                actionsDiv.appendChild(copyBtn);
             }
+            
+            // --- КНОПКА ДЛЯ ЖЕЛТЫХ ТЕГОВ (Эталон) ---
+            if (statusClass === 'status-unique-ref') {
+                 const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
+                 actionsDiv.appendChild(copyBtn);
+            }
+            // -----------------------------------------
 
             const delBtn = document.createElement('button');
             delBtn.className = 'delete-tag-btn';

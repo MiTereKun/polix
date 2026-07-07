@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сравнение 07.07.26</title>
+    <title>Сравнение Тегов</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -155,7 +155,7 @@
         .status-unique-ref { border-left-color: #faad14; background: #fff7e6; } /* Желтый (Только в эталоне) */
         .status-neutral { border-left-color: #ccc; } /* Серый (Нет эталона) */
 
-        .tag-actions { display: flex; align-items: center; gap: 1px; }
+        .tag-actions { display: flex; align-items: center; gap: 2px; } /* Уменьшил отступ между кнопками */
 
         .delete-tag-btn { background: none; border: none; cursor: pointer; color: #999; font-size: 16px; padding: 0 5px; }
         .delete-tag-btn:hover { color: #f44336; }
@@ -166,7 +166,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            padding: 0 2px;
+            padding: 0 2px; /* Уменьшил отступы */
             opacity: 0.7;
             transition: transform 0.1s;
         }
@@ -238,10 +238,14 @@
         colDiv.className = 'column';
         colDiv.id = `col-${columnCount}`;
 
+        // Первый столбик всегда эталон
+        const isFirst = columnCount === 1;
+        const checkedAttr = isFirst ? 'checked' : '';
+
         colDiv.innerHTML = `
             <div class="col-header">
                 <label class="radio-label">
-                    <input type="radio" name="referenceCol" value="${columnCount}" onchange="updateAllColumns()">
+                    <input type="radio" name="referenceCol" value="${columnCount}" ${checkedAttr} onchange="updateAllColumns()">
                     Эталон
                 </label>
                 <button class="delete-col-btn" onclick="removeColumn(${columnCount})" title="Удалить столбец">✕</button>
@@ -275,13 +279,14 @@
         
         const cleaned = cleanAndParseTags(rawInput.value);
         cleanTextarea.value = cleaned;
-        renderList(colId, cleaned);
+        
+        // При вводе в сырое поле обновляем ВСЕ столбики, так как изменился состав тегов
+        updateAllColumns();
     }
 
     function handleCleanInput(colId) {
-        const colDiv = document.getElementById(`col-${colId}`);
-        const cleanTextarea = colDiv.querySelector('.clean-input');
-        renderList(colId, cleanTextarea.value);
+        // При ручном редактировании чистого поля также обновляем всё
+        updateAllColumns();
     }
 
     function copyAllTags(colId, btn) {
@@ -306,7 +311,7 @@
         const refRadio = document.querySelector(`input[name="referenceCol"]:checked`);
         let refTags = [];
         let refColId = null;
-        let allOtherTags = []; 
+        let allOtherTags = []; // Теги из всех остальных столбцов
         
         if (refRadio) {
             refColId = parseInt(refRadio.value);
@@ -318,6 +323,7 @@
                 }
             }
             
+            // Собираем теги из ВСЕХ остальных столбцов (кроме текущего и эталона, если они разные)
             for (let i = 1; i <= columnCount; i++) {
                 if (i !== colId && i !== refColId) {
                     const otherCol = document.getElementById(`col-${i}`);
@@ -338,12 +344,12 @@
             li.className = 'tag-item';
             
             let statusClass = 'status-neutral';
-            // Убираем одиночную actionBtn, будем добавлять кнопки напрямую в actionsDiv
-
+            
             // Логика статусов
             if (refTags.length > 0 && refColId !== null) {
                 if (colId === refColId) {
                     // Мы внутри эталона
+                    // Если этого тега нет НИ В ОДНОМ другом столбце
                     if (!allOtherTags.includes(tag)) {
                         statusClass = 'status-unique-ref'; // Желтый
                     } else {
@@ -352,9 +358,9 @@
                 } else {
                     // Мы в обычном столбце
                     if (refTags.includes(tag)) {
-                        statusClass = 'status-present'; // Зеленый
+                        statusClass = 'status-present'; // Зеленый (Есть в эталоне)
                     } else {
-                        statusClass = 'status-missing'; // Красный
+                        statusClass = 'status-missing'; // Красный (Нет в эталоне)
                     }
                 }
             }
@@ -385,7 +391,11 @@
             const delBtn = document.createElement('button');
             delBtn.className = 'delete-tag-btn';
             delBtn.innerHTML = '🗑️';
-            delBtn.onclick = () => removeTagFromCol(colId, tag);
+            // ИСПРАВЛЕНИЕ: При удалении обновляем ВСЕ столбики
+            delBtn.onclick = () => {
+                removeTagFromCol(colId, tag);
+                updateAllColumns(); 
+            };
             actionsDiv.appendChild(delBtn);
 
             li.innerHTML = `
@@ -409,7 +419,6 @@
 
     function copySingleTag(tag) {
         navigator.clipboard.writeText(tag).then(() => {
-            // Можно добавить визуальный фидбек, но для потока это может быть излишне
             console.log('Copied:', tag);
         });
     }
@@ -441,7 +450,7 @@
         if (index > -1) {
             tags.splice(index, 1);
             cleanTextarea.value = tags.join('||');
-            renderList(colId, cleanTextarea.value);
+            // Раньше здесь был renderList(colId, ...), теперь это делает updateAllColumns()
         }
     }
 

@@ -219,7 +219,7 @@
         return data;
     }
 
-    function с(text) {
+    function linkify(text) {
         const urlRegex = /((https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[^\s]*)?)/gi;
         return text.replace(urlRegex, function(url) {
             let href = url;

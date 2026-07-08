@@ -219,8 +219,7 @@
         return data;
     }
 
-    // Преобразование текста в ссылки
-    function linkify(text) {
+    function с(text) {
         const urlRegex = /((https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[^\s]*)?)/gi;
         return text.replace(urlRegex, function(url) {
             let href = url;

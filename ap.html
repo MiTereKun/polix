@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сравнение Тегов</title>
+    <title>Сравнение 09.07.26</title>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -155,7 +155,7 @@
         .status-unique-ref { border-left-color: #faad14; background: #fff7e6; } /* Желтый (Только в эталоне) */
         .status-neutral { border-left-color: #ccc; } /* Серый (Нет эталона) */
 
-        .tag-actions { display: flex; align-items: center; gap: 2px; } /* Уменьшил отступ между кнопками */
+        .tag-actions { display: flex; align-items: center; gap: 2px; }
 
         .delete-tag-btn { background: none; border: none; cursor: pointer; color: #999; font-size: 16px; padding: 0 5px; }
         .delete-tag-btn:hover { color: #f44336; }
@@ -166,7 +166,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            padding: 0 2px; /* Уменьшил отступы */
+            padding: 0 2px;
             opacity: 0.7;
             transition: transform 0.1s;
         }
@@ -285,11 +285,10 @@
     }
 
     function handleCleanInput(colId) {
-        // При ручном редактировании чистого поля также обновляем всё
-        updateAllColumns();
+         updateAllColumns();
     }
-
-    function copyAllTags(colId, btn) {
+	
+	function copyAllTags(colId, btn) {
         const colDiv = document.getElementById(`col-${colId}`);
         const cleanTextarea = colDiv.querySelector('.clean-input');
         
@@ -304,14 +303,14 @@
         });
     }
 
-    function renderList(colId, rawText) {
+        function renderList(colId, rawText) {
         const list = document.getElementById(`list-${colId}`);
         const tags = rawText.split('||').map(t => t.trim()).filter(t => t.length > 0);
         
         const refRadio = document.querySelector(`input[name="referenceCol"]:checked`);
         let refTags = [];
         let refColId = null;
-        let allOtherTags = []; // Теги из всех остальных столбцов
+        let allOtherTags = []; 
         
         if (refRadio) {
             refColId = parseInt(refRadio.value);
@@ -323,7 +322,7 @@
                 }
             }
             
-            // Собираем теги из ВСЕХ остальных столбцов (кроме текущего и эталона, если они разные)
+            // Собираем теги из ВСЕХ остальных столбцов
             for (let i = 1; i <= columnCount; i++) {
                 if (i !== colId && i !== refColId) {
                     const otherCol = document.getElementById(`col-${i}`);
@@ -336,6 +335,31 @@
             }
         }
 
+        tags.sort((a, b) => {
+            let statusA = 'neutral';
+            if (refTags.length > 0 && refColId !== null) {
+                if (colId === refColId) {
+                    statusA = !allOtherTags.includes(a) ? 'unique' : 'present';
+                } else {
+                    statusA = refTags.includes(a) ? 'present' : 'missing';
+                }
+            }
+
+            let statusB = 'neutral';
+            if (refTags.length > 0 && refColId !== null) {
+                if (colId === refColId) {
+                    statusB = !allOtherTags.includes(b) ? 'unique' : 'present';
+                } else {
+                    statusB = refTags.includes(b) ? 'present' : 'missing';
+                }
+            }
+            
+            const priorityA = (statusA === 'present') ? 1 : 0;
+            const priorityB = (statusB === 'present') ? 1 : 0;
+
+            return priorityA - priorityB;
+        });
+
         const scrollPos = list.scrollTop;
         list.innerHTML = '';
 
@@ -345,22 +369,19 @@
             
             let statusClass = 'status-neutral';
             
-            // Логика статусов
+            // Логика статусов (та же, что и была, для правильного цвета)
             if (refTags.length > 0 && refColId !== null) {
                 if (colId === refColId) {
-                    // Мы внутри эталона
-                    // Если этого тега нет НИ В ОДНОМ другом столбце
                     if (!allOtherTags.includes(tag)) {
                         statusClass = 'status-unique-ref'; // Желтый
                     } else {
                         statusClass = 'status-present'; // Зеленый
                     }
                 } else {
-                    // Мы в обычном столбце
                     if (refTags.includes(tag)) {
-                        statusClass = 'status-present'; // Зеленый (Есть в эталоне)
+                        statusClass = 'status-present'; // Зеленый
                     } else {
-                        statusClass = 'status-missing'; // Красный (Нет в эталоне)
+                        statusClass = 'status-missing'; // Красный
                     }
                 }
             }
@@ -370,28 +391,22 @@
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'tag-actions';
             
-            // --- ДОБАВЛЕНИЕ КНОПОК ДЛЯ КРАСНЫХ ТЕГОВ ---
+            // Кнопки действий
             if (statusClass === 'status-missing' && refColId !== null) {
-                // 1. Кнопка добавления в эталон (Галочка)
                 const addBtn = createButton('✅', 'Добавить в эталон', () => moveToReference(tag, colId, refColId));
                 actionsDiv.appendChild(addBtn);
-
-                // 2. Кнопка копирования тега (Буфер обмена)
                 const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
                 actionsDiv.appendChild(copyBtn);
             }
             
-            // --- КНОПКА ДЛЯ ЖЕЛТЫХ ТЕГОВ (Эталон) ---
-            if (statusClass === 'status-unique-ref') {
+            if (colId === refColId) {
                  const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
                  actionsDiv.appendChild(copyBtn);
             }
-            // -----------------------------------------
 
             const delBtn = document.createElement('button');
             delBtn.className = 'delete-tag-btn';
             delBtn.innerHTML = '🗑️';
-            // ИСПРАВЛЕНИЕ: При удалении обновляем ВСЕ столбики
             delBtn.onclick = () => {
                 removeTagFromCol(colId, tag);
                 updateAllColumns(); 

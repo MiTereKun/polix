@@ -2,190 +2,67 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сравнение 09.07.26</title>
+    <title>Сравнение 10.07.26</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            background: #f4f4f9; 
-            height: 100vh; 
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .controls { 
-            margin-bottom: 15px; 
-            display: flex; 
-            gap: 10px; 
-            align-items: center; 
-            flex-shrink: 0;
-        }
-        
-        button.add-btn { 
-            background: #0088cc; 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-        }
-        button.add-btn:hover { background: #006699; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f4f4f9; height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; }
+    .controls { margin-bottom: 15px; display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+    
+    /* Общие стили для кнопок управления с плавной анимацией фона */
+    button.add-btn, button.toggle-sort-btn { border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background 0.2s ease; }
+    button.add-btn { background: #0088cc; color: white; }
+    button.add-btn:hover { background: #006699; }
 
-        /* Контейнер столбиков: В РЯД */
-        .columns-container { 
-            display: flex; 
-            flex-direction: row; 
-            gap: 15px; 
-            width: 100%; 
-            flex-grow: 1; 
-            overflow-x: auto; 
-            overflow-y: hidden;
-            align-items: stretch; 
-            padding-bottom: 10px;
-        }
-        
-        .column { 
-            background: white; 
-            width: 268px; 
-            min-width: 268px; 
-            max-width: 268px; 
-            flex: 0 0 268px; 
-            
-            border-radius: 8px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column; 
-            position: relative;
-            height: 100%; 
-            box-sizing: border-box;
-        }
+    .columns-container { display: flex; flex-direction: row; gap: 15px; width: 100%; flex-grow: 1; overflow-x: auto; overflow-y: hidden; align-items: stretch; padding-bottom: 10px; }
+    .column { background: white; width: 268px; min-width: 268px; max-width: 268px; flex: 0 0 268px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; position: relative; height: 100%; box-sizing: border-box; }
+    .col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; flex-shrink: 0; }
+    .radio-label { font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 14px; }
+    
+    .delete-col-btn { background: none; border: none; color: #999; font-size: 18px; cursor: pointer; padding: 0 5px; transition: color 0.2s ease; }
+    .delete-col-btn:hover { color: #ff4d4d; }
+    .input-group { margin-bottom: 10px; flex-shrink: 0; }
+    
+    input.raw-input, textarea.clean-input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace; font-size: 13px; box-sizing: border-box; }
+    input.raw-input { background: #fffbe6; border-color: #ffe58f; }
+    textarea.clean-input { height: 60px; resize: none; background: #fff; border-color: #b7eb8f; margin-bottom: 5px; flex-shrink: 0; }
 
-        .col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; flex-shrink: 0; }
-        .radio-label { font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 14px; }
-        
-        .delete-col-btn { background: none; border: none; color: #999; font-size: 18px; cursor: pointer; padding: 0 5px; }
-        .delete-col-btn:hover { color: #ff4d4d; }
+    .copy-all-btn { width: 100%; padding: 6px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; font-size: 14px; color: #555; margin-bottom: 10px; flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+    .copy-all-btn:hover { background: #e0e0e0; }
+    .copy-all-btn.copied { background: #d4edda; color: #155724; border-color: #c3e6cb; }
 
-        /* Поля ввода */
-        .input-group { margin-bottom: 10px; flex-shrink: 0; }
-        
-        /* Сырое поле - ОДНА СТРОКА */
-        input.raw-input { 
-            width: 100%; 
-            padding: 8px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            font-family: monospace; 
-            font-size: 13px; 
-            box-sizing: border-box; 
-            background: #fffbe6; 
-            border-color: #ffe58f;
-        }
+    .tag-list-container { flex-grow: 1; overflow: hidden; position: relative; border: 1px solid #eee; border-radius: 4px; }
+    .tag-list { list-style: none; padding: 0; margin: 0; height: 100%; overflow-y: auto; }
+    
+    .tag-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; margin: 0; border-bottom: 1px solid #f0f0f0; background: #fff; font-size: 14px; border-left: 4px solid transparent; transition: background 0.2s ease; }
+    .tag-item:last-child { border-bottom: none; }
+    
+    .status-present { border-left-color: #4caf50; background: #f6ffed; } 
+    .status-present:hover { background: #eaffd6; }
+    .status-missing { border-left-color: #f44336; background: #fff1f0; } 
+    .status-missing:hover { background: #ffd8d6; }
+    .status-unique-ref { border-left-color: #faad14; background: #fff7e6; } 
+    .status-unique-ref:hover { background: #ffeec2; }
+    .status-neutral { border-left-color: #ccc; } 
+    .status-neutral:hover { background: #f5f5f5; }
 
-        textarea.clean-input { 
-            width: 100%; 
-            height: 60px; 
-            padding: 8px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            resize: none; 
-            font-family: monospace; 
-            font-size: 13px; 
-            box-sizing: border-box; 
-            background: #fff; 
-            border-color: #b7eb8f;
-            margin-bottom: 5px;
-            flex-shrink: 0;
-        }
+    .tag-actions { display: flex; align-items: center; gap: 2px; }
+    .delete-tag-btn { background: none; border: none; cursor: pointer; color: #999; font-size: 16px; padding: 0 5px; transition: color 0.2s ease; }
+    .delete-tag-btn:hover { color: #f44336; }
 
-        .copy-all-btn {
-            width: 100%;
-            padding: 6px;
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-        .copy-all-btn:hover { background: #e0e0e0; }
-        .copy-all-btn.copied { background: #d4edda; color: #155724; border-color: #c3e6cb; }
-
-        /* Список тегов */
-        .tag-list-container {
-            flex-grow: 1;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #eee;
-            border-radius: 4px;
-        }
-
-        .tag-list { 
-            list-style: none; 
-            padding: 0; 
-            margin: 0; 
-            height: 100%;
-            overflow-y: auto; 
-        }
-        
-        .tag-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 6px 8px; 
-            margin: 0; 
-            border-bottom: 1px solid #f0f0f0; 
-            background: #fff; 
-            font-size: 14px; 
-            border-left: 4px solid transparent; 
-        }
-        .tag-item:last-child { border-bottom: none; }
-        
-        /* Цвета статусов */
-        .status-present { border-left-color: #4caf50; background: #f6ffed; } /* Зеленый (Есть везде) */
-        .status-missing { border-left-color: #f44336; background: #fff1f0; } /* Красный (Нет в эталоне) */
-        .status-unique-ref { border-left-color: #faad14; background: #fff7e6; } /* Желтый (Только в эталоне) */
-        .status-neutral { border-left-color: #ccc; } /* Серый (Нет эталона) */
-
-        .tag-actions { display: flex; align-items: center; gap: 2px; }
-
-        .delete-tag-btn { background: none; border: none; cursor: pointer; color: #999; font-size: 16px; padding: 0 5px; }
-        .delete-tag-btn:hover { color: #f44336; }
-
-        /* Кнопки действий справа */
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 0 2px;
-            opacity: 0.7;
-            transition: transform 0.1s;
-        }
-        .action-btn:hover { opacity: 1; transform: scale(1.1); }
-        
-        /* Ссылки */
-        .tag-text a {
-            color: #0088cc;
-            text-decoration: none;
-            border-bottom: 1px dashed #0088cc;
-        }
-        .tag-text a:hover { border-bottom: 1px solid #0088cc; }
-    </style>
+    .action-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 0 1px; opacity: 0.7; transition: transform 0.1s ease, opacity 0.1s ease; }
+    .action-btn:hover { opacity: 1; transform: scale(1.1); }
+    
+    .tag-text a { color: #0088cc; text-decoration: none; border-bottom: 1px dashed #0088cc; transition: color 0.2s ease, border-color 0.2s ease; }
+    .tag-text a:hover { border-bottom: 1px solid #0088cc; }
+    .tag-counter { font-size: 12px; color: #888; margin: 0 10px; cursor: default; display: none; white-space: nowrap; }
+</style>
 </head>
 <body>
 
 <div class="controls">
     <button class="add-btn" onclick="addColumn()">+ Добавить сравнение</button>
-	<button class="add-btn" onclick="window.open('https://huggingface.co/spaces/hysts/DeepDanbooru', '_blank')">deepdanbooru</button>
+	<button class="add-btn" id="toggleSortBtn" onclick="toggleSortMode()">Сортировка: Раздельная</button>
+	|
+    <button class="add-btn" onclick="window.open('https://huggingface.co/spaces/hysts/DeepDanbooru', '_blank')">deepdanbooru</button>
 </div>
 
 <div class="columns-container" id="columnsContainer"></div>
@@ -193,8 +70,20 @@
 <script>
     let columnCount = 0;
     let isSyncingScroll = false;
+    let currentSortMode = 'split'; 
 
-    // --- PYTHON FILTER LOGIC IN JS ---
+    function toggleSortMode() {
+        const btn = document.getElementById('toggleSortBtn');
+        if (currentSortMode === 'split') {
+            currentSortMode = 'straight';
+            btn.innerText = 'Сортировка: Подряд';
+        } else {
+            currentSortMode = 'split';
+            btn.innerText = 'Сортировка: Раздельная';
+        }
+        updateAllColumns();
+    }
+
     function cleanAndParseTags(rawText) {
         if (!rawText) return "";
         let data = rawText;
@@ -202,7 +91,7 @@
         const wordsToRemove = ["копирайт", "\\(продукт\\)", "ярлык", "reference", "object", "автор", "персонаж", "описание", "иной", "копирайт", "игровой", "копирайт", "объект", "artist", "copyright", "\\(product\\)", "character", "metadata", "tag", "game"];
         
         wordsToRemove.forEach(word => {
-            let regex = new RegExp(word, 'gi');
+            let regex = new RegExp(word, 'i');
             data = data.replace(regex, '');
         });
 
@@ -237,7 +126,6 @@
         colDiv.className = 'column';
         colDiv.id = `col-${columnCount}`;
 
-        // Первый столбик всегда эталон
         const isFirst = columnCount === 1;
         const checkedAttr = isFirst ? 'checked' : '';
 
@@ -247,6 +135,8 @@
                     <input type="radio" name="referenceCol" value="${columnCount}" ${checkedAttr} onchange="updateAllColumns()">
                     Эталон
                 </label>
+                <span id="count-${columnCount}" class="tag-counter">0 тегов</span>
+                
                 <button class="delete-col-btn" onclick="removeColumn(${columnCount})" title="Удалить столбец">✕</button>
             </div>
             
@@ -279,7 +169,6 @@
         const cleaned = cleanAndParseTags(rawInput.value);
         cleanTextarea.value = cleaned;
         
-        // При вводе в сырое поле обновляем ВСЕ столбики, так как изменился состав тегов
         updateAllColumns();
     }
 
@@ -302,7 +191,7 @@
         });
     }
 
-        function renderList(colId, rawText) {
+    function renderList(colId, rawText) {
         const list = document.getElementById(`list-${colId}`);
         const tags = rawText.split('||').map(t => t.trim()).filter(t => t.length > 0);
         
@@ -321,7 +210,6 @@
                 }
             }
             
-            // Собираем теги из ВСЕХ остальных столбцов
             for (let i = 1; i <= columnCount; i++) {
                 if (i !== colId && i !== refColId) {
                     const otherCol = document.getElementById(`col-${i}`);
@@ -334,30 +222,34 @@
             }
         }
 
-        tags.sort((a, b) => {
-            let statusA = 'neutral';
-            if (refTags.length > 0 && refColId !== null) {
-                if (colId === refColId) {
-                    statusA = !allOtherTags.includes(a) ? 'unique' : 'present';
-                } else {
-                    statusA = refTags.includes(a) ? 'present' : 'missing';
+        // Логика сортировки с учетом выбранного режима
+        if (currentSortMode === 'split') {
+            tags.sort((a, b) => {
+                let statusA = 'neutral';
+                if (refTags.length > 0 && refColId !== null) {
+                    if (colId === refColId) {
+                        statusA = !allOtherTags.includes(a) ? 'unique' : 'present';
+                    } else {
+                        statusA = refTags.includes(a) ? 'present' : 'missing';
+                    }
                 }
-            }
 
-            let statusB = 'neutral';
-            if (refTags.length > 0 && refColId !== null) {
-                if (colId === refColId) {
-                    statusB = !allOtherTags.includes(b) ? 'unique' : 'present';
-                } else {
-                    statusB = refTags.includes(b) ? 'present' : 'missing';
+                let statusB = 'neutral';
+                if (refTags.length > 0 && refColId !== null) {
+                    if (colId === refColId) {
+                        statusB = !allOtherTags.includes(b) ? 'unique' : 'present';
+                    } else {
+                        statusB = refTags.includes(b) ? 'present' : 'missing';
+                    }
                 }
-            }
-            
-            const priorityA = (statusA === 'present') ? 1 : 0;
-            const priorityB = (statusB === 'present') ? 1 : 0;
+                
+                const priorityA = (statusA === 'present') ? 0 : 1;
+                const priorityB = (statusB === 'present') ? 0 : 1;
 
-            return priorityA - priorityB;
-        });
+                return priorityB - priorityA;
+            });
+        }
+        // Если режим 'straight', то встроенный метод sort() пропускается, и теги идут подряд, как их ввели
 
         const scrollPos = list.scrollTop;
         list.innerHTML = '';
@@ -368,19 +260,18 @@
             
             let statusClass = 'status-neutral';
             
-            // Логика статусов (та же, что и была, для правильного цвета)
             if (refTags.length > 0 && refColId !== null) {
                 if (colId === refColId) {
                     if (!allOtherTags.includes(tag)) {
-                        statusClass = 'status-unique-ref'; // Желтый
+                        statusClass = 'status-unique-ref'; 
                     } else {
-                        statusClass = 'status-present'; // Зеленый
+                        statusClass = 'status-present'; 
                     }
                 } else {
                     if (refTags.includes(tag)) {
-                        statusClass = 'status-present'; // Зеленый
+                        statusClass = 'status-present'; 
                     } else {
-                        statusClass = 'status-missing'; // Красный
+                        statusClass = 'status-missing'; 
                     }
                 }
             }
@@ -390,7 +281,6 @@
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'tag-actions';
             
-            // Кнопки действий
             if (statusClass === 'status-missing' && refColId !== null) {
                 const addBtn = createButton('✅', 'Добавить в эталон', () => moveToReference(tag, colId, refColId));
                 actionsDiv.appendChild(addBtn);
@@ -420,6 +310,21 @@
         });
 
         list.scrollTop = scrollPos;
+		
+		const countSpan = document.getElementById(`count-${colId}`);
+        if (countSpan) {
+            const count = tags.length;
+            if (count > 0) {
+                let word = 'тегов';
+                if (count % 10 === 1 && count % 100 !== 11) word = 'тег';
+                else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) word = 'тега';
+                
+                countSpan.innerText = `${count} ${word}`;
+                countSpan.style.display = 'inline'; 
+            } else {
+                countSpan.style.display = 'none'; 
+            }
+        }
     }
 
     function createButton(icon, title, onClick) {
@@ -437,7 +342,6 @@
         });
     }
 
-    // Функция КОПИРОВАНИЯ тега в эталон (без удаления из источника)
     function moveToReference(tag, fromColId, toColId) {
         const toCol = document.getElementById(`col-${toColId}`);
         if (!toCol) return;
@@ -450,7 +354,6 @@
             toTextarea.value = toTags.join('||');
         }
 
-        // Перерисовываем все, чтобы обновить цвета (тег станет зеленым везде)
         updateAllColumns();
     }
 
@@ -464,7 +367,6 @@
         if (index > -1) {
             tags.splice(index, 1);
             cleanTextarea.value = tags.join('||');
-            // Раньше здесь был renderList(colId, ...), теперь это делает updateAllColumns()
         }
     }
 

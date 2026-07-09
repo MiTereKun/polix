@@ -2,12 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сравнение 10.07.26</title>
+    <title>Сравнение 09.07.26</title>
     <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 20px; background: #f4f4f9; height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; }
     .controls { margin-bottom: 15px; display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
     
-    /* Общие стили для кнопок управления с плавной анимацией фона */
     button.add-btn, button.toggle-sort-btn { border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background 0.2s ease; }
     button.add-btn { background: #0088cc; color: white; }
     button.add-btn:hover { background: #006699; }
@@ -60,9 +59,10 @@
 
 <div class="controls">
     <button class="add-btn" onclick="addColumn()">+ Добавить сравнение</button>
-	<button class="add-btn" id="toggleSortBtn" onclick="toggleSortMode()">Сортировка: Раздельная</button>
+	<button class="add-btn" id="toggleSortBtn" onclick="toggleSortMode()">Сортировка: раздельная</button>
 	|
-    <button class="add-btn" onclick="window.open('https://huggingface.co/spaces/hysts/DeepDanbooru', '_blank')">deepdanbooru</button>
+	<button class="add-btn" onclick="window.open('https://huggingface.co/spaces/hysts/DeepDanbooru', '_blank')">DeepDanbooru</button>
+    <button class="add-btn" onclick="window.open('https://saucenao.com', '_blank')">sauceNAO</button>
 </div>
 
 <div class="columns-container" id="columnsContainer"></div>
@@ -76,10 +76,10 @@
         const btn = document.getElementById('toggleSortBtn');
         if (currentSortMode === 'split') {
             currentSortMode = 'straight';
-            btn.innerText = 'Сортировка: Подряд';
+            btn.innerText = 'Сортировка: подряд';
         } else {
             currentSortMode = 'split';
-            btn.innerText = 'Сортировка: Раздельная';
+            btn.innerText = 'Сортировка: раздельная';
         }
         updateAllColumns();
     }
@@ -137,7 +137,7 @@
                 </label>
                 <span id="count-${columnCount}" class="tag-counter">0 тегов</span>
                 
-                <button class="delete-col-btn" onclick="removeColumn(${columnCount})" title="Удалить столбец">✕</button>
+                <button class="delete-col-btn" onclick="removeColumn(${columnCount})" title="Удалить">✕</button>
             </div>
             
             <div class="input-group">
@@ -284,12 +284,12 @@
             if (statusClass === 'status-missing' && refColId !== null) {
                 const addBtn = createButton('✅', 'Добавить в эталон', () => moveToReference(tag, colId, refColId));
                 actionsDiv.appendChild(addBtn);
-                const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
+                const copyBtn = createButton('📋', 'Копировать', () => copySingleTag(tag));
                 actionsDiv.appendChild(copyBtn);
             }
             
             if (colId === refColId) {
-                 const copyBtn = createButton('📋', 'Копировать тег', () => copySingleTag(tag));
+                 const copyBtn = createButton('📋', 'Копировать', () => copySingleTag(tag));
                  actionsDiv.appendChild(copyBtn);
             }
 

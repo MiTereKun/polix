@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#f2f2f7">
+<title>Калькулятор</title>
+<style>
+  :root{
+    --bg:#f2f2f7; --key:#ffffff; --key-active:#e2e2e7; --fn:#e2e2e7;
+    --accent:#3b82f6; --accent-soft:#e8f0fe;
+    --text:#000; --muted:#8e8e93; --line:#e5e5ea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000; --key:#1c1c1e; --key-active:#2c2c2e; --fn:#2c2c2e;
+      --accent:#0a84ff; --accent-soft:#12233d;
+      --text:#fff; --muted:#8e8e93; --line:#2c2c2e;
+    }
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; margin:0; }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg); color:var(--text);
+    display:flex; flex-direction:column;
+    overflow:hidden; overscroll-behavior:none;
+    -webkit-user-select:none; user-select:none;
+    -webkit-text-size-adjust:100%;
+  }
+
+  .app{
+    flex:1; display:flex; flex-direction:column; width:100%;
+    max-width:520px; margin:0 auto;
+    padding: calc(env(safe-area-inset-top) + 8px) 12px calc(env(safe-area-inset-bottom) + 10px);
+  }
+
+  .display{
+    flex:1 1 auto; min-height:0;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:8px 0 4px;
+  }
+
+  .line{
+    display:flex; align-items:center;
+    border-bottom:2px solid transparent;
+    transition:border-color .15s;
+  }
+  .line.active{ border-bottom-color:var(--accent); }
+
+  .line input{
+    flex:1; min-width:0;
+    background:transparent; border:0; outline:none;
+    font-size:clamp(26px, 4.6vh, 32px); line-height:1.2;
+    text-align:right; color:var(--text);
+    padding:4px 8px;
+    font-variant-numeric:tabular-nums;
+    caret-color:var(--accent);
+    -webkit-user-select:text; user-select:text;
+  }
+  .line input::placeholder{ color:var(--muted); opacity:.45; }
+
+  .lres{
+    font-size:16px;
+    color:var(--muted);
+    padding:0 8px;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    text-align:right;
+    min-width:56px;
+    flex-shrink:0;
+  }
+
+  .opline{ display:flex; justify-content:flex-end; padding:2px 8px; }
+
+  .op{
+    width:44px; height:30px; border:0; border-radius:9px;
+    background:var(--accent-soft); color:var(--accent);
+    font-size:19px; font-weight:600; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .08s;
+  }
+  .op:active{ transform:scale(.92); }
+
+  .total{
+    text-align:right;
+    padding:6px 8px 2px;
+    font-size:clamp(18px, 3vh, 22px);
+    font-weight:600;
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    min-height:32px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .total.has-value{ color:var(--text); }
+
+  .keys{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    padding-top:6px;
+  }
+
+  .key{
+    height:clamp(46px, 7.4vh, 62px);
+    border:0; border-radius:14px;
+    background:var(--key); color:var(--text);
+    font-size:23px; font-weight:500; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    font-variant-numeric:tabular-nums;
+    transition:background .12s, transform .06s;
+  }
+  .key:active{ background:var(--key-active); transform:scale(.97); }
+
+  .key.fn{ background:var(--fn); font-size:20px; }
+  .key.fn:active{ background:var(--key-active); }
+
+  .key.op{ background:var(--accent-soft); color:var(--accent); font-weight:600; font-size:25px; }
+  .key.op:active{ background:var(--accent); color:#fff; }
+
+  .key.wide{ grid-column: span 2; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="display">
+    <div class="line active" id="line-a">
+      <input id="a" type="text" inputmode="none" placeholder="0"
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <span class="lres" id="ra"></span>
+    </div>
+
+    <div class="opline">
+      <button class="op" id="op" aria-label="сменить знак">+</button>
+    </div>
+
+    <div class="line" id="line-b">
+      <input id="b" type="text" inputmode="none" placeholder="0"
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <span class="lres" id="rb"></span>
+    </div>
+
+    <div class="total" id="total"></div>
+  </div>
+
+  <div class="keys">
+    <button class="key fn" data-k="C">C</button>
+    <button class="key fn" data-k="(">(</button>
+    <button class="key fn" data-k=")">)</button>
+    <button class="key fn" data-k="%">%</button>
+
+    <button class="key" data-k="7">7</button>
+    <button class="key" data-k="8">8</button>
+    <button class="key" data-k="9">9</button>
+    <button class="key op" data-k="/">÷</button>
+
+    <button class="key" data-k="4">4</button>
+    <button class="key" data-k="5">5</button>
+    <button class="key" data-k="6">6</button>
+    <button class="key op" data-k="*">×</button>
+
+    <button class="key" data-k="1">1</button>
+    <button class="key" data-k="2">2</button>
+    <button class="key" data-k="3">3</button>
+    <button class="key op" data-k="-">−</button>
+
+    <button class="key wide" data-k="0">0</button>
+    <button class="key" data-k=",">,</button>
+    <button class="key op" data-k="+">+</button>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var inA = document.getElementById('a');
+  var inB = document.getElementById('b');
+  var ra = document.getElementById('ra');
+  var rb = document.getElementById('rb');
+  var totalEl = document.getElementById('total');
+  var opBtn = document.getElementById('op');
+  var lineA = document.getElementById('line-a');
+  var lineB = document.getElementById('line-b');
+
+  var active = inA;
+  var op = '+';
+
+  /* ---------- Парсер с "процентом от левого" ---------- */
+  function parse(str){
+    var s = str.replace(/,/g, '.').replace(/\s+/g, '');
+    var i = 0;
+    var pctFlag = false;
+
+    function expr(){
+      var v = term();
+      while(i < s.length && (s[i] === '+' || s[i] === '-')){
+        var o = s[i++];
+        var savedPct = pctFlag;
+        pctFlag = false;
+        var r = term();
+        var wasPct = pctFlag;
+        if(wasPct) r = v * r;          // 100 - 50%  →  100 - 50 = 50
+        pctFlag = savedPct;
+        v = (o === '+') ? v + r : v - r;
+      }
+      return v;
+    }
+    function term(){
+      var v = unary();
+      while(i < s.length && (s[i] === '*' || s[i] === '/')){
+        var o = s[i++];
+        pctFlag = false;
+        var r = unary();
+        if(o === '*'){ v = v * r; }
+        else { if(r === 0) throw 0; v = v / r; }
+        pctFlag = false;               // после * или / это уже не "чистый процент"
+      }
+      return v;
+    }
+    function unary(){
+      if(s[i] === '-'){ i++; return -unary(); }
+      if(s[i] === '+'){ i++; return unary(); }
+      return postfix();
+    }
+    function postfix(){
+      var v = primary();
+      var hadPct = false;
+      while(s[i] === '%'){
+        i++;
+        v = v / 100;
+        hadPct = true;
+      }
+      pctFlag = hadPct;
+      return v;
+    }
+    function primary(){
+      if(s[i] === '('){
+        i++;
+        var v = expr();
+        if(s[i] !== ')') throw 0;
+        i++;
+        return v;
+      }
+      var start = i;
+      while(i < s.length && /[0-9.]/.test(s[i])) i++;
+      if(start === i) throw 0;
+      var n = parseFloat(s.slice(start, i));
+      if(isNaN(n)) throw 0;
+      return n;
+    }
+
+    var result = expr();
+    if(i !== s.length) throw 0;
+    return result;
+  }
+
+  function safeEval(str){
+    try{
+      var v = parse(str);
+      if(v === null || !isFinite(v)) return null;
+      return v;
+    }catch(e){ return null; }
+  }
+
+  function fmt(n){
+    if(!isFinite(n)) return '∞';
+    var r = Math.round(n * 1e10) / 1e10;
+    var s = String(r);
+    if(s.indexOf('e') !== -1){
+      s = r.toFixed(10).replace(/\.?0+$/, '');
+    }
+    var parts = s.split('.');
+    var int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return parts[1] ? int + ',' + parts[1] : int;
+  }
+
+  /* ---------- Пересчёт ---------- */
+  function update(){
+    var aRaw = inA.value.trim();
+    var bRaw = inB.value.trim();
+
+    var va = aRaw ? safeEval(aRaw) : null;
+    var vb = bRaw ? safeEval(bRaw) : null;
+
+    // Свой результат у каждой строки — справа
+    ra.textContent = va !== null ? '= ' + fmt(va) : '';
+    rb.textContent = vb !== null ? '= ' + fmt(vb) : '';
+
+    // Общая сумма снизу — только когда есть оба выражения
+    if(va !== null && vb !== null){
+      var t = (op === '+') ? va + vb : va - vb;
+      totalEl.textContent = '= ' + fmt(t);
+      totalEl.classList.add('has-value');
+    } else {
+      totalEl.textContent = '';
+      totalEl.classList.remove('has-value');
+    }
+  }
+
+  function setActive(el){
+    active = el;
+    lineA.classList.toggle('active', el === inA);
+    lineB.classList.toggle('active', el === inB);
+  }
+
+  function focusActive(){
+    var el = active;
+    if(document.activeElement !== el){
+      el.focus({preventScroll:true});
+      var n = el.value.length;
+      el.setSelectionRange(n, n);
+    }
+  }
+
+  function insert(txt){
+    focusActive();
+    var el = active;
+    var s = el.selectionStart, e = el.selectionEnd;
+    if(s === null || s === undefined){ s = e = el.value.length; }
+    el.value = el.value.slice(0, s) + txt + el.value.slice(e);
+    var p = s + txt.length;
+    el.setSelectionRange(p, p);
+  }
+
+  function press(k){
+    if(k === 'C'){ focusActive(); active.value = ''; }
+    else { insert(k); }
+    update();
+    if(navigator.vibrate) navigator.vibrate(6);
+  }
+
+  document.querySelectorAll('.key').forEach(function(btn){
+    btn.addEventListener('pointerdown', function(e){
+      e.preventDefault();
+      press(btn.dataset.k);
+    });
+  });
+
+  opBtn.addEventListener('pointerdown', function(e){
+    e.preventDefault();
+    op = (op === '+') ? '-' : '+';
+    opBtn.textContent = (op === '+') ? '+' : '−';
+    update();
+    if(navigator.vibrate) navigator.vibrate(6);
+  });
+
+  [inA, inB].forEach(function(el){
+    el.addEventListener('focus', function(){ setActive(el); });
+    el.addEventListener('click', function(){ setActive(el); });
+    el.addEventListener('input', function(){ setActive(el); update(); });
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); el.blur(); }
+      else if(e.key === 'Backspace'){ setTimeout(update, 0); }
+    });
+  });
+
+  setActive(inA);
+  update();
+})();
+</script>
+</body>
+</html>

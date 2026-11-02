@@ -1,159 +1,214 @@
 <!DOCTYPE html>
-<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Траифы 19 июня</title>
-	<style>
-		body{font-family:Arial,sans-serif;margin:0;padding:20px;box-sizing:border-box;}
-		table{border-collapse:collapse;width:auto;min-width:600px;overflow-x:auto;margin:0 auto;}
-		th,td{border:1px solid #ccc;padding:8px;text-align:left;}
-		th{background-color:#f0f0f0;}
-		.radio-buttons{display:flex;justify-content:center;border:1px solid #ccc;border-radius:8px;padding:10px;margin:20px 0;}
-		.radio-buttons label{margin:0 3px;} /* Уменьшены отступы между кнопками */
-		table,th:first-child,td:first-child{border-left:none;}
-		th:last-child,td:last-child{border-right:none;}
-		@media (max-width:600px){table{font-size:12px;min-width:100%;}th,td{padding:6px;}}
-		@media (prefers-color-scheme:dark){body{background:#333;color:#fff;}th,td{border-color:#555;}th{background:#444;}.radio-buttons{border-color:#555;}}
-		.back-button{display:block;margin:20px auto 0;color:#007BFF;text-decoration:underline;cursor:pointer;text-align:center;}
-		.back-button:hover{color:#0056b3;}
-	</style>
+    <title>Тарифы МТС Владивосток</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; box-sizing: border-box; background-color: #f9f9f9; }
+        h2 { text-align: center; color: #333; }
+        
+        /* Стили таблицы */
+        .table-container { overflow-x: auto; margin-top: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; min-width: 800px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; vertical-align: top; font-size: 14px; line-height: 1.5; }
+        th { background-color: #e30613; color: white; position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #ffe6e6; }
+
+        /* Фильтры */
+        .filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover { background: #eee; }
+        .filter-btn.active { background: #e30613; color: white; border-color: #e30613; }
+
+        /* Кнопка назад */
+        .back-button { display: block; margin: 20px auto; color: #e30613; text-decoration: underline; cursor: pointer; text-align: center; font-weight: bold; }
+        
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            th, td { padding: 8px; font-size: 12px; }
+            .filters { flex-direction: column; align-items: stretch; }
+        }
+    </style>
 </head>
 <body>
-<h3><center>  </center></h3>
-<div class="back-button" onclick="window.location.href=&#39;https://polix.pro/tarif&#39;">Вернуться</div>
-<div class="radio-buttons">
-    <label>
-        <input type="radio" name="tariff" value="all" checked="" onclick="filterTable()"> Все
-    </label>
-	<label>
-        <input type="radio" name="tariff" value="5" onclick="filterTable()"> РИИЛ
-    </label>
-    <label>
-        <input type="radio" name="tariff" value="112" onclick="filterTable()"> №112
-    </label>
-    <label>
-        <input type="radio" name="tariff" value="1" onclick="filterTable()"> №1
-    </label>
-    <label>
-        <input type="radio" name="tariff" value="7" onclick="filterTable()"> №7
-    </label>
-    <label>
-        <input type="radio" name="tariff" value="2" onclick="filterTable()"> №2
-    </label>
-    <label>
-        <input type="radio" name="tariff" value="4" onclick="filterTable()"> №4
-    </label>
-	<label>
-        <input type="radio" name="tariff" value="3" onclick="filterTable()"> №3
-    </label>
+
+<h2>Тарифы МТС: Приморский край (Владивосток)</h2>
+
+<div class="back-button" onclick="window.location.href='https://polix.pro/tarif'">Вернуться на главную</div>
+
+<!-- Фильтры по категориям -->
+<div class="filters">
+    <button class="filter-btn active" onclick="filterTable('all', this)">Все тарифы</button>
+    <button class="filter-btn" onclick="filterTable('super', this)">МТС Дома (Супер/Отлично)</button>
+    <button class="filter-btn" onclick="filterTable('care', this)">МТС Дома (Забота/Хорошо)</button>
+    <button class="filter-btn" onclick="filterTable('mobile', this)">Мобильные (РИИЛ)</button>
 </div>
 
-<table id="tariffTable">
-    <thead>
-        <tr>
-            <th border-top-width:="" 5px;="">Тариф</th>
-            <th>АП</th>
-            <th>Скорость интернета (ФБ)</th>
-            <th>ТВ каналы</th>
-            <th>Оборудование (ФБ)</th>
-            <th>Пакет минут</th>
-            <th>Моб. интернет</th>
-            <th>В пакет также включено:</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-tariff="112" style="">
-            <td>Тариф №112</td>
-            <td>712 ₽/мес. на 13 мес.<br>Потом 890 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>224 канала</td>
-            <td>WI-FI роутер Новый<br>Расс 12 м. По 712 ₽/м. = 8544 руб.<br><br>Мультирум (50р/мес.)</td>
-            <td>650 по РФ<br>100 SMS</td>
-            <td>30 Гб</td>
-            <td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• Страхование ГО до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Больше»<br>• НОВАЯ АКЦИЯ! С 25.12.2024<br>• Скидка при автоплатеже<br>• Бесплатная подписка на МТС Музыку до конца года</td>
-        </tr>
-		<tr data-tariff="5" style="">
-            <td>Тариф РИИЛ +</td>
-            <td>720 ₽/мес. на 6 мес.<br>Потом 800 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>-</td>
-            <td>WI-FI роутер Новый<br></td>
-            <td>650 по РФ<br>100 SMS</td>
-            <td>30 Гб</td>
-            <td>РИИЛ плюс	Промо на 6 мес.
-<br>• Сервис KION (от 200 каналов + ~2000 фильмов)
-<br>• Кубики: безлим на Телеграм, ВК, Рутуб
-<br>- «Группа для близких» АКЦИЯ!
-<br>- Акция «Скидка 10% при подключении Автоплатежа»
-<br>- Акция «Бесплатная подписка на МТС Музыку до конца года»</td>
-        </tr>
-        <tr data-tariff="1" style="">
-            <td>Тариф №1</td>
-            <td>850 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>224 канала</td>
-            <td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br><br>Мультирум (50 р/мес)</td>
-            <td>650 по РФ<br>100 SMS</td>
-            <td>30 Гб</td>
-            <td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• Страхование ГО до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Больше»<br>• НОВАЯ АКЦИЯ! Скидка при автоплатеже<br>• Бесплатная подписка на МТС Музыку до конца года</td>
-        </tr>
-        <tr data-tariff="7" style="">
-            <td>Тариф №7</td>
-            <td>1050 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>224 канала</td>
-            <td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br><br>Мультирум (50 р/мес)</td>
-            <td>1200 по РФ<br>50 SMS</td>
-            <td>50 Гб</td>
-            <td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• Страхование ГО до 100 тыс. руб.<br>• Кубики как в тарифе «МТС Супер»<br>• НОВАЯ АКЦИЯ! С 25.12.2024<br>• 7 дней отсрочка платежа<br>• Скидка 10% при подключении Автоплатежа<br>• Бесплатная подписка на МТС Музыку до конца года</td>
-        </tr>
-        <tr data-tariff="2" style="">
-            <td>Тариф №2**</td>
-            <td>780 ₽/мес./12 мес.<br>Потом 950 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>224 канала</td>
-            <td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br>Первая приставка/модуль 0 ₽/мес.</td>
-            <td>500 по РФ<br>100 SMS</td>
-            <td>35 Гб</td>
-            <td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• Кубики как в тарифе «МТС Больше»<br>• Скидка 10% при подключении Автоплатежа<br>• Бесплатная подписка на МТС Музыку до конца года<br>• НОВАЯ АКЦИЯ! С 25.12.2024</td>
-        </tr>
-        <tr data-tariff="4" style="">
-            <td>Тариф №4**</td>
-            <td>950 ₽/мес./12 мес.<br>Потом 1090 ₽/мес.<br>Стоимость подключения 150 руб.</td>
-            <td>100 Мбит/с</td>
-            <td>224 канала</td>
-            <td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р<br>Первая приставка/модуль 0 ₽/мес.</td>
-            <td>1200 по РФ<br>50 SMS</td>
-            <td>50 Гб</td>
-            <td>• Сервис KION (от 180 каналов + ~2000 фильмов)<br>• Кубики как в тарифе «МТС Супер»<br>• Скидка 10% при подключении Автоплатежа<br>• Бесплатная подписка на МТС Музыку до конца года<br>• НОВАЯ АКЦИЯ! С 25.12.2024</td>
-        </tr>
-        <tr data-tariff="3">
-            <td>Тариф №3</td>
-            <td>650 ₽/мес.<br>Стоимость подключения 150 руб.*</td>
-            <td>100 Мбит/с</td>
-            <td>-</td>
-            <td>WI-FI роутер Новый<br>Расс-ка 12 мес. По 295 Р<br>Расс-ка 36 мес. По 100 Р
-          	</td><td>-
-          	</td><td>1 раз 30 Гб
-          	</td><td>- Акция «Скидка 10% при подключении Автоплатежа»<br>- Акция «Бесплатная подписка на МТС Музыку до конца года» <!-- td -->
-        	</td></tr>
-    </tbody>
-</table>
+<div class="table-container">
+    <table id="tariffTable">
+        <thead>
+            <tr>
+                <th style="width: 15%;">Тариф</th>
+                <th style="width: 20%;">Абонентская плата</th>
+                <th style="width: 10%;">Интернет</th>
+                <th style="width: 10%;">ТВ</th>
+                <th style="width: 15%;">Оборудование</th>
+                <th style="width: 10%;">Минуты / SMS</th>
+                <th style="width: 10%;">Моб. интернет</th>
+                <th style="width: 20%;">Дополнительно</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Тариф: Дома Супер -->
+            <tr data-category="super">
+                <td><b>Дома Супер</b></td>
+                <td>
+                    <span style="color:green; font-weight:bold;">525 ₽/мес.</span> (на 12 мес.)<br>
+                    <small>Далее: 1050 ₽/мес.</small><br>
+                    <small>Подключение: 650 руб.*</small>
+                </td>
+                <td>100 Мбит/с</td>
+                <td>224 канала</td>
+                <td>
+                    См. прайс оборудования<br>
+                    Мультирум: 50₽ + 149₽ за доп. ТВ
+                </td>
+                <td>2000 мин РФ<br>50 SMS</td>
+                <td>Безлимит</td>
+                <td>
+                    • KION (180+ каналов, 2000 фильмов)<br>
+                    • Страховка ГО (100 тыс. руб.)<br>
+                    • Безлимит на мессенджеры, соцсети, видео<br>
+                    • «Группа для близких» (до 5 сим бесплатно)<br>
+                    • МТС Музыка бесплатно до 31.11.26
+                </td>
+            </tr>
+
+            <!-- Тариф: Дома Отлично -->
+            <tr data-category="super">
+                <td><b>Дома Отлично</b></td>
+                <td>
+                    <span style="color:green; font-weight:bold;">475 ₽/мес.</span> (на 12 мес.)<br>
+                    <small>Далее: 950 ₽/мес.</small><br>
+                    <small>Подключение: 650 руб.*</small>
+                </td>
+                <td>100 Мбит/с</td>
+                <td>224 канала</td>
+                <td>
+                    См. прайс оборудования<br>
+                    Мультирум: 50₽ + 149₽ за доп. ТВ
+                </td>
+                <td>650 мин РФ<br>100 SMS</td>
+                <td>30 Гб</td>
+                <td>
+                    • KION (180+ каналов, 2000 фильмов)<br>
+                    • Страховка ГО (100 тыс. руб.)<br>
+                    • Безлимит на мессенджеры и соцсети<br>
+                    • «Группа для близких» (Новая акция!)<br>
+                    • МТС Музыка бесплатно до 31.11.26
+                </td>
+            </tr>
+
+            <!-- Тариф: Дома с заботой -->
+            <tr data-category="care">
+                <td><b>Дома с заботой</b></td>
+                <td>
+                    <b>1100 ₽/мес.</b><br>
+                    <small>Подключение: 650 руб.*</small>
+                </td>
+                <td>100 Мбит/с</td>
+                <td>224 канала</td>
+                <td>
+                    См. прайс оборудования<br>
+                    <b>ТВ-приставка: 1-я за 0₽/мес</b><br>
+                    Мультирум: 50₽ + 149₽ за доп. ТВ
+                </td>
+                <td>500 мин РФ<br>500 SMS</td>
+                <td>15 Гб</td>
+                <td>
+                    • <b>Онлайн-клиника СОГАЗ</b><br>
+                    • KION (180+ каналов)<br>
+                    • Страховка ГО<br>
+                    • Безлимит на мессенджеры/соцсети<br>
+                    • Полный безлимит за +50₽/мес<br>
+                    • «Группа для близких» (до 5 сим)<br>
+                    • МТС Музыка бесплатно до 31.11.26
+                </td>
+            </tr>
+
+            <!-- Тариф: РИИЛ плюс -->
+            <tr data-category="mobile">
+                <td><b>РИИЛ плюс</b></td>
+                <td>
+                    <span style="color:green; font-weight:bold;">425 ₽/мес.</span> (на 12 мес.)<br>
+                    <small>Далее: 850 ₽/мес.</small><br>
+                    <small>Подключение: 650 руб.*</small>
+                </td>
+                <td>100 Мбит/с</td>
+                <td>KION Lite (20 каналов)</td>
+                <td>См. прайс оборудования</td>
+                <td>300 мин РФ<br>100 SMS</td>
+                <td>Безлимит</td>
+                <td>
+                    • KION (200+ каналов, 2000 фильмов)<br>
+                    • Кубики: полный безлимит, перенос остатков<br>
+                    • «Группа для близких» (Новая акция!)<br>
+                    • «Семейная группа»<br>
+                    • МТС Музыка бесплатно до 31.11.26
+                </td>
+            </tr>
+
+            <!-- Тариф: Дома хорошо -->
+            <tr data-category="care">
+                <td><b>Дома хорошо</b></td>
+                <td>
+                    <b>650 ₽/мес.</b><br>
+                    <small>Подключение: 650 руб.*</small>
+                </td>
+                <td>100 Мбит/с</td>
+                <td>-</td>
+                <td>См. прайс оборудования</td>
+                <td>-</td>
+                <td>30 Гб (на 3 мес)</td>
+                <td>
+                    • Акция «МТС Музыка бесплатно до 31.11.26»
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <script>
-// Функция фильтрации таблицы
-function filterTable() {
-    const selectedValue = document.querySelector('input[name="tariff"]:checked').value;
+function filterTable(category, btnElement) {
     const rows = document.querySelectorAll('#tariffTable tbody tr');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    // Управление активным классом кнопки
+    buttons.forEach(btn => btn.classList.remove('active'));
+    if(btnElement) btnElement.classList.add('active');
 
     rows.forEach(row => {
-        if (selectedValue === 'all' || row.getAttribute('data-tariff') === selectedValue) {
-            row.style.display = ''; // Показываем строку
+        if (category === 'all') {
+            row.style.display = '';
         } else {
-            row.style.display = 'none'; // Скрываем строку
+            if (row.getAttribute('data-category') === category) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         }
     });
 }
 </script>
 
-</body></html>
+</body>
+</html>
